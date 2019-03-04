@@ -1,0 +1,181 @@
+h3 {
+    text-align: left;
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+td {
+    text-align: right;
+    font-size: 10pt;
+}
+
+ion-content {
+    --background: #0bb8cc!important;
+    position: relative;
+}
+
+/*body {
+    background: #FCD424;
+    font: normal 16px/24px 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif; }
+
+button, input, code {
+    display: inline-block;
+    outline: none;
+    font: inherit;
+    border: none;
+    background: #FDE991;
+    padding: 0; }
+
+button {
+    color: #C7433E;
+    cursor: pointer; }
+
+input {
+    width: 50px; }*/
+
+#viewport {
+    width: 200px;
+    height: 200px;
+    background: #C7433E;
+    border: 10px solid #ED5D52;
+    margin: 100px auto 0;
+    position: relative; }
+    #viewport .stack {
+        width: 100px;
+        height: 150px;
+        background: #ED5D52;
+        margin: auto;
+        border-radius: 10px; }
+    #viewport li {
+        width: 100px;
+        height: 150px;
+        list-style: none;
+        background: #fff;
+        border-radius: 5px;
+        position: absolute;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.2);
+        line-height: 100px;
+        text-align: center;
+        font-size: 50px;
+        border: 10px solid #ECECEC;
+        box-sizing: border-box;
+        cursor: default; }
+    #viewport li.clubs, #viewport li.spades {
+        color: #373737; }
+    #viewport li.diamonds, #viewport li.hearts {
+        color: #ED5D52; }
+    #viewport li.in-deck:nth-child(3) {
+        top: 2px;
+        transform: translate(2px, 2px) rotate(0.4deg); }
+    #viewport li.in-deck:nth-child(2) {
+        top: 4px;
+        transform: translate(-4px, -2px) rotate(-1deg); }
+    #viewport #control {
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 0; }
+    #viewport #control button {
+        background: #FFFFFF;
+        color: #373737;
+        font-weight: bold;
+        border: none;
+        font: normal 18px/24px 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif;
+        margin: 0 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        box-shadow: 0 2px 0 #63211F;
+        outline: none;
+        position: relative; }
+    #viewport #control button:active {
+        background: #63211F;
+        color: #FFFFFF;
+        bottom: -2px;
+        box-shadow: none; }
+
+#source {
+    width: 200px;
+    margin: 20px auto; }
+#source a {
+    color: #C7433E; }
+
+
+#view {
+    margin: auto;
+    width: 95%;
+    height: 98%;
+    --background: #fff; //#ED5D52;
+    //border: 3px solid black;
+    border-radius: 5px;
+    padding: 0;
+    position: relative;
+}
+
+#view .stack {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    padding: 0;
+    position: relative;
+    //border-radius: 10px;
+}
+
+#view li {
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.2);
+    //line-height: 10px;
+    text-align: center;
+    font-size: 13pt;
+    border: 10px solid #ECECEC;
+    box-sizing: border-box;
+    cursor: default;
+}
+
+#view img {
+    width: 100%;
+    height: 35%;
+}
+
+#overlay img {
+    vertical-align: middle;
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    position: fixed;
+    left: 50%;
+    right: 50%;
+}
+
+.heart {
+    vertical-align: middle;
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    //background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+    background: url(../../../assets/icon/heart2x.png) no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    animation: fave-heart 1s steps(28);
+
+}
+
+@keyframes fave-heart {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -5600px 0;
+    }
+}

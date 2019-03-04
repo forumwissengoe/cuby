@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Feedback</ion-title>
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/home']">Senden</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div id="head-left">
+        <img src="{{image}}" alt="Image not loaded">
+    </div>
+    <div id="head-right">
+        <p>Was macht mich interessant?</p>
+    </div>
+
+    <ion-list>
+        <ion-item *ngFor="let item of items">
+            <ion-checkbox></ion-checkbox>
+            <ion-label>
+                <h3 text-wrap>{{item.label}}</h3>
+                <p text-wrap>{{item.value}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h3>Kommentar</h3>
+                <ion-textarea placeholder="Wenn Sie einen anderen Aspekt interessant finden, oder einen allgemeinen Kommentar zum Objekt abgeben möchten, können Sie das hier tun.">
+                </ion-textarea>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

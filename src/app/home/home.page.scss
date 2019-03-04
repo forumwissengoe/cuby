@@ -1,1 +1,93 @@
+.ion-content {
+    position: relative;
+}
 
+.center_wrapper {
+    background-image: url("../../assets/logos/FW_Logo_Uni-Blau_nogoe.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    position: relative;
+    width: 85vmin;
+    height: 80vmin;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center_wrapper .button_wrapper {
+    position: relative;
+    text-align: center;
+    padding-top: 16%;
+    width: 100%;
+    height: 80%;
+}
+
+.center_wrapper .button_wrapper ion-button {
+    position: relative;
+    margin: 2%;
+    padding: 0 16% 0 15%;
+    width: 97%;
+    height: 31.7%;
+    font-size: 8vw;
+    --ion-color-primary: var(--university-blue);
+}
+
+
+/**.center_wrapper {
+    position: absolute;
+    width: 80vw;
+    height: 85vw;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center_wrapper .button_wrapper {
+    border: 7px solid deeppink;
+    text-align: center;
+    width: 100%;
+    height: 90%;
+    position: static;
+}
+
+.center_wrapper .button_wrapper ion-button {
+    position: relative;
+    margin: 2%;
+    padding: 2%;
+    width: 96%;
+    height: 30.6%;
+}
+
+.center_wrapper .fw_top {
+    color: deeppink;
+    font-weight: bold;
+    position: static;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 10vw;
+}
+
+.center_wrapper .space1 {
+    margin: 0;
+    height: 10px;
+    position: static;
+}
+
+.center_wrapper .space2 {
+    margin: 0;
+    height: 10px;
+    position: static;
+}
+
+.center_wrapper .fw_bottom {
+    color: deeppink;
+    font-weight: bold;
+    position: static;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 8.3vw;
+}*/

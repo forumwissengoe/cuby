@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <p class="head_counter">< {{current_number}}/{{total_number}} ></p>
+        <ion-title>Details</ion-title>
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/feedback']">Feedback</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<div #overlay class="overlay">
+    <div class="close_container">
+        <ion-icon name="close-circle-outline" (click)="overlayClosed()"></ion-icon>
+    </div>
+    <img src="{{current_image}}" alt="No Image">
+</div>
+
+<ion-content padding-top>
+    <ion-slides pager="false" [options]="slideOpts">
+        <ion-slide *ngFor="let img of images">
+            <div class="data_area">
+                <div class="image_container">
+                    <img src="{{img.image}}" alt="Image loading failed" (click)="overlayOpen(img)">
+                </div>
+                <p class="entry_label">Standort</p>
+                <p class="entry_data">{{img.location}}</p>
+                <p class="entry_label">Datierung</p>
+                <p class="entry_data">{{img.date}}</p>
+                <p class="entry_label">Beteiligte</p>
+                <p class="entry_data">{{img.persons}}</p>
+                <p class="entry_label">Maße / Umfang</p>
+                <p class="entry_data">{{img.size}}</p>
+            </div>
+
+            <div class="assign_area">
+                <vote-icon-group></vote-icon-group>
+            </div>
+        </ion-slide>
+    </ion-slides>
+
+</ion-content>

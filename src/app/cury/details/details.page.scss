@@ -1,0 +1,160 @@
+.head_counter {
+    position: relative;
+    display: table-cell;
+
+    float: left;
+    margin: 0;
+    left: -4px;
+    top: 50%;
+    width: 28vw;
+    height: 30px;
+    line-height: 30px;
+    background: var(--university-blue);
+    color: white;
+    font-size: 6.0vw;
+    text-align: center;
+}
+
+ion-title {
+    float: right;
+    line-height: 30px;
+}
+
+.inner-scroll {
+    padding-top: 0!important;
+}
+
+.overlay {
+    display: none;
+
+    &.shown {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: block;
+        padding: 0;//40px 20px;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: var(--university-blue);
+        z-index: 9000;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .close_container {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        top: 10px;
+        right: 5px;
+        z-index: 9002;
+
+        //color: #f04141;
+        color: rgba(240, 65, 65, 150);
+
+        ion-icon {
+            width: inherit;
+            height: inherit;
+        }
+    }
+
+    img {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+
+        z-index: 9001;
+    }
+}
+
+ion-content {
+    text-align: center;
+}
+
+ion-slides {
+    width: 100%;
+    height: 100%;//calc(100% - 75px);
+
+    text-align: center;
+}
+
+.data_area {
+    position: absolute;
+    top: 0;
+    margin: auto;
+    width: 95vmin;
+    height: 100%;
+
+    padding-bottom: 5.5em;
+
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    //clear: both;
+}
+
+.image_container {
+    position: relative;
+    top: 0;
+    margin: 0;
+    text-align: center;
+    width: 99vmin;
+    height: 70vmin;
+
+}
+
+.assign_area {
+    position: absolute;
+    bottom: 10px;
+    left: calc((100% - 85vmin)/2);
+
+    width: 85vmin;
+    height: 60px;
+
+    //border: 0 solid var(--ios-frosting);
+    //border-radius: 10vmin;
+    //background: #787878;
+    background-color: rgba(120, 120, 120, 150);
+    //clear: both;
+}
+
+.acceptIcon {
+    height: 60px;
+    width: 60px;
+
+    position: absolute;
+    left: 5px;
+}
+
+.declineIcon {
+    height: 60px;
+    width: 60px;
+
+    position: absolute;
+    left: calc(75% - 5px);
+}
+
+p {
+    margin: 0;
+}
+
+.entry_label {
+    margin-top: 10px;
+    position: relative;
+    padding-left: 5vmin;
+    text-align: left;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.entry_data {
+    margin-top: 5px;
+    position: relative;
+    padding-right: 5vmin;
+    text-align: right;
+    font-size: 12pt;
+}
