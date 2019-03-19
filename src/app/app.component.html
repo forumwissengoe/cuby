@@ -1,3 +1,22 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+    <ion-split-pane>
+        <ion-menu menuId="picyMenu">
+            <ion-header>
+                <ion-toolbar color="primary">
+                    <ion-title>Sammelsurium</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                <ion-grid>
+                    <ion-row *ngFor="let row of data">
+                        <ion-col size="3" *ngFor="let entry of row" (click)="menuEntrySelected(entry.record)">
+                            <img src="{{entry.img}}" alt="Image not found">
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-content>
+        </ion-menu>
+
+        <ion-router-outlet main [swipeGesture]="false"></ion-router-outlet>
+    </ion-split-pane>
 </ion-app>

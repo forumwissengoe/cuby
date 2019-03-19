@@ -1,0 +1,29 @@
+[
+    {
+        "pattern": "",
+        "config": [
+            {
+                "title": "Grunddaten",
+                "structure": [
+                    {"title": "Objektbezeichnung", "data": "/title" },
+                    {"title": "Name des Standorts", "data":  "/repository/0/locationName"},
+                    {"title": "Sammlung", "data":  "/repository/0/legalBodyID"}
+                ]
+            },
+            {
+                "title": "Zitieren und Nachnutzen",
+                "structure": [
+                    {"title": "Zitierlink", "data": "/handleLink"},
+                    {"title": "LIDO-XML", "data": "/recordID"}
+                ]
+            },
+            {
+                "title": "Klassifikationen, Taxonomien und Schlagworte",
+                "structure": [
+                    {"title": "Objektgattung", "data": "/objectWorkType/0/term"},
+                    {"title": "Oberbegriffsdatei", "data": "/classification/0/term"}
+                ]
+            }
+        ]
+    }
+]

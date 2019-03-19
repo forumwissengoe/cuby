@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>NFC Tag Detected</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="spinner">
+        <ion-spinner *ngIf="loading"></ion-spinner>
+    </div>
+
+    <div *ngIf="!loading">
+        <div class="new-object">
+            <p>Sie haben ein neues Objekt entdeckt!</p>
+
+            <div class="image-box">
+                <img src="{{image}}" alt="Image not found">
+            </div>
+
+            <p class="header">{{title_header}}</p>
+            <p class="data_area">{{title_data}}</p>
+        </div>
+
+        <div class="button-box">
+            <p>Möchten Sie es Ihrer Sammlung hinzufügen?</p>
+            <ion-button expand="full" (click)="addToSelection()">Ja</ion-button>
+            <ion-button expand="full" [routerLink]="['/home']">Nein</ion-button>
+        </div>
+    </div>
+</ion-content>

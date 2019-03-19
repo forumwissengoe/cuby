@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CuryPage } from './cury.page';
 import {SwingModule} from 'angular2-swing';
+import {ImageOverlayModule} from '../additions/overlay/image-overlay.module';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     	FormsModule,
 		IonicModule,
 	  	SwingModule,
+		ImageOverlayModule,
     	RouterModule.forChild(routes)
 	],
   	declarations: [CuryPage]

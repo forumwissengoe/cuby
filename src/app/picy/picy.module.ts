@@ -6,21 +6,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { PicyPage } from './picy.page';
+import { ImageOverlayModule } from '../additions/overlay/image-overlay.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: PicyPage
-  }
+	{
+		path: '',
+		component: PicyPage
+	}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [PicyPage]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		ImageOverlayModule,
+		RouterModule.forChild(routes)
+	],
+	declarations: [PicyPage]
 })
 export class PicyPageModule {}

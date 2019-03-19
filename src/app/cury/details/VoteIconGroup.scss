@@ -19,6 +19,38 @@
         }
     }
 
+    .moveRightIcons {
+        position: absolute;
+        left: 65px;
+        margin: 0;
+
+        width: 60px;
+        height: 60px;
+
+        ion-icon {
+            font-size: 16pt;
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .moveLeftIcons {
+        position: absolute;
+        right: 65px;
+        margin: 0;
+
+        width: 60px;
+        height: 60px;
+
+        ion-icon {
+            font-size: 16pt;
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
     .declined {
         position: absolute;
         left: calc(100% - 65px);

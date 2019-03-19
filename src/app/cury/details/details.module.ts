@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { DetailsPage } from './details.page';
 
 import {VoteIconGroupModule} from './VoteIconGroup.module';
+import {ImageOverlayModule} from '../../additions/overlay/image-overlay.module';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         VoteIconGroupModule,
+		ImageOverlayModule,
         RouterModule.forChild(routes)
     ],
     declarations: [DetailsPage]

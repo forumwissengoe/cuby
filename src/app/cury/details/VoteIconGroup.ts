@@ -1,10 +1,18 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 
 @Component({
 	selector: 'vote-icon-group',
 	template: `<div class="main">
 		<div #acceptIcon class="accepted">
 			<ion-icon name="checkmark-circle-outline" color="success"></ion-icon>
+		</div>
+		<div #moveRightIcons class="moveRightIcons">
+			<ion-icon name="md-arrow-dropright" color="light"></ion-icon>
+			<ion-icon name="md-arrow-dropright" color="light"></ion-icon>
+		</div>
+		<div #moveLeftIcons class="moveLeftIcons">
+			<ion-icon name="md-arrow-dropleft" color="light"></ion-icon>
+			<ion-icon name="md-arrow-dropleft" color="light"></ion-icon>
 		</div>
 		<div #declineIcon class="declined">
 			<ion-icon name="close-circle-outline" color="danger"></ion-icon>
@@ -17,6 +25,8 @@ export class VoteIconGroup implements AfterViewInit
 {
 	@ViewChild('acceptIcon') acceptIcon: ElementRef;
 	@ViewChild('declineIcon') declineIcon: ElementRef;
+	@ViewChild('moveRightIcons') moveRightIcons: ElementRef;
+	@ViewChild('moveLeftIcons') moveLeftIcons: ElementRef;
 	
 	move_a:boolean = false;
 	move_d:boolean = false;
@@ -25,16 +35,23 @@ export class VoteIconGroup implements AfterViewInit
 	origin_a:number = 0;
 	origin_d:number = 0;
 	
+	decline_x_base:number = 0;
 	distance:number = null;
+	
+	@Output() voted = new EventEmitter<boolean>();
 	
 	constructor()
 	{
 	
 	}
 	
+	vote(like:boolean)
+	{
+		this.voted.emit(like);
+	}
+	
 	ngAfterViewInit()
 	{
-		console.log("VOTEGROUP, AFTERVIEWINIT");
 		let document = window.document;
 		this.setUpAccept(document, () => { this.vote(true); });
 		this.setUpDecline(document, () => { this.vote(false); });
@@ -57,7 +74,7 @@ export class VoteIconGroup implements AfterViewInit
 				self.origin_a = self.acceptIcon.nativeElement.style.left;
 				self.offset_a = self.acceptIcon.nativeElement.offsetLeft - event.clientX;
 			}
-		});
+		}, {passive: true});
 		
 		this.acceptIcon.nativeElement.addEventListener('touchstart', function funcDown(event) {
 			if(event.cancelable)
@@ -70,7 +87,7 @@ export class VoteIconGroup implements AfterViewInit
 				self.offset_a = self.acceptIcon.nativeElement.offsetLeft - event.touches[0].clientX;
 			}
 			
-		});
+		}, {passive: true});
 		
 		document.addEventListener('mouseup', function funcUP_A(event) {
 			if(self.move_a && event.cancelable) {
@@ -97,9 +114,11 @@ export class VoteIconGroup implements AfterViewInit
 				{
 					self.acceptIcon.nativeElement.style.left = self.origin_a;
 					self.declineIcon.nativeElement.style.opacity = 1;
+					self.moveRightIcons.nativeElement.style.opacity = 1;
+					self.moveLeftIcons.nativeElement.style.opacity = 1;
 				}
 			}
-		}, true);
+		}, {passive: true, capture: true});
 		
 		document.addEventListener('touchend', function funcUP_A(event) {
 			if(self.move_a && event.cancelable) {
@@ -126,9 +145,11 @@ export class VoteIconGroup implements AfterViewInit
 				{
 					self.acceptIcon.nativeElement.style.left = self.origin_a;
 					self.declineIcon.nativeElement.style.opacity = 1;
+					self.moveRightIcons.nativeElement.style.opacity = 1;
+					self.moveLeftIcons.nativeElement.style.opacity = 1;
 				}
 			}
-		}, true);
+		}, {passive: true, capture: true});
 		
 		document.addEventListener('mousemove', function funcMOVE_A(event) {
 			
@@ -138,8 +159,13 @@ export class VoteIconGroup implements AfterViewInit
 				self.acceptIcon.nativeElement.style.left = (event.clientX + self.offset_a) + 'px';
 				let op = event.clientX/self.distance;
 				self.declineIcon.nativeElement.style.opacity = 1 - (4/3*op);
+				if(op > 0.25)
+				{
+					self.moveRightIcons.nativeElement.style.opacity = 0;
+					self.moveLeftIcons.nativeElement.style.opacity = 0;
+				}
 			}
-		}, true);
+		}, {passive: true, capture: true});
 		
 		document.addEventListener('touchmove', function funcMOVE_A(event) {
 			
@@ -149,8 +175,13 @@ export class VoteIconGroup implements AfterViewInit
 				self.acceptIcon.nativeElement.style.left = (event.touches[0].clientX + self.offset_a) + 'px';
 				let op = event.touches[0].clientX/self.distance;
 				self.declineIcon.nativeElement.style.opacity = 1 - (4/3*op);
+				if(op > 0.25)
+				{
+					self.moveRightIcons.nativeElement.style.opacity = 0;
+					self.moveLeftIcons.nativeElement.style.opacity = 0;
+				}
 			}
-		}, true);
+		}, {passive: true, capture: true});
 		
 		document.addEventListener('touchcancel', (event) => {
 			if(self.move_a && event.cancelable)
@@ -159,7 +190,7 @@ export class VoteIconGroup implements AfterViewInit
 				self.acceptIcon.nativeElement.style.left = self.origin_a;
 				self.declineIcon.nativeElement.style.opacity = 1;
 			}
-		})
+		}, {passive: true})
 	}
 	
 	setUpDecline(document:any, clicked:() => void)
@@ -174,9 +205,9 @@ export class VoteIconGroup implements AfterViewInit
 				self.move_d = true;
 				self.origin_d = self.declineIcon.nativeElement.style.left;
 				self.offset_d = self.declineIcon.nativeElement.offsetLeft - event.clientX;
-				
+				self.decline_x_base = event.clientX - self.distance;
 			}
-		});
+		}, {passive: true});
 		
 		this.declineIcon.nativeElement.addEventListener('touchstart', function funcDOWN(event) {
 			if(event.cancelable)
@@ -188,7 +219,7 @@ export class VoteIconGroup implements AfterViewInit
 				self.origin_d = self.declineIcon.nativeElement.style.left;
 				self.offset_d = self.declineIcon.nativeElement.offsetLeft - event.touches[0].clientX;
 			}
-		});
+		}, {passive: true});
 		
 		document.addEventListener('mouseup', function funcUP_D(event) {
 			if(self.move_d && event.cancelable) {
@@ -215,9 +246,11 @@ export class VoteIconGroup implements AfterViewInit
 				{
 					self.declineIcon.nativeElement.style.left = self.origin_d;
 					self.acceptIcon.nativeElement.style.opacity = 1;
+					self.moveRightIcons.nativeElement.style.opacity = 1;
+					self.moveLeftIcons.nativeElement.style.opacity = 1;
 				}
 			}
-		}, true);
+		}, {passive: true, capture: true});
 		
 		document.addEventListener('touchend', function funcUP_D(event) {
 			if(self.move_d && event.cancelable) {
@@ -244,29 +277,41 @@ export class VoteIconGroup implements AfterViewInit
 				{
 					self.declineIcon.nativeElement.style.left = self.origin_d;
 					self.acceptIcon.nativeElement.style.opacity = 1;
+					self.moveRightIcons.nativeElement.style.opacity = 1;
+					self.moveLeftIcons.nativeElement.style.opacity = 1;
 				}
 			}
-		}, true);
+		}, {passive: true, capture: true});
 		
 		document.addEventListener('mousemove', function funcMOVE_D(event) {
 			if(self.move_d && event.cancelable)
 			{
 				event.stopPropagation();
 				self.declineIcon.nativeElement.style.left = (event.clientX + self.offset_d + 'px');
-				let op = 1 - event.clientX/self.distance;
-				self.acceptIcon.nativeElement.style.opacity = 1 - (4/3*op);
+				let op = 1 - (event.clientX - self.decline_x_base)/self.distance;
+				self.acceptIcon.nativeElement.style.opacity = 1 - (6/3*op);
+				if(op > 0.05)
+				{
+					self.moveRightIcons.nativeElement.style.opacity = 0;
+					self.moveLeftIcons.nativeElement.style.opacity = 0;
+				}
 			}
-		}, true);
+		}, {passive: true, capture: true});
 		
 		document.addEventListener('touchmove', function funcMOVE_D(event) {
 			if(self.move_d && event.cancelable)
 			{
 				event.stopPropagation();
 				self.declineIcon.nativeElement.style.left = (event.touches[0].clientX + self.offset_d + 'px');
-				let op = 1 - event.touches[0].clientX/self.distance;
-				self.acceptIcon.nativeElement.style.opacity = 1 - (4/3*op);
+				let op = 1 - (event.touches[0].clientX - self.decline_x_base)/self.distance;
+				self.acceptIcon.nativeElement.style.opacity = 1 - (6/3*op);
+				if(op > 0.05)
+				{
+					self.moveRightIcons.nativeElement.style.opacity = 0;
+					self.moveLeftIcons.nativeElement.style.opacity = 0;
+				}
 			}
-		}, true);
+		}, {passive: true, capture: true});
 		
 		document.addEventListener('touchcancel', (event) => {
 			if(self.move_d && event.cancelable)
@@ -275,7 +320,7 @@ export class VoteIconGroup implements AfterViewInit
 				self.declineIcon.nativeElement.style.left = self.origin_d;
 				self.acceptIcon.nativeElement.style.opacity = 1;
 			}
-		});
+		}, {passive: true});
 	}
 	
 	removeAllListeners()
@@ -286,10 +331,5 @@ export class VoteIconGroup implements AfterViewInit
 		tmp = this.declineIcon.nativeElement.cloneNode(true);
 		this.declineIcon.nativeElement.parentElement.replaceChild(tmp, this.declineIcon.nativeElement);
 		this.declineIcon.nativeElement = tmp;
-	}
-	
-	vote(like: boolean)
-	{
-	
 	}
 }

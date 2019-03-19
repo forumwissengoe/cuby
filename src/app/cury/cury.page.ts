@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Direction, StackConfig} from 'angular2-swing';
-import * as LidoReader from "../../data/LidoReader"
+import {CuryControllerService} from './cury.controller.service';
+import {Router} from '@angular/router';
+import {ImageOverlay} from '../additions/overlay/image-overlay.component';
+import {StorageService} from '../storage.service';
 
 @Component({
   selector: 'app-cury',
@@ -8,80 +11,107 @@ import * as LidoReader from "../../data/LidoReader"
   styleUrls: ['./cury.page.scss'],
 })
 export class CuryPage implements OnInit {
-
-	public static NUMBER_ELEMENTS:number = 8;
-
-
+	
+	@ViewChild('overlay') image:ImageOverlay;
+	loading:boolean = true;
+	
+	
+	size: number;
 	cards: any;
 	stackConfig: StackConfig;
 
 	likedCards: any;
 	dislikedCards: any;
 
-	constructor() {
-
-		this.cards = [];
+	constructor(private curyController:CuryControllerService, private router:Router, private storageService:StorageService)
+	{
+		this.curyController.setLoadingFinishedCallback(this.onElementsLoaded.bind(this));
+		this.curyController.initialLoad();
+		
 		this.stackConfig = {
 			allowedDirections: [Direction.LEFT, Direction.RIGHT],
 			throwOutConfidence: (offsetX, offsetY, element) => {
 				return Math.min(Math.max(Math.abs(offsetX) / (element.offsetWidth / 1.7), Math.abs(offsetY) / (element.offsetHeight / 2)), 1);
 			},
-			transform: (element, x, y, r) => this.onItemMove(element, x, y, r),
+			transform: (element, x, y, r) => CuryPage.onItemMove(element, x, y, r),
 
 			throwOutDistance: (d) => {
-				return 800;
+				return 600;
 			}
 		};
-
+		this.cards = [];
 		this.likedCards = [];
 		this.dislikedCards = [];
-		this.onloadElements();
 	}
 
-	ngOnInit() {
-
+	ngOnInit() {}
+	
+	ionViewWillEnter()
+	{
+		this.loading = true;
+		if(!this.curyController.currentlyLoading && this.size < CuryControllerService.NUMBER_ELEMENTS)
+			this.curyController.loadNewImages(CuryControllerService.NUMBER_ELEMENTS - this.size);
 	}
 
-	onItemMove(element, x, y, r)
+	static onItemMove(element, x, y, r)
 	{
 		let hex = Math.trunc(Math.min(16*16 - Math.abs(x), 16*16)).toString(16);
 
-		element.style.background = x > 0 ? ('#FF' + hex + hex) : ('#' + hex + "FF" + hex);
+		if(Math.abs(x) < 0.5)
+			element.style['background-color'] = ('#FFFFFFFF');
+		else
+			element.style['background-color'] = x > 0 ? ('#FF' + hex + hex) : ('#' + hex + "FF" + hex);
+		
 		element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
 	}
-
-	onloadElements()
+	
+	onElementsLoaded()
 	{
-		let elements:any = [];
-
-		// TODO Request new elements from server
-		for(let i = 0; i < CuryPage.NUMBER_ELEMENTS; i++)
-		{
-			switch (i%4) {
-				case 0:
-					elements.push({image: "http://www.kiplinger.com/kipimages/pages/18048.jpg"});
-					break;
-				case 1:
-					elements.push({image: "http://www.apimages.com/Images/Ap_Creative_Stock_Header.jpg"});
-					break;
-				case 2:
-					elements.push({image: "https://44u8552epjw3rivfs1yfikr1-wpengine.netdna-ssl.com/wp-content/uploads/2017/11/young-man-2939344_1280.jpg"});
-					break;
-				case 3:
-					elements.push({image: "http://www.adweek.com/files/2015_May/iStock-Unfinished-Business-6.jpg"});
-					break;
-			}
-		}
-
-		this.cards = elements;
+		console.log("Elements loaded");
+		for(let i = 0; i < this.curyController.images.length; i++)
+			this.cards.push({image: this.curyController.images[i].getThumbnailImageUrl(), image_service: this.curyController.images[i].getImageService(),
+				record: this.curyController.images[i].record_id});
+		console.log("PUSH finsihed");
+		this.size = this.cards.length;
+		console.log(this.loading);
+		this.loading = false;
+		console.log(this.loading);
 	}
 
 	onThrowOut(like: boolean)
 	{
+		let card = this.cards.pop();
+		let index = this.storageService.localState.curyStack.indexOf(card.record);
+		if(index != -1 && index <= this.storageService.localState.curyStack.length)
+			this.storageService.localState.curyStack.splice(index, 1);
+		
 		if(like)
-			this.likedCards.push(this.cards.pop());
+		{
+			this.likedCards.push(card);
+			//this.evaluateService.publishLikabilityLevel1(card.record);
+			this.storageService.localState.likedLevel1.push(card.record);
+			this.storageService.localState.detailsList.push(card.record);
+		}
 		else
-			this.dislikedCards.push(this.cards.pop());
+			this.dislikedCards.push(card);
+		
+		if(this.likedCards.length + this.dislikedCards.length >= this.size && this.likedCards.length > 0)
+		{
+			this.storageService.saveLocalState();
+			this.router.navigate(['/details']);
+		}
+		else if(this.likedCards.length + this.dislikedCards.length >= this.size)
+		{
+			this.storageService.saveLocalState();
+			this.router.navigate(['/home']);
+		}
 	}
 
+	imageClicked(ev, img)
+	{
+		console.log("Image service", img.image_service);
+		console.log("Event", ev);
+		this.image.setImageService(img.image_service);
+		this.image.open();
+	}
 }

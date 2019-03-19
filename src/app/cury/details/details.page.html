@@ -8,32 +8,44 @@
     </ion-toolbar>
 </ion-header>
 
-<div #overlay class="overlay">
-    <div class="close_container">
-        <ion-icon name="close-circle-outline" (click)="overlayClosed()"></ion-icon>
-    </div>
-    <img src="{{current_image}}" alt="No Image">
-</div>
+<image-overlay #overlay></image-overlay>
 
 <ion-content padding-top>
-    <ion-slides pager="false" [options]="slideOpts">
-        <ion-slide *ngFor="let img of images">
+    <div class="spinner" *ngIf="loading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-slides pager="false" [options]="slideOpts" #slides (ionSlideDidChange)="slideChanged()" *ngIf="!loading">
+        <ion-slide *ngFor="let data of displayData">
             <div class="data_area">
                 <div class="image_container">
-                    <img src="{{img.image}}" alt="Image loading failed" (click)="overlayOpen(img)">
+                    <img src="{{data.thumbnail}}" alt="Image loading failed" (click)="overlayOpen(data)">
                 </div>
-                <p class="entry_label">Standort</p>
-                <p class="entry_data">{{img.location}}</p>
-                <p class="entry_label">Datierung</p>
-                <p class="entry_data">{{img.date}}</p>
-                <p class="entry_label">Beteiligte</p>
-                <p class="entry_data">{{img.persons}}</p>
-                <p class="entry_label">Maße / Umfang</p>
-                <p class="entry_data">{{img.size}}</p>
+                <div *ngFor="let item of data.entries">
+                    <p class="entry_label">{{item.label}}</p>
+                    <p class="entry_data">{{item.value}}</p>
+                </div>
+
+                <!--<div>
+                    <p class="entry_label">Standort</p>
+                    <p class="entry_data">{{data.location}}</p>
+                </div>
+                <div>
+                    <p class="entry_label">Datierung</p>
+                    <p class="entry_data">{{data.date}}</p>
+                </div>
+                <div>
+                    <p class="entry_label">Beteiligte</p>
+                    <p class="entry_data">{{data.persons}}</p>
+                </div>
+                <div>
+                    <p class="entry_label">Maße / Umfang</p>
+                    <p class="entry_data">{{data.size}}</p>
+                </div>-->
             </div>
 
             <div class="assign_area">
-                <vote-icon-group></vote-icon-group>
+                <vote-icon-group (voted)="voted(data, $event)"></vote-icon-group>
             </div>
         </ion-slide>
     </ion-slides>

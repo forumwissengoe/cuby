@@ -6,21 +6,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { FeedbackPage } from './feedback.page';
+import {ImageOverlayModule} from '../../additions/overlay/image-overlay.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: FeedbackPage
-  }
+	{
+    	path: '',
+    	component: FeedbackPage
+  	}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [FeedbackPage]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+	  	ImageOverlayModule,
+		RouterModule.forChild(routes)
+  	],
+  	declarations: [FeedbackPage]
 })
 export class FeedbackPageModule {}
