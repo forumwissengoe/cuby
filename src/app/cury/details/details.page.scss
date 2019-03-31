@@ -15,6 +15,11 @@
     text-align: center;
 }
 
+ion-toolbar {
+    --background: var(--university-blue);
+    color: white;
+}
+
 ion-title {
     float: right;
     line-height: 30px;

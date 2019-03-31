@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            <!--Frage {{current}} / {{total}}-->
+            {{title}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<image-overlay #overlay></image-overlay>
+
+<ion-content padding>
+    <div class="spinner" *ngIf="type == -1">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <div class="type1" *ngIf="type == 1">
+        <p>{{question.question}}</p>
+
+        <ion-grid>
+            <ion-row *ngFor="let image of question.images">
+                <ion-col class="col-a" size="6" (click)="openImage(image.a)" *ngIf="image.a.id != ''">
+                    <div [ngStyle]="{'background-image': 'url(' + image.a.img + ')'}"></div>
+                </ion-col>
+                <ion-col class="col-b" size="6" (click)="openImage(image.b)" *ngIf="image.b.id != ''">
+                    <div [ngStyle]="{'background-image': 'url(' + image.b.img + ')'}"></div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-list>
+            <ion-item lines="none" *ngFor="let answer of question.answers; index as i" (click)="selectAnswer(answer, i)">
+                <div class="answers">
+                    <div class="answer-count" slot="start" [ngStyle]="setAnswerStyle(answer)" ><div>{{i+1}}</div></div>
+                    <div class="answer-text" slot="start" [ngStyle]="setAnswerStyle(answer)"><div>{{answer.answer}}</div></div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    <div class="type2" *ngIf="type == 2">
+        <p>{{question.question}}</p>
+
+        <div class="bg_image" [ngStyle]="{'background-image': 'url(' + question.images[0].a.img + ')'}" (click)="openImage(question.images[0])" *ngIf="question.images[0].a.id != ''"></div>
+
+        <ion-list>
+            <ion-item lines="none" *ngFor="let answer of question.answers; index as i" (click)="selectAnswer(answer, i)">
+                <div class="answers">
+                    <div class="answer-count" slot="start" [ngStyle]="setAnswerStyle(answer)"><div>{{i+1}}</div></div>
+                    <div class="answer-text" slot="start" [ngStyle]="setAnswerStyle(answer)"><div>{{answer.answer}}</div></div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

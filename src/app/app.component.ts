@@ -64,8 +64,9 @@ export class AppComponent {
 			this.storageService.cordovaAvailable = true;
 		}
 		
-		this.storageService.loadConfig();
-		this.storageService.loadLocalState();
+		this.storageService.startup();
+		//this.storageService.loadConfig();
+		//this.storageService.loadLocalState();
 		
 		this.platform.pause.subscribe(e => this.storageService.saveLocalState());
 		window.addEventListener('beforeunload', () => this.storageService.saveLocalState());

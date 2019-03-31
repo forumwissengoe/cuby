@@ -25,6 +25,7 @@ export class CuryPage implements OnInit {
 
 	constructor(private curyController:CuryControllerService, private router:Router, private storageService:StorageService)
 	{
+		this.loading = true;
 		this.curyController.setLoadingFinishedCallback(this.onElementsLoaded.bind(this));
 		this.curyController.initialLoad();
 		
@@ -48,7 +49,6 @@ export class CuryPage implements OnInit {
 	
 	ionViewWillEnter()
 	{
-		this.loading = true;
 		if(!this.curyController.currentlyLoading && this.size < CuryControllerService.NUMBER_ELEMENTS)
 			this.curyController.loadNewImages(CuryControllerService.NUMBER_ELEMENTS - this.size);
 	}
@@ -67,15 +67,11 @@ export class CuryPage implements OnInit {
 	
 	onElementsLoaded()
 	{
-		console.log("Elements loaded");
 		for(let i = 0; i < this.curyController.images.length; i++)
 			this.cards.push({image: this.curyController.images[i].getThumbnailImageUrl(), image_service: this.curyController.images[i].getImageService(),
 				record: this.curyController.images[i].record_id});
-		console.log("PUSH finsihed");
 		this.size = this.cards.length;
-		console.log(this.loading);
 		this.loading = false;
-		console.log(this.loading);
 	}
 
 	onThrowOut(like: boolean)

@@ -41,10 +41,11 @@ export class ImageOverlay
 			if(this.image_service instanceof Array)
 				sequenceControl = this.image_service.length > 1;
 			
-			console.log("Rebuild", this.image_service);
+			//console.log("Rebuild", this.image_service);
 			
 			if(this.map != null)
 			{
+				console.log("Destroy");
 				this.map.destroy();
 				this.map = null;
 			}
@@ -63,6 +64,8 @@ export class ImageOverlay
 				showRotationControl: true,
 				tileSources: this.image_service
 			});
+			let a = this.map;
+			//console.log("Map", this.map);
 			
 			this.rebuild = false;
 		}

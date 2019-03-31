@@ -64,6 +64,30 @@ export class VoteIconGroup implements AfterViewInit
 	setUpAccept(document:any, clicked:() => void)
 	{
 		const self = this;
+		this.acceptIcon.nativeElement.addEventListener('click', function funcClick(event)
+		{
+			if(event.cancelable)
+			{
+				event.stopPropagation();
+				if(self.distance == null)
+					self.distance = self.declineIcon.nativeElement.offsetLeft - self.acceptIcon.nativeElement.offsetLeft;
+				let pos = self.acceptIcon.nativeElement.offsetLeft;
+				const id = setInterval(() => {
+					if(parseInt(self.acceptIcon.nativeElement.style.left, 10) >= self.distance/2)
+						clearInterval(id);
+					else
+					{
+						pos += 2;
+						self.acceptIcon.nativeElement.style.left = pos + "px";
+					}
+				}, 5);
+				self.moveLeftIcons.nativeElement.style.opacity = 0;
+				self.moveRightIcons.nativeElement.style.opacity = 0;
+				self.declineIcon.nativeElement.style.opacity = 0;
+				self.removeAllListeners();
+				clicked();
+			}
+		}, {passive: true});
 		this.acceptIcon.nativeElement.addEventListener('mousedown', function funcDown(event) {
 			if(event.cancelable)
 			{
@@ -196,6 +220,30 @@ export class VoteIconGroup implements AfterViewInit
 	setUpDecline(document:any, clicked:() => void)
 	{
 		const self = this;
+		this.declineIcon.nativeElement.addEventListener('click', function funcClick(event)
+		{
+			if(event.cancelable)
+			{
+				event.stopPropagation();
+				if(self.distance == null)
+					self.distance = self.declineIcon.nativeElement.offsetLeft - self.acceptIcon.nativeElement.offsetLeft;
+				let pos = self.declineIcon.nativeElement.offsetLeft;
+				const id = setInterval(() => {
+					if(parseInt(self.declineIcon.nativeElement.style.left, 10) <= self.distance/2)
+						clearInterval(id);
+					else
+					{
+						pos -= 2;
+						self.declineIcon.nativeElement.style.left = pos + "px";
+					}
+				}, 5);
+				self.moveLeftIcons.nativeElement.style.opacity = 0;
+				self.moveRightIcons.nativeElement.style.opacity = 0;
+				self.acceptIcon.nativeElement.style.opacity = 0;
+				self.removeAllListeners();
+				clicked();
+			}
+		}, {passive: true});
 		this.declineIcon.nativeElement.addEventListener('mousedown', function funcDOWN(event) {
 			if(event.cancelable)
 			{

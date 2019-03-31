@@ -1,4 +1,15 @@
+ion-toolbar {
+    --background: var(--university-blue);
+    --color: white;
 
+    ion-button {
+        --color: white;
+    }
+
+    ion-menu-button {
+        --color: white;
+    }
+}
 
 ion-content {
 
@@ -15,6 +26,15 @@ ion-content {
         justify-content: center;
         align-items: center;
         height: 100%;
+    }
+
+    .empty {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        text-align: center;
     }
 
     h3 {

@@ -5,8 +5,8 @@
         </ion-buttons>
         <ion-title>PICY</ion-title>
         <ion-buttons slot="end">
-            <ion-button [routerLink]="['/home']">HOME</ion-button>
-            <ion-button [routerLink]="['/nfc-pick-page']">NFC</ion-button>
+            <ion-button [routerLink]="['/nfc-pick-page']"><ion-icon name="wifi"></ion-icon></ion-button>
+            <ion-button [routerLink]="['/home']"><ion-icon name="home"></ion-icon></ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -19,7 +19,9 @@
         <ion-spinner></ion-spinner>
     </div>
 
-    <div *ngIf="!loading">
+    <div class="empty" *ngIf="!loading && index == -1">Sie haben noch keine Objekte gesammelt</div>
+
+    <div *ngIf="!loading && index != -1">
         <h3>{{dataObject.title}}</h3>
         <div class="image_container_p" (click)="overlayOpen(dataObject.image_service)">
             <img src="{{dataObject.image_thumbnail}}" alt="Image did not load" #imgElem>

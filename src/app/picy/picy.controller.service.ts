@@ -25,14 +25,23 @@ export class PicyController {
 	
 	constructor(private storageService:StorageService)
 	{
-		DataLoader.loadPicyConfigFile().then((config:any) => this.config = config);
+		DataLoader.loadPicyConfigFile(this.storageService).then((config:any) => this.config = config);
 	}
 	
 	loadGallery()
 	{
 		let galleryRecords = this.storageService.localState.picyGallery;
 		this.gallery = [];
-		console.log("Gallery ", galleryRecords);
+		if(galleryRecords.length == 0)
+		{
+			this.index = -1;
+			if(this.loadingFinishedCallback)
+				this.loadingFinishedCallback();
+			if(this.menuLoadingFinishedCallback)
+				this.menuLoadingFinishedCallback();
+			return;
+		}
+
 		DataLoader.loadGallery(this.storageService, galleryRecords).then((value:{iiif:IiiFObject[], error:number[]}) => {
 			for(let iiif of value.iiif)
 			{

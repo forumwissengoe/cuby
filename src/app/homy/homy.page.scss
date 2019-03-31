@@ -1,0 +1,94 @@
+ion-toolbar {
+    --background: var(--university-blue);
+    --color: white;
+
+    ion-back-button {
+        --color: white;
+    }
+}
+
+ion-content {
+
+    text-align: center;
+
+    .top-layer {
+        width: 100%;
+        height: 33%;
+
+        .image {
+            width: 100%;
+            height: 100%;
+            background: url("https://sammlungen.uni-goettingen.de/resources/themes/gaugsammlungen/images/slg_1032/images/record_kuniweb_906322.jpg") center center;
+            background-blend-mode: multiply;
+            background-size: cover;
+            opacity: 0.5;
+        }
+
+        span {
+            position: absolute;
+            top: 10vh;
+            left: 5vw;
+            right: 5vw;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'ZapfHumnst', courier, sans-serif;
+        }
+    }
+
+
+    .start-button {
+        position: absolute;
+        width: 40vw;
+        height: 20vw;
+
+        top: 50%;
+        left: 50%;
+
+        margin: -10vw 0 0 -20vw;
+
+        font-weight: bold;
+
+        --ion-color-primary: var(--university-blue);
+    }
+
+    .list-container {
+        position: fixed;
+        top: 60%;
+        bottom: 0;
+        margin: 0;
+
+        padding-left: var(--ion-padding, 16px);
+        padding-right: var(--ion-padding, 16px);
+
+        height: 30%;
+        width: 90%;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+    }
+
+    .no-list-container {
+        position: fixed;
+        top: 65%;
+        bottom: 0;
+        margin: 0;
+
+        padding-left: var(--ion-padding, 16px);
+        padding-right: var(--ion-padding, 16px);
+
+        height: 35%;
+        width: 90%;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        ion-list-header {
+            padding-left: 0;
+        }
+
+        p {
+            text-align: left;
+            margin: 0 auto;
+            padding-bottom: 2vh;
+        }
+    }
+}

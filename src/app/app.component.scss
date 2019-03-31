@@ -3,6 +3,11 @@ ion-title {
     padding-right: 70px;
 }
 
+ion-toolbar {
+    --ion-color-primary: var(--university-blue);
+    --color: white;
+}
+
 ion-col {
     padding-left: 2px;
     padding-top: 2px;

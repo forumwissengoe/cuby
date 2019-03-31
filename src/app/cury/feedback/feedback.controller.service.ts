@@ -10,6 +10,7 @@ import {StorageService} from '../../storage.service';
 export class FeedbackController
 {
 	displayData:FeedbackObject[] = [];
+	index:number = 0;
 	
 	loadingFinishedCallback:() => void = null;
 	size:number = 0;
@@ -21,7 +22,7 @@ export class FeedbackController
 	
 	constructor(private storageService:StorageService)
 	{
-		DataLoader.loadDetailsConfigFile().then(config => this.config = config );
+		DataLoader.loadFeedbackConfigFile(this.storageService).then(config => this.config = config );
 	}
 	
 	loadRecordList(records:string[])
@@ -29,6 +30,7 @@ export class FeedbackController
 		this.displayData = [];
 		this.size = records.length;
 		this.count = 0;
+		this.index = 0;
 		for(let record of records)
 			DataLoader.downloadManifest(this.storageService, record)
 				.then((iiif:IiiFObject) =>
@@ -69,6 +71,14 @@ export class FeedbackController
 	{
 		console.log("Load dummy list");
 		this.loadRecordList(this.dummy_records);
+	}
+	
+	next()
+	{
+		if(this.index+1 >= this.displayData.length)
+			return -1;
+		else
+			return ++this.index;
 	}
 }
 

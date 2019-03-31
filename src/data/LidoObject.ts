@@ -120,6 +120,8 @@ export class LidoObject
 		try {
 			if ((this.title = this.data.lido.descriptiveMetadata[0].objectIdentificationWrap[0].titleWrap[0].titleSet[0].appellationValue[0]) == undefined)
 				this.title = '';
+			if (typeof this.title == "object" && !(this.title = this.data.lido.descriptiveMetadata[0].objectIdentificationWrap[0].titleWrap[0].titleSet[0].appellationValue[0]._))
+				this.title = '';
 		} catch (e) {}
 		//console.log("Title", this.title);
 		

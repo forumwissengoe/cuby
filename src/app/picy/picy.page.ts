@@ -21,13 +21,11 @@ export class PicyPage implements OnDestroy {
 	index:number = 0;
 	rights_shown:boolean = false;
 	
-	constructor(private menuCtrl: MenuController, private renderer:Renderer2, private events:Events, private picyController:PicyController)
-	{
-		this.picyController.setLoadingFinishedCallback(this.galleryLoadingFinishedCallback.bind(this));
-		this.picyController.setMenuLoadingFinishedCallback(this.menuLoadingFinishedCallback.bind(this));
-	}
+	constructor(private menuCtrl: MenuController, private renderer:Renderer2, private events:Events, private picyController:PicyController) {}
 	
 	ionViewWillEnter() {
+		this.picyController.setLoadingFinishedCallback(this.galleryLoadingFinishedCallback.bind(this));
+		this.picyController.setMenuLoadingFinishedCallback(this.menuLoadingFinishedCallback.bind(this));
 		this.loading = true;
 		this.menuCtrl.enable(true, "picyMenu");
 		this.events.subscribe("picy:MenuSelected", this.select.bind(this));
@@ -43,15 +41,17 @@ export class PicyPage implements OnDestroy {
 	
 	menuLoadingFinishedCallback()
 	{
-		console.log("Loading finished callback");
-		console.log("Menu entries", this.picyController.menuEntries);
 		this.events.publish('picy:MenuChanged', this.picyController.menuEntries);
 	}
 	
 	galleryLoadingFinishedCallback()
 	{
-		this.overlay.setImageService(this.picyController.dataset[this.index].image_service[0]);
-		this.dataObject = this.picyController.dataset[this.index];
+		this.index = this.picyController.index;
+		if(this.index != -1)
+		{
+			this.overlay.setImageService(this.picyController.dataset[this.index].image_service[0]);
+			this.dataObject = this.picyController.dataset[this.index];
+		}
 		this.loading = false;
 	}
 	

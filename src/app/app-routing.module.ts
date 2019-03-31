@@ -10,6 +10,9 @@ const routes: Routes = [
   { path: 'details', loadChildren: './cury/details/details.module#DetailsPageModule' },
   { path: 'feedback', loadChildren: './cury/feedback/feedback.module#FeedbackPageModule' },
   { path: 'nfc-pick-page', loadChildren: './picy/nfc-pick-page/nfc-pick-page.module#NfcPickPagePageModule' },
+  { path: 'categories', loadChildren: './homy/categories/categories.module#CategoriesPageModule' },
+  { path: 'question/:id', loadChildren: './homy/question/question.module#QuestionPageModule' },
+  { path: 'milestone/:id', loadChildren: './homy/milestone/milestone.module#MilestonePageModule' },
 ];
 
 @NgModule({

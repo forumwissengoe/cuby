@@ -1,3 +1,30 @@
+ion-toolbar {
+    --background: var(--university-blue);
+    --color: white;
+
+    ion-button {
+        --color: white;
+    }
+}
+
+.head_counter {
+    position: relative;
+    display: table-cell;
+
+    float: left;
+    margin: 0;
+    left: -4px;
+    top: 50%;
+    width: 28vw;
+    height: 30px;
+    line-height: 30px;
+    background: var(--university-blue);
+    color: white;
+    font-size: 6.0vw;
+    text-align: center;
+}
+
+
 ion-content {
 
     --mc-size: calc(48vmin - 20px);

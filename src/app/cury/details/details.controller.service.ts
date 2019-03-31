@@ -22,8 +22,7 @@ export class DetailsController
 	
 	constructor(private storageService:StorageService)
 	{
-		console.log("Details controller instantiated");
-		DataLoader.loadDetailsConfigFile().then((config) => {
+		DataLoader.loadDetailsConfigFile(this.storageService).then((config) => {
 			this.config = config;
 		})
 	}

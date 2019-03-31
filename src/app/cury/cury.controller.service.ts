@@ -22,24 +22,24 @@ export class CuryControllerService {
 		let records = this.storageService.localState.curyStack;
 		let count = records.length;
 		this.currentlyLoading = true;
-		console.log("Download", records);
 		if(records.length < CuryControllerService.NUMBER_ELEMENTS)
 		{
-			DataLoader.requestCuryImages(this.storageService, CuryControllerService.NUMBER_ELEMENTS - count).then( (imgs:IiiFObject[]) => {
-				for(let img of imgs)
-					this.images.push(img);
-				count -= imgs.length;
-				if(count <= 0)
-				{
-					if(this.loadingFinishedCallback != null)
+			DataLoader.requestCuryImages(this.storageService, this.storageService.config.cury_url,CuryControllerService.NUMBER_ELEMENTS - count)
+				.then( (imgs:IiiFObject[]) => {
+					for(let img of imgs)
+						this.images.push(img);
+					count -= imgs.length;
+					if(count <= 0)
 					{
-						this.currentlyLoading = false;
-						this.loadingFinishedCallback();
+						if(this.loadingFinishedCallback != null)
+						{
+							this.currentlyLoading = false;
+							this.loadingFinishedCallback();
+						}
+						else
+							console.log("No loading finished callback");
 					}
-					else
-						console.log("No loading finished callback");
-				}
-			});
+				});
 			count = CuryControllerService.NUMBER_ELEMENTS;
 		}
 		
@@ -54,7 +54,6 @@ export class CuryControllerService {
 					if(this.loadingFinishedCallback != null)
 					{
 						this.currentlyLoading = false;
-						console.log("Loading finished");
 						this.loadingFinishedCallback();
 					}
 					else
@@ -66,16 +65,13 @@ export class CuryControllerService {
 	
 	loadNewImages(number:number)
 	{
-		DataLoader.requestCuryImages(this.storageService, number)
+		DataLoader.requestCuryImages(this.storageService, this.storageService.config.cury_url, number)
 			.then((imgs:IiiFObject[]) => {
 				for(let img of imgs)
 					this.images.push(img);
 				
 				if(this.loadingFinishedCallback != null)
 					this.loadingFinishedCallback();
-				else
-					console.log("No loading finished callback");
-				this.loadingFinishedCallback();
 			});
 	}
   	

@@ -1,0 +1,169 @@
+ion-toolbar {
+    --background: var(--university-blue);
+    color: white;
+
+    ion-title {
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+    }
+}
+
+.spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.type1 {
+
+    p {
+        margin: 0 auto;
+        padding-bottom: 2vh;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    ion-grid {
+
+        padding: 0;
+
+        ion-row {
+
+            height: 20vh;
+            width: 97%;
+
+            ion-col.col-a {
+
+                padding-left: 0;
+
+                height: 100%;
+                text-align: center;
+                vertical-align: middle;
+                object-fit: cover;
+
+                div {
+                    width: 100%;
+                    height: 100%;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+            }
+
+            ion-col.col-b {
+
+                padding-right: 0;
+
+                height: 100%;
+                text-align: center;
+                vertical-align: middle;
+                object-fit: cover;
+
+                div {
+                    width: 100%;
+                    height: 100%;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+            }
+        }
+    }
+
+    ion-list {
+
+        padding-top: 3vh;
+        margin-bottom: 0;
+
+        ion-item {
+
+            --padding-start: 0;
+        }
+    }
+}
+
+.type2 {
+
+    p {
+        margin: 0 auto;
+        padding-bottom: 2vh;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .bg_image {
+        width: 97%;
+        height: 40vh;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    ion-list {
+
+        padding-top: 3vh;
+        margin-bottom: 0;
+
+        ion-item {
+
+            --padding-start: 0;
+            font-size: 12pt;
+        }
+    }
+}
+
+.answers {
+
+    min-height: 40px;
+    display: table-row;
+    height: fit-content;
+    width: 110%;
+
+
+    .answer-count {
+        display: table-cell;
+
+        background: var(--university-blue);
+        color: white;
+        text-align: center;
+        margin: 0 auto;
+        padding-top: auto;
+
+        width: 40px!important;
+        min-width: 40px;
+        height: inherit;
+
+        vertical-align: middle;
+
+        div {
+            text-overflow: ellipsis;
+            word-break: break-word;
+        }
+    }
+
+    .answer-text {
+        display: table-cell;
+
+        background: var(--university-blue-light);
+        color: white;
+        text-align: start;
+        padding-left: 15px;
+
+        margin: 0 auto;
+        margin-right: -10px;
+
+        width: 100%;
+        height: 40px;
+
+        vertical-align: middle;
+
+        div {
+            text-overflow: ellipsis;
+            word-break: break-word;
+        }
+
+    }
+}
+

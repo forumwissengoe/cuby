@@ -10,7 +10,9 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
-overlay {
+@import 'theme/fonts.scss';
+
+/*overlay {
   display: none;
 
   &.shown {
@@ -29,4 +31,4 @@ overlay {
     overflow-y: auto;
     overflow-x: hidden;
   }
-}
+}*/

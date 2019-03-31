@@ -3,6 +3,7 @@ import {ImageOverlay} from '../../additions/overlay/image-overlay.component';
 import {FeedbackController} from './feedback.controller.service';
 import {Router} from '@angular/router';
 import {Level3Like, StorageService} from '../../storage.service';
+import {AlertController} from '@ionic/angular';
 
 @Component({
 	selector: 'app-feedback',
@@ -21,11 +22,12 @@ export class FeedbackPage implements AfterViewChecked {
 	comment:string = "";
 	
 	index:number = 0;
+	total:number = 0;
 	imageChecked:boolean = false;
 	loading:boolean = true;
 	
 	
-	constructor(private feedbackController:FeedbackController, private router:Router, private storageService:StorageService) {}
+	constructor(private feedbackController:FeedbackController, private router:Router, private storageService:StorageService, private alertCtrl:AlertController) {}
 
     ngAfterViewChecked() {
     }
@@ -34,7 +36,6 @@ export class FeedbackPage implements AfterViewChecked {
 	{
 		this.loading = true;
 		this.feedbackController.setLoadingFinishedCallback(this.loadingFinished.bind(this));
-		//let records:string[] = this.evaluationService.getCurrentLikabilityLevel2();
 		let records:string[] = this.storageService.localState.feedbackList;
 		if(records.length != 0)
 			this.feedbackController.loadRecordList(records);
@@ -44,6 +45,8 @@ export class FeedbackPage implements AfterViewChecked {
     
     loadingFinished()
 	{
+		this.index = this.feedbackController.index;
+		this.total = this.feedbackController.displayData.length;
 		let entry = this.feedbackController.displayData[this.index];
 		this.image = entry.thumbnail;
 		this.record = entry.record;
@@ -52,6 +55,7 @@ export class FeedbackPage implements AfterViewChecked {
 		
 		for(let i of this.items)
 			i.check = false;
+		this.imageChecked = false;
 		this.loading = false;
 	}
 	
@@ -76,7 +80,26 @@ export class FeedbackPage implements AfterViewChecked {
 		}
 	}
 	
-	send()
+	async send()
+	{
+		const alert = await this.alertCtrl.create({
+			message: "Feedback senden?",
+			buttons: [
+				{
+					text: "Nein",
+					role: 'cancel',
+				},
+				{
+					text: "Ja",
+					handler: () => this._send()
+				}
+			]
+		});
+		await alert.present();
+	}
+	
+	
+	_send()
 	{
 		let l3 = new Level3Like();
 		for(let entry of this.items)
@@ -91,8 +114,16 @@ export class FeedbackPage implements AfterViewChecked {
 		this.storageService.localState.likedLevel3.push(l3);
 		//this.evaluationService.publishLikabilityLevel3(l3);
 		
-		this.router.navigate(['/home']);
+		//this.router.navigate(['/home']);
 		this.storageService.saveLocalState();
+		
+		if(this.feedbackController.next() != -1)
+		{
+			this.loadingFinished();
+			
+		}
+		else
+			this.router.navigate(['/home']);
 	}
  
 }
