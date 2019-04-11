@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+import {QRScanner} from '@ionic-native/qr-scanner/ngx';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -21,8 +22,9 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 		SplashScreen,
 		File,
 		WebView,
+		QRScanner,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-		],
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}

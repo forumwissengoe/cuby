@@ -102,8 +102,8 @@ export class DataLoader
 		
 		return new Promise<any>( (resolve, reject) => {
 			const xhr = new XMLHttpRequest();
-			xhr.open("POST", url);
-			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			
 			xhr.onload = (ev) => {
 				if(xhr.readyState == 4)
@@ -120,6 +120,27 @@ export class DataLoader
 			
 			xhr.send("score=" + highscore + "&location=" + location);
 		});
+	}
+	
+	static requestHomyHighscore(url:string)
+	{
+		if(!url.endsWith(".php"))
+			url = url + "index.php";
+		
+		return new Promise<any>( (resolve, reject) => {
+			const xhr = new XMLHttpRequest();
+			xhr.open("GET", url);
+			xhr.onload = (ev) => {
+				if(xhr.readyState == 4)
+				{
+					if(xhr.status == 200)
+						resolve(JSON.parse(xhr.responseText));
+					else
+						reject(xhr.status);
+				}
+			};
+			xhr.send();
+		})
 	}
 	
 	static async requestCuryImages(storageService:StorageService, url:string, number:number)

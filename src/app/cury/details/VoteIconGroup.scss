@@ -53,7 +53,8 @@
 
     .declined {
         position: absolute;
-        left: calc(100% - 65px);
+        //left: calc(100% - 65px);
+        right: 0;
 
         width: 60px;
         height: 60px;

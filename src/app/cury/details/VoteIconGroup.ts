@@ -34,6 +34,8 @@ export class VoteIconGroup implements AfterViewInit
 	offset_d:number = 0;
 	origin_a:number = 0;
 	origin_d:number = 0;
+	original_a:number = 0;
+	original_d:number = 0;
 	
 	decline_x_base:number = 0;
 	distance:number = null;
@@ -58,7 +60,33 @@ export class VoteIconGroup implements AfterViewInit
 		setTimeout(() => {
 			this.origin_a = this.acceptIcon.nativeElement.offsetLeft;
 			this.origin_d = this.declineIcon.nativeElement.offsetLeft;
+			this.original_a = this.acceptIcon.nativeElement.offsetLeft;
+			this.original_d = this.declineIcon.nativeElement.offsetLeft;
 		}, 2000);
+	}
+	
+	reset()
+	{
+		this.acceptIcon.nativeElement.style.left = "";
+		this.declineIcon.nativeElement.style.left = "";
+		
+		this.acceptIcon.nativeElement.style.opacity = 1.0;
+		this.declineIcon.nativeElement.style.opacity = 1.0;
+		this.moveLeftIcons.nativeElement.style.opacity = 1.0;
+		this.moveRightIcons.nativeElement.style.opacity = 1.0;
+		
+		this.move_a = false;
+		this.move_d = false;
+		this.offset_a = 0;
+		this.offset_d = 0;
+		this.origin_a = this.original_a;
+		this.origin_d = this.original_d;
+		
+		this.decline_x_base = 0;
+		this.distance = null;
+		
+		this.setUpAccept(document, () => { this.vote(true); });
+		this.setUpDecline(document, () => { this.vote(false); });
 	}
 	
 	setUpAccept(document:any, clicked:() => void)

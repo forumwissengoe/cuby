@@ -47,6 +47,7 @@ export class PicyPage implements OnDestroy {
 	galleryLoadingFinishedCallback()
 	{
 		this.index = this.picyController.index;
+		console.log("Gallery loaded. Index: ", this.index, " Gallery: ", this.picyController.dataset);
 		if(this.index != -1)
 		{
 			this.overlay.setImageService(this.picyController.dataset[this.index].image_service[0]);

@@ -19,21 +19,30 @@
         <ion-icon slot="end" name="play"></ion-icon>
     </ion-button>
 
-    <div class="list-container" *ngIf="highscore">
-        <ion-list-header>Highscore</ion-list-header>
-        <ion-list>
-            <ion-item *ngFor="let player of otherPlayers">
-                <ion-icon slot="start" name="person"></ion-icon>
-                <ion-label slot="start">{{player.id}}</ion-label>
-                <ion-label slot="end">{{player.distance}}</ion-label>
-            </ion-item>
-        </ion-list>
+    <div class="list-container" *ngIf="!highscoreLoading && highscore && otherPlayers.length > 0">
+        <ion-list-header>
+            <ion-label style="float: left">Highscore</ion-label>
+            <ion-label style="float: right">Region: {{region}}</ion-label>
+        </ion-list-header>
+        <div class="scroll-container">
+            <ion-list>
+                <ion-item lines="none" *ngFor="let player of otherPlayers">
+                    <ion-icon slot="start" name="person"></ion-icon>
+                    <ion-label slot="start">{{player.highscore}} Punkte</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
     </div>
 
-    <div class="no-list-container" *ngIf="!highscore">
+    <div class="no-list-container" *ngIf="!highscoreLoading && (!highscore || otherPlayers.length <= 0)">
         <ion-list-header>Highscore</ion-list-header>
         <p>Kein lokaler Highscore in deiner Umgebung. Sei der erste der einen setzt!</p>
         <p>Du setzt den ersten Highscore, indem du 10 Fragen einer Kategorie richtig beantwortest.</p>
+    </div>
+
+    <div class="list-loading-container" *ngIf="highscoreLoading">
+        <ion-list-header>Highscore</ion-list-header>
+        <ion-spinner></ion-spinner>
     </div>
 
 </ion-content>

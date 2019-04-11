@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'categories', loadChildren: './homy/categories/categories.module#CategoriesPageModule' },
   { path: 'question/:id', loadChildren: './homy/question/question.module#QuestionPageModule' },
   { path: 'milestone/:id', loadChildren: './homy/milestone/milestone.module#MilestonePageModule' },
+  { path: 'covers', loadChildren: './picy/covers/covers.module#CoversPageModule' },
 ];
 
 @NgModule({

@@ -53,7 +53,6 @@ ion-content {
 
     .list-container {
         position: fixed;
-        top: 60%;
         bottom: 0;
         margin: 0;
 
@@ -61,15 +60,31 @@ ion-content {
         padding-right: var(--ion-padding, 16px);
 
         height: 30%;
-        width: 90%;
-        overflow-x: hidden;
-        overflow-y: auto;
+        width: 95%;
+
+        ion-list-header {
+
+            ion-item {
+
+                font-size: 12px;
+                margin: 0;
+
+                ion-label {
+                    margin: 0;
+                }
+            }
+        }
+
+        .scroll-container {
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 78%;
+        }
 
     }
 
     .no-list-container {
         position: fixed;
-        top: 65%;
         bottom: 0;
         margin: 0;
 
@@ -89,6 +104,24 @@ ion-content {
             text-align: left;
             margin: 0 auto;
             padding-bottom: 2vh;
+        }
+    }
+
+    .list-loading-container {
+        position: fixed;
+        bottom: 0;
+        margin: 0;
+
+        padding-left: var(--ion-padding, 16px);
+        padding-right: var(--ion-padding, 16px);
+
+        height: 35%;
+        width: 90%;
+
+        ion-spinner {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 }

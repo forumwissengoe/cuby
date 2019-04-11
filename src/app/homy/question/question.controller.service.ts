@@ -218,7 +218,7 @@ export class QuestionType1
 			this.correct = qdata.correct;
 			
 			for(let a of qdata.answers)
-				if(a.replace(" ", "") != "")
+				if(a && a.replace(" ", "") != "")
 					this.answers.push(a);
 			
 			DataLoader.loadGallery(storageService, qdata.records).then(({iiif, error}) => {

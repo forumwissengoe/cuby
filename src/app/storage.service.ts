@@ -143,6 +143,7 @@ export class StorageService {
 	
 	loadHomyConfig()
 	{
+		console.log("Load homy config");
 		Promise.all([
 			DataLoader.loadHomyConfig(this.config.homy_config).then(config =>
 			{
@@ -199,13 +200,16 @@ export class StorageService {
 		locallySavedObjectsLido:string[],
 		locallySavedImages:string[],
 		
+		homyPostHighscoreAsk:boolean,
+		homyPostHighscore:boolean,
+		
 		likedLevel1:string[]
 		likedLevel2:string[]
 		likedLevel3:Level3Like[]
 		
-	} = {picyGallery: [], curyStack: [], detailsList: [], feedbackList: [], locallySavedObjectsIiiF: [], locallySavedObjectsLido: [], locallySavedImages: [], likedLevel1: [], likedLevel2: [], likedLevel3: [] };
+	} = {picyGallery: [], curyStack: [], detailsList: [], feedbackList: [], locallySavedObjectsIiiF: [], locallySavedObjectsLido: [], locallySavedImages: [], homyPostHighscore: null, homyPostHighscoreAsk: true, likedLevel1: [], likedLevel2: [], likedLevel3: [] };
 	
-	dummyState = { picyGallery: ["record_kuniweb_592553", "record_kuniweb_675675", "record_kuniweb_592566", "record_kuniweb_945664", "record_kuniweb_666297", "record_kuniweb_943917", "record_kuniweb_681925", "record_kuniweb_854325"], curyStack: ["record_kuniweb_592553", "record_kuniweb_675675", "record_kuniweb_592566", "record_kuniweb_945664", "record_kuniweb_666297", "record_kuniweb_943917", "record_kuniweb_681925", "record_kuniweb_854325"], detailsList: [], feedbackList: [], locallySavedObjectsIiiF: [], locallySavedObjectsLido: [], locallySavedImages: [], likedLevel1: [], likedLevel2: [], likedLevel3: []};
+	dummyState = { picyGallery: ["record_kuniweb_592553", "record_kuniweb_675675", "record_kuniweb_592566", "record_kuniweb_945664", "record_kuniweb_666297", "record_kuniweb_943917", "record_kuniweb_681925", "record_kuniweb_854325"], curyStack: ["record_kuniweb_592553", "record_kuniweb_675675", "record_kuniweb_592566", "record_kuniweb_945664", "record_kuniweb_666297", "record_kuniweb_943917", "record_kuniweb_681925", "record_kuniweb_854325"], detailsList: [], feedbackList: [], locallySavedObjectsIiiF: [], locallySavedObjectsLido: [], locallySavedImages: [], homyPostHighscore: null, homyPostHighscoreAsk: true, likedLevel1: [], likedLevel2: [], likedLevel3: []};
 	
 	loadLocalState()
 	{

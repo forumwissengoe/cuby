@@ -41,6 +41,8 @@ export class PicyController {
 				this.menuLoadingFinishedCallback();
 			return;
 		}
+		
+		let first:boolean = true;
 
 		DataLoader.loadGallery(this.storageService, galleryRecords).then((value:{iiif:IiiFObject[], error:number[]}) => {
 			for(let iiif of value.iiif)
@@ -57,6 +59,12 @@ export class PicyController {
 						console.log("Config is null");
 					
 					this.dataset.push(data);
+					if(first)
+					{
+						this.index = 0;
+						first = false;
+					}
+					
 					this.loadingFinishedCallback();
 					
 				}).catch((error) => {

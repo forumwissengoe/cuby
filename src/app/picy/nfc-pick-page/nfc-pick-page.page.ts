@@ -98,7 +98,15 @@ export class NfcPickPagePage implements OnInit {
 	addToSelection()
 	{
 		if(this.recordID != "")
-			this.storageService.localState.picyGallery.push(this.recordID);
+		{
+			let already:boolean = false;
+			for(let rec of this.storageService.localState.picyGallery)
+				if(rec === this.recordID)
+					already = true;
+			if(!already)
+				this.storageService.localState.picyGallery.push(this.recordID);
+			
+		}
 		else
 			alert("Fehler beim Speichern des Objektes. Versuchen Sie es nochmal");
 		this.router.navigate(['/home']);
