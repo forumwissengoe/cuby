@@ -258,6 +258,20 @@ module.exports = [
     "clobbers": [
       "QRScanner"
     ]
+  },
+  {
+    "id": "cordova-plugin-ionic.common",
+    "file": "plugins/cordova-plugin-ionic/dist/common.js",
+    "pluginId": "cordova-plugin-ionic",
+    "clobbers": [
+      "IonicCordova"
+    ]
+  },
+  {
+    "id": "cordova-plugin-ionic.guards",
+    "file": "plugins/cordova-plugin-ionic/dist/guards.js",
+    "pluginId": "cordova-plugin-ionic",
+    "runs": true
   }
 ];
 module.exports.metadata = 
@@ -274,7 +288,8 @@ module.exports.metadata =
   "cordova-plugin-file": "6.0.1",
   "cordova-plugin-filepath": "1.5.1",
   "cordova-plugin-file-transfer": "1.7.1",
-  "cordova-plugin-qrscanner": "3.0.1"
+  "cordova-plugin-qrscanner": "3.0.1",
+  "cordova-plugin-ionic": "5.3.1"
 };
 // BOTTOM OF METADATA
 });

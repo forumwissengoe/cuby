@@ -81,6 +81,18 @@
             {
               "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" onload=\"true\" value=\"io.ionic.keyboard.IonicKeyboard\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"IonicCordovaCommon\"><param name=\"android-package\" onload=\"true\" value=\"com.ionicframework.common.IonicCordovaCommon\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"DisableDeploy\" value=\"false\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"AutoHideSplashScreen\" value=\"false\" />",
+              "count": 1
             }
           ]
         }
@@ -129,6 +141,40 @@
             {
               "xml": "<uses-feature android:name=\"android.hardware.camera.front\" android:required=\"false\" />",
               "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "res/values/strings.xml": {
+        "parents": {
+          "/resources": [
+            {
+              "xml": "<string name=\"ionic_app_id\">6627833a</string>",
+              "count": 1
+            },
+            {
+              "xml": "<string name=\"ionic_channel_name\">Master</string>",
+              "count": 1
+            },
+            {
+              "xml": "<string name=\"ionic_update_api\">https://api.ionicjs.com</string>",
+              "count": 1
+            },
+            {
+              "xml": "<string name=\"ionic_update_method\">auto</string>",
+              "count": 1
+            },
+            {
+              "xml": "<string name=\"ionic_max_versions\">2</string>",
+              "count": 1
+            },
+            {
+              "xml": "<string name=\"ionic_min_background_duration\">30</string>",
+              "count": 1
             }
           ]
         }
@@ -171,6 +217,15 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-qrscanner": {
+      "PACKAGE_NAME": "com.atopion.cuby"
+    },
+    "cordova-plugin-ionic": {
+      "APP_ID": "6627833a",
+      "CHANNEL_NAME": "Master",
+      "UPDATE_API": "https://api.ionicjs.com",
+      "UPDATE_METHOD": "auto",
+      "MAX_STORE": "2",
+      "MIN_BACKGROUND_DURATION": "30",
       "PACKAGE_NAME": "com.atopion.cuby"
     }
   },
@@ -434,6 +489,20 @@
       "clobbers": [
         "QRScanner"
       ]
+    },
+    {
+      "id": "cordova-plugin-ionic.common",
+      "file": "plugins/cordova-plugin-ionic/dist/common.js",
+      "pluginId": "cordova-plugin-ionic",
+      "clobbers": [
+        "IonicCordova"
+      ]
+    },
+    {
+      "id": "cordova-plugin-ionic.guards",
+      "file": "plugins/cordova-plugin-ionic/dist/guards.js",
+      "pluginId": "cordova-plugin-ionic",
+      "runs": true
     }
   ],
   "plugin_metadata": {
@@ -448,6 +517,7 @@
     "cordova-plugin-file": "6.0.1",
     "cordova-plugin-filepath": "1.5.1",
     "cordova-plugin-file-transfer": "1.7.1",
-    "cordova-plugin-qrscanner": "3.0.1"
+    "cordova-plugin-qrscanner": "3.0.1",
+    "cordova-plugin-ionic": "5.3.1"
   }
 }
