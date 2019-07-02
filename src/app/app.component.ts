@@ -69,7 +69,6 @@ export class AppComponent {
 		//this.storageService.loadLocalState();
 		
 		
-		
 		this.platform.pause.subscribe(e => this.storageService.saveLocalState());
 		window.addEventListener('beforeunload', () => this.storageService.saveLocalState());
 	}
