@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-21:12
-INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-21:12
-INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-21:12
-INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-21:12
+ADDED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-22:12
+INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-22:12
+INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-22:12
+INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-22:12
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] C:\Users\atopi\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-3.3.0.aar\d614ed179f1b16448c0f2dc5c6741732\AndroidManifest.xml:17:1-55:12
 MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\atopi\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\0e25bd4fab5bf1f1e84d83eae2358cc1\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\atopi\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\7f3597690046d3fa67bcce34f3fae348\AndroidManifest.xml:17:1-28:12
@@ -15,9 +15,9 @@ MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\atopi\.gr
 MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\atopi\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\14886ee6e4502478b628f67b8b5d4af8\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:25.4.0] C:\Users\atopi\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\a86634a3885fc40e09ea2142d9a107ac\AndroidManifest.xml:17:1-31:12
 MERGED from [:CordovaLib] C:\Users\atopi\Codes\ionic\cuby\platforms\android\CordovaLib\build\intermediates\manifests\full\debug\AndroidManifest.xml:20:1-27:12
-INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-21:12
-INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-21:12
-INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-22:12
+INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-22:12
+INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:1-22:12
 	package
 		ADDED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:2:100-126
 		INJECTED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml
@@ -180,6 +180,10 @@ MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] C:\Users\atopi\.gradl
 		ADDED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:20:64-88
 	android:name
 		ADDED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:20:19-63
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:21:5-79
+	android:name
+		ADDED from C:\Users\atopi\Codes\ionic\cuby\platforms\android\app\src\main\AndroidManifest.xml:21:22-76
 uses-feature#android.hardware.camera.autofocus
 ADDED from [com.journeyapps:zxing-android-embedded:3.3.0] C:\Users\atopi\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-3.3.0.aar\d614ed179f1b16448c0f2dc5c6741732\AndroidManifest.xml:32:5-34:36
 	android:required
