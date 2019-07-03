@@ -1,0 +1,43 @@
+ion-toolbar {
+    --background: var(--university-blue);
+    --color: white !important;
+
+    ion-button {
+        --color: white !important;
+        --font-color: white !important;
+    }
+}
+
+.headline {
+    font-weight: bold;
+    font-size: 17pt;
+
+    text-align: center;
+
+    padding-bottom: 20px;
+}
+
+.subline {
+    font-size: 12pt;
+    text-align: justify;
+
+    padding-bottom: 20px;
+}
+
+ion-textarea {
+    padding: 5px;
+    border: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+
+.button_wrapper {
+    font-weight: bold;
+
+    text-align: center;
+
+    ion-button {
+        --background: var(--university-blue);
+        --background-focused: var(--university-blue);
+        --background-hover: var(--university-blue);
+    }
+}

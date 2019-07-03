@@ -137,7 +137,12 @@ export class StorageService {
 		]
 	};
 	
-	homyState:{current_points:number, total_points:number, index:number} = {current_points: 0, total_points: 0, index: 0};
+	homyState:{
+		current_points:number,
+		total_points:number,
+		index:number,
+		correct_records:string[]
+	} = {current_points: 0, total_points: 0, index: 0, correct_records:[]};
 	homyCallback:() => void = null;
 	homyFinished:boolean = false;
 	

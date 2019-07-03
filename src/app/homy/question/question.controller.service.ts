@@ -3,7 +3,6 @@ import {IiiFObject} from '../../../data/IiiFObject';
 import {DataLoader} from '../../../data/DataLoader';
 import {StorageService} from '../../storage.service';
 import {Answer, ImagePair} from './question.page';
-import * as Q from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -158,11 +157,14 @@ export class QuestionController
 	getCurrentQuestion()
 	{
 		this.currentQuestion = this.allQuestions[this.questionIndex];
-		let tmp:{question:string, images:ImagePair[], answers:Answer[], correct:number} =
-			{question: this.currentQuestion.question,
-			images: [],
-			answers: [],
-			correct: this.currentQuestion.correct};
+		let tmp:{question:string, images:ImagePair[], answers:Answer[], record_id:string, correct:number} =
+			{
+				question: this.currentQuestion.question,
+				images: [],
+				answers: [],
+				record_id: this.currentQuestion.record_id,
+				correct: this.currentQuestion.correct
+			};
 		
 		for(let i = 0; i < this.currentQuestion.answers.length; i++)
 			tmp.answers[i] = {answer: this.currentQuestion.answers[i], selected: false, correct: false, wrong: false};
@@ -195,6 +197,8 @@ export class QuestionType1
 	images:IiiFObject[] = [];
 	answers:string[] = [];
 	correct:number = 0;
+
+	record_id:string = "";
 	
 	loadDummy(storageService:StorageService)
 	{
@@ -202,6 +206,7 @@ export class QuestionType1
 			this.question = "Finden Sie die Sammlung";
 			this.correct = 2;
 			this.answers = ["Botanik", "Kunst", "Ethnologie", "Geologie"];
+			this.record_id = "record_kuniweb_946619";
 			
 			DataLoader.loadGallery(storageService, this.records).then( ({iiif, error}) => {
 				for(let i of iiif)
@@ -216,7 +221,8 @@ export class QuestionType1
 		return new Promise((resolve, reject) => {
 			this.question = qdata.question;
 			this.correct = qdata.correct;
-			
+			this.record_id = qdata.records[Math.random() * Math.floor(qdata.records.length)];
+
 			for(let a of qdata.answers)
 				if(a && a.replace(" ", "") != "")
 					this.answers.push(a);
@@ -254,12 +260,15 @@ export class QuestionType2
 	images:IiiFObject[] = [];
 	answers:string[] = [];
 	correct:number = 0;
+
+	record_id:string = "";
 	
 	loadQData(storageService:StorageService, qdata:QDataType2)
 	{
 		return new Promise((resolve, reject) => {
 			this.question = qdata.question;
 			this.correct = qdata.correct;
+			this.record_id = this.record;
 			
 			for(let a of qdata.answers)
 				if(a !== "")

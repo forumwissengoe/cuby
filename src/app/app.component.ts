@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
-import {Events, MenuController, Platform} from '@ionic/angular';
+import {Events, MenuController, ModalController, Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {Router, RouterEvent} from '@angular/router';
 import { NFC, Ndef } from '@ionic-native/nfc/ngx';
 import {StorageService} from './storage.service';
 import {NdefEvent, NdefRecord} from '@ionic-native/nfc';
+import {FeedbackPageModal} from './modals/feedback/feedback-page-modal.component';
 
 @Component({
 	selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent {
 		private nfc: NFC,
 		private ndef: Ndef,
 		private storageService:StorageService,
+		private modalCtrl: ModalController
 	) {
 		this.initializeApp();
 	}
@@ -86,5 +88,12 @@ export class AppComponent {
 		console.log("Payloads: ", result);
 		this.storageService.setNFCRecord(result);
 		this.router.navigate(['/nfc-pick-page']);
+	}
+
+	async presentFeedbackModal() {
+		const modal = await this.modalCtrl.create({
+			component: FeedbackPageModal
+		});
+		return await modal.present();
 	}
 }

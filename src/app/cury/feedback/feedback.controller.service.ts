@@ -98,6 +98,7 @@ export class FeedbackObject
 	load(lido: LidoObject, iiif: IiiFObject, config: any, storageService: StorageService, height: number)
 	{
 		this.name = iiif.label;
+		this.record = iiif.record_id;
 		if((this.thumbnail = storageService.loadLocalImage(iiif.record_id, undefined, height)) == null)
 		{
 			this.thumbnail = iiif.getThumbnailForAttributes(undefined, height);

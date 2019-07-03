@@ -12,11 +12,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import {QRScanner} from '@ionic-native/qr-scanner/ngx';
+import {FeedbackPageModule} from './modals/feedback/feedback.module';
 
 @NgModule({
 	declarations: [AppComponent],
 	entryComponents: [],
-	imports: [BrowserModule, IonicModule.forRoot(),	IonicStorageModule.forRoot(), AppRoutingModule],
+	imports: [BrowserModule, IonicModule.forRoot(),	IonicStorageModule.forRoot(), AppRoutingModule, FeedbackPageModule],
 	providers: [
 		StatusBar,
 		SplashScreen,

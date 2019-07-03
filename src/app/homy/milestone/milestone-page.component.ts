@@ -29,7 +29,11 @@ export class MilestonePage implements OnInit {
 		
 		if(this.storageService.localState.homyPostHighscore != null)
 			this.autoPost = this.storageService.localState.homyPostHighscore;
-		
+
+		if(this.storageService.homyState.correct_records != [])
+			for(let item in this.storageService.homyState.correct_records)
+				this.storageService.localState.picyGallery.push(item);
+
 		let target = 100;
 		if(this.storageService.homyState && this.storageService.homyState.current_points != undefined)
 		{

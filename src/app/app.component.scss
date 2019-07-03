@@ -18,3 +18,11 @@ ion-col {
 
     border: 1px solid beige;
 }
+
+ion-fab-button {
+    --background: var(--university-contrast);
+    --background-activated: var(--university-contrast);
+    --background-focused: var(--university-contrast);
+    --background-hover: var(--university-contrast);
+
+}

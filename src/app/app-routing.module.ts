@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'question/:id', loadChildren: './homy/question/question.module#QuestionPageModule' },
   { path: 'milestone/:id', loadChildren: './homy/milestone/milestone.module#MilestonePageModule' },
   { path: 'covers', loadChildren: './picy/covers/covers.module#CoversPageModule' },
+  { path: 'feedback', loadChildren: './modals/feedback/feedback.module#FeedbackPageModule' },
 ];
 
 @NgModule({

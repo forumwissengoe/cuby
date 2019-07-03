@@ -21,11 +21,12 @@ export class QuestionPage implements OnInit {
 	
 	type:number = -1;
 	
-	question:{question:string, images:ImagePair[], answers:Answer[], correct:number} =
+	question:{question:string, images:ImagePair[], answers:Answer[], record_id: string, correct:number} =
 		{
 			question: "",
 			images: [],
 			answers: [],
+			record_id: "",
 			correct: 0
 		};
 		
@@ -56,7 +57,7 @@ export class QuestionPage implements OnInit {
 		this.title = "";
 		this.total = 0;
 		this.current = 0;
-		this.question = { question: "", images: [], answers: [], correct: 0 };
+		this.question = { question: "", images: [], answers: [], record_id: "", correct: 0 };
 		
 		this.questionController.categoryID = this.route.snapshot.paramMap.get('id');
 		this.questionController.setLoadingFinishedCallback(this.loadingFinishedCallback.bind(this));
@@ -111,6 +112,9 @@ export class QuestionPage implements OnInit {
 				
 				if(this.storageService.homyState.total_points != undefined)
 					this.storageService.homyState.total_points++;
+
+				if(this.storageService.homyState.correct_records != undefined)
+					this.storageService.homyState.correct_records.push(this.question.record_id);
 				
 				console.log("Current points: ", this.storageService.homyState.current_points);
 			}

@@ -48,6 +48,7 @@ export class FeedbackPage implements AfterViewChecked {
 		this.index = this.feedbackController.index;
 		this.total = this.feedbackController.displayData.length;
 		let entry = this.feedbackController.displayData[this.index];
+		console.log("RECORD: ", entry);
 		this.image = entry.thumbnail;
 		this.record = entry.record;
 		this.items = entry.entries;
@@ -112,6 +113,8 @@ export class FeedbackPage implements AfterViewChecked {
 			this.storageService.localState.feedbackList.splice(index, 1);
 		
 		this.storageService.localState.likedLevel3.push(l3);
+		console.log("L3: ", l3);
+		this.storageService.localState.picyGallery.push(l3.recordID);
 		//this.evaluationService.publishLikabilityLevel3(l3);
 		
 		//this.router.navigate(['/home']);
