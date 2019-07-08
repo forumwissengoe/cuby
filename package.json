@@ -35,6 +35,7 @@
         "@ionic/storage": "^2.2.0",
         "base-64": "^0.1.0",
         "cordova-android": "^8.0.0",
+        "cordova-ios": "^5.0.1",
         "cordova-plugin-device": "^2.0.2",
         "cordova-plugin-file": "^6.0.1",
         "cordova-plugin-file-transfer": "^1.7.1",
@@ -116,7 +117,8 @@
             }
         },
         "platforms": [
-            "android"
+            "android",
+            "ios"
         ]
     }
 }
