@@ -1,4 +1,4 @@
-#Tue Jul 02 19:29:01 CEST 2019
+#Wed Jul 03 20:59:38 CEST 2019
 base.0=C\:\\Users\\atopi\\Codes\\ionic\\cuby\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 renamed.0=classes.dex
 file.0=C\:\\Users\\atopi\\Codes\\ionic\\cuby\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0\\classes.dex
