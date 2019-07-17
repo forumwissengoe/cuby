@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\atopi\\Codes\\ionic\\cuby\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v17\\values-v17.xml",
+            "outputFile": "C:\\Users\\Timon\\code\\cuby\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v17\\values-v17.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\atopi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.4.0.aar\\0e25bd4fab5bf1f1e84d83eae2358cc1\\res\\values-v17\\values-v17.xml",
+                    "source": "C:\\Users\\Timon\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.4.0.aar\\86cd2e3fda0f7c51a84a7c774da226c5\\res\\values-v17\\values-v17.xml",
                     "from": {
                         "startLines": "2,5,9,12,15,18,22,26,29,32,35,39,42,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",

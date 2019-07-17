@@ -1,4 +1,0 @@
-#Mon Jul 15 11:47:05 CEST 2019
-base.0=C\:\\Users\\Timon\\code\\cuby\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\release\\0
-renamed.0=classes.dex
-file.0=C\:\\Users\\Timon\\code\\cuby\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\release\\0\\classes.dex

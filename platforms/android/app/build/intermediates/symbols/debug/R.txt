@@ -714,7 +714,7 @@ int layout select_dialog_singlechoice_material 0x7f09002c
 int layout support_simple_spinner_dropdown_item 0x7f09002d
 int layout zxing_barcode_scanner 0x7f09002e
 int layout zxing_capture 0x7f09002f
-int mipmap icon 0x7f0a0000
+int mipmap ic_launcher 0x7f0a0000
 int raw zxing_beep 0x7f0b0000
 int string abc_action_bar_home_description 0x7f0c0000
 int string abc_action_bar_home_description_format 0x7f0c0001

@@ -56,6 +56,8 @@ export class AppComponent {
 	// Execute startup and load configurations
 	platformReady()
 	{
+		console.log("Platform ready");
+
 		if(this.platform.is('cordova'))
 		{
 			this.nfc.addNdefListener().subscribe((event:NdefEvent) => {
