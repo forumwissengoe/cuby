@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from '@ionic/angular';
+import {DataLoader} from '../../../data/DataLoader';
 
 declare var Email: any;
 
@@ -26,8 +27,8 @@ export class FeedbackPageModal implements OnInit {
 		// Host: "firemail.de",
 		// Username: "cubyBetaTest@firemail.de",
 
-		console.log("EMAIL: ", Email);
-		Email.send({
+		//console.log("EMAIL: ", Email);
+		/*Email.send({
 			Host: "smtp.elasticemail.com",
 			Username: "niname408@googlemail.com",
 			Password: "84e9165f-9367-4724-94df-1467f48024e1",
@@ -35,7 +36,29 @@ export class FeedbackPageModal implements OnInit {
 			From: "cubyBetaTest@firemail.de",
 			Subject: "Beta-Test Feedback",
 			Body: "Feedback-Nachricht: \n" + this.feedbackdata
-		}).then(message => console.log(message));
+		}).then(message => console.log(message));*/
+		console.log("FEEDBACK: " + this.feedbackdata);
+		
+		const xhr = new XMLHttpRequest();
+		xhr.open("GET", "http://wissenskiosk.uni-goettingen.de/cuby/cubymailer.php?auth=" + DataLoader.emailTOKEN + "&data=" + this.feedbackdata);
+		xhr.onload = (ev) =>
+		{
+			if(xhr.readyState == 4)
+			{
+				if(xhr.status == 200)
+				{
+					if(xhr.responseText.indexOf("SUCCESS") == -1)
+						console.log("Email sending error");
+					else
+						console.log("Email sending success");
+				}
+				else {
+					console.log("Email error status: " + xhr.status);
+				}
+			}
+		};
+		xhr.send();
+		
 
 		this.modalCtrl.dismiss();
 	}

@@ -11,6 +11,8 @@ export class DataLoader
 	
 	public static primeConfig:string = "http://wissenskiosk.uni-goettingen.de/cuby/cuby-config/primeconfig.json";
 	
+	public static emailTOKEN:string = "rRHMHNX7HY8LRYSuS462Fv9mFe8cPrywq8aQJrNp5S3JYh3bfPBTkmuJs9VWw7XM";
+	
 	constructor() {}
 	
 	static loadPrimeConfig(primeConfig:string)

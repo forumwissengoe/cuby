@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { FeedbackPageModal } from './feedback-page-modal.component';
+import {FeedbackResponseOverlay} from './feedback-response-overlay';
 
 const routes: Routes = [
   {
@@ -15,12 +16,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [FeedbackPageModal]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		RouterModule.forChild(routes)
+	],
+	exports: [
+		FeedbackResponseOverlay
+	],
+	declarations: [FeedbackPageModal, FeedbackResponseOverlay]
 })
 export class FeedbackPageModule {}

@@ -29,6 +29,7 @@ export class StorageService {
 		feedbackConfig: any,
 		
 		questionsUrl: string,*/
+		message_nonce: number,
 		
 		iiif_url:string,
 		lido_url:string,
@@ -43,7 +44,7 @@ export class StorageService {
 		display_config_cury_feedback:[],
 		
 	} = {
-		viewWidth: 0, viewHeight: 0,
+		viewWidth: 0, viewHeight: 0, message_nonce: 0,
 		cury_url: "http://wissenskiosk.uni-goettingen.de/cuby/cury/cury.php",
 		cury_config: "http://wissenskiosk.uni-goettingen.de/cuby/cury/config.json",
 		cury_feedback: "http://wissenskiosk.uni-goettingen.de/cuby/cury/feedback.php",
