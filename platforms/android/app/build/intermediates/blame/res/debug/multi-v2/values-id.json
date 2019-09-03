@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Timon\\code\\cuby\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-id\\values-id.xml",
+            "outputFile": "C:\\Users\\atopi\\Codes\\ionic\\cuby\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-id\\values-id.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Timon\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-3.3.0.aar\\e2fde0652b281842d27f204d43ad9655\\res\\values-id\\values-id.xml",
+                    "source": "C:\\Users\\atopi\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-3.3.0.aar\\bb7b97d3a151fae9dda26cef6b5f752d\\res\\values-id\\values-id.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

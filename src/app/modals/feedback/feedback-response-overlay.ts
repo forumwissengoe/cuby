@@ -26,6 +26,8 @@ export class FeedbackResponseOverlay implements OnInit
 	{
 		this.storage.get("FEEDBACK_MESSAGES_NONCE").then((nonce) => {
 			this.latest_nonce = nonce;
+			if(this.latest_nonce == undefined || this.latest_nonce == null)
+				this.latest_nonce = 0;
 			console.log("Latest nonce: ", this.latest_nonce);
 			
 			const xhr = new XMLHttpRequest();
@@ -36,21 +38,23 @@ export class FeedbackResponseOverlay implements OnInit
 					if(xhr.status == 200)
 					{
 						let arr = JSON.parse(xhr.responseText);
-						if(!(arr == undefined || !Array.isArray(arr)))
+						if(arr !== undefined && Array.isArray(arr))
 						{
-							for(let i = 0; i < arr.length; i++)
-								if(arr[i].nonce > this.latest_nonce)
-									this.messages.push(arr[i].message);
-							this.latest_nonce = arr[arr.length-1].nonce;
-							this.storage.set("FEEDBACK_MESSAGES_NONCE", this.latest_nonce);
-							this.messages = this.messages.reverse();
-							
-							if(this.messages.length > 0)
+							if(arr.length > 0)
 							{
-								//this.current_message = this.messages.pop();
+								for(let i = 0; i < arr.length; i++)
+									if(arr[i].nonce > this.latest_nonce)
+										this.messages.push(arr[i].message);
+								this.latest_nonce = arr[arr.length-1].nonce;
+								this.storage.set("FEEDBACK_MESSAGES_NONCE", this.latest_nonce);
+								this.messages = this.messages.reverse();
 								
-							}
-							this.open();
+								if(this.messages.length > 0)
+								{
+									this.current_message = this.messages.pop();
+									this.open();
+								}
+							} // else: no new messages
 						}
 						else {
 							console.log("ERROR. Messages transmission error.");
