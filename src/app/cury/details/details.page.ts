@@ -1,5 +1,5 @@
 import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {ImageOverlay} from '../../additions/overlay/image-overlay.component';
+import {ImageOverlay} from '../../components/overlay/image-overlay.component';
 import {DetailsController} from './details.controller.service';
 import {IonSlides} from '@ionic/angular';
 import {Router} from '@angular/router';
@@ -12,7 +12,7 @@ import {StorageService} from '../../storage.service';
 })
 export class DetailsPage implements OnInit
 {
-    @ViewChild('overlay') overlay: ImageOverlay;
+    @ViewChild('detailsOverlay') overlay: ImageOverlay;
     @ViewChild('slides') slides: IonSlides;
     
     current_number:number = 1;

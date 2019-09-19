@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { FeedbackPage } from './feedback.page';
-import {ImageOverlayModule} from '../../additions/overlay/image-overlay.module';
+import {ImageOverlayModule} from '../../components/overlay/image-overlay.module';
 
 const routes: Routes = [
 	{

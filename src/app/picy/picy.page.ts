@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Events, MenuController} from '@ionic/angular';
-import {ImageOverlay} from '../additions/overlay/image-overlay.component';
+import {ImageOverlay} from '../components/overlay/image-overlay.component';
 import {PicyController, PicyObject} from './picy.controller.service';
 
 
@@ -13,7 +13,7 @@ export class PicyPage implements OnDestroy {
 
 	@ViewChild("rightsElem") rights_element:ElementRef;
 	@ViewChild("imgElem") image_element:ElementRef;
-	@ViewChild("overlay") overlay:ImageOverlay;
+	@ViewChild("picyOverlay") overlay:ImageOverlay;
 	
 	loading:boolean = true;
 	
@@ -25,7 +25,7 @@ export class PicyPage implements OnDestroy {
 	
 	ionViewWillEnter() {
 		this.picyController.setLoadingFinishedCallback(this.galleryLoadingFinishedCallback.bind(this));
-		this.picyController.setMenuLoadingFinishedCallback(this.menuLoadingFinishedCallback.bind(this));
+		this.picyController.setGalleryLoadingFinishedCallback(this.menuLoadingFinishedCallback.bind(this));
 		this.loading = true;
 		this.menuCtrl.enable(true, "picyMenu");
 		this.events.subscribe("picy:MenuSelected", this.select.bind(this));

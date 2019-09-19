@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {IiiFObject} from '../../../data/IiiFObject';
 import {DataLoader} from '../../../data/DataLoader';
-import {LidoObject} from '../../../data/LidoObject';
+import {LidoAppellation, LidoConcept, LidoObject} from '../../../data/LidoObject';
 import {StorageService} from '../../storage.service';
 
 @Injectable({
@@ -38,7 +38,7 @@ export class DetailsController
 						.then((lidoObject:LidoObject) =>
 						{
 							let detailsObject = new DetailsObject();
-							detailsObject.load(lidoObject, iiiFObject, this.config, this.storageService, this.storageService.config.viewHeight * 0.4);
+							detailsObject.load(lidoObject, iiiFObject, this.config, this.storageService, this.storageService.configuration.viewHeight * 0.4);
 							this.displayData.push(detailsObject);
 							
 							this.count++;
@@ -153,6 +153,7 @@ export class DetailsObject
 			data = lido;
 		
 		let split = str.substring(3).split('/');
+		let res;
 		if(split.indexOf("[]") != -1)
 		{
 			let tmp = data;
@@ -181,17 +182,18 @@ export class DetailsObject
 			return result;
 		}
 		for(let sp of split)
-		{
 			if(data[sp] != undefined)
-			{
 				data = data[sp];
-			}
 			else
-			{
 				return null;
-			}
-		}
-		return String(data);
+		
+		if(data instanceof LidoAppellation)
+			res = data.get();
+		else if(data instanceof LidoConcept)
+			res = data.getTerm();
+		else
+			res = data;
+		return res;
 	}
 	
 	static testPattern(lido:LidoObject, iiif:IiiFObject, pattern:string, title?:string, data?:string)

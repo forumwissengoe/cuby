@@ -24,7 +24,7 @@ export class CuryControllerService {
 		this.currentlyLoading = true;
 		if(records.length < CuryControllerService.NUMBER_ELEMENTS)
 		{
-			DataLoader.requestCuryImages(this.storageService, this.storageService.config.cury_url,CuryControllerService.NUMBER_ELEMENTS - count)
+			DataLoader.requestCuryImages(this.storageService, this.storageService.configuration.cury_url,CuryControllerService.NUMBER_ELEMENTS - count)
 				.then( (imgs:IiiFObject[]) => {
 					for(let img of imgs)
 						this.images.push(img);
@@ -65,7 +65,7 @@ export class CuryControllerService {
 	
 	loadNewImages(number:number)
 	{
-		DataLoader.requestCuryImages(this.storageService, this.storageService.config.cury_url, number)
+		DataLoader.requestCuryImages(this.storageService, this.storageService.configuration.cury_url, number)
 			.then((imgs:IiiFObject[]) => {
 				for(let img of imgs)
 					this.images.push(img);

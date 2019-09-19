@@ -112,8 +112,8 @@ export class MilestonePage implements OnInit {
 			console.log("Publishing highscore...");
 			if(this.storageService.homyState && this.storageService.homyState.total_points != undefined)
 			{
-				if(this.storageService.homyConfig && this.storageService.homyConfig.highscore_url && this.storageService.homyConfig.highscore_url != "")
-					DataLoader.publishHomyHighscore(this.storageService.homyConfig.highscore_url, this.storageService.homyState.total_points)
+				if(this.storageService.configuration && this.storageService.configuration.homy_highscore_url && this.storageService.configuration.homy_highscore_url != "")
+					DataLoader.publishHomyHighscore(this.storageService.configuration.homy_highscore_url, this.storageService.homyState.total_points)
 						.then(() => console.log("Published highscore"))
 						.catch(() => console.log("Failed to publish highscore"));
 				else

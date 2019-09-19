@@ -17,6 +17,8 @@ import {FeedbackPageModal} from './modals/feedback/feedback-page-modal.component
 export class AppComponent {
 	
 	data = [];
+	secondMenu:boolean = false;
+	type:string = "grid";
 	
 	constructor(
 		private platform: Platform,
@@ -79,7 +81,7 @@ export class AppComponent {
 	
 	menuEntrySelected(record:string)
 	{
-		this.events.publish("picy:MenuSelected", record);
+		this.events.publish("picy:MenuSelected", this.type + ":" + record);
 	}
 	
 	readTag(messages:NdefRecord[])

@@ -15,6 +15,8 @@ const routes: Routes = [
   { path: 'milestone/:id', loadChildren: './homy/milestone/milestone.module#MilestonePageModule' },
   { path: 'covers', loadChildren: './picy/covers/covers.module#CoversPageModule' },
   { path: 'feedback', loadChildren: './modals/feedback/feedback.module#FeedbackPageModule' },
+  { path: 'gallery', loadChildren: './picy/gallery/gallery.module#GalleryPageModule' },  { path: 'map', loadChildren: './picy/map/map.module#MapPageModule' },
+
 ];
 
 @NgModule({

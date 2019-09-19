@@ -1,7 +1,7 @@
 import {LidoObject} from './LidoObject';
 import {IiiFObject} from './IiiFObject';
 import {StorageService} from '../app/storage.service';
-import {Data} from '@angular/router';
+import * as L from 'leaflet';
 
 export class DataLoader
 {
@@ -10,8 +10,19 @@ export class DataLoader
 	public static gallery:string[] = ["record_kuniweb_592553", "record_kuniweb_675675", "record_kuniweb_592566", "record_kuniweb_945664", "record_kuniweb_666297", "record_kuniweb_943917", "record_kuniweb_681925", "record_kuniweb_854325"];
 	
 	public static primeConfig:string = "http://wissenskiosk.uni-goettingen.de/cuby/cuby-config/primeconfig.json";
+	public static testConfig:string = "";
 	
 	public static emailTOKEN:string = "rRHMHNX7HY8LRYSuS462Fv9mFe8cPrywq8aQJrNp5S3JYh3bfPBTkmuJs9VWw7XM";
+	
+	// Leaflet map icons
+	public static leafletGreenIcon  = new L.Icon({iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41], iconUrl: "../assets/images/mapmarkers/marker-icon-2x-green.png", shadowUrl: "../assets/images/mapmarkers/marker-shadow.png"});
+	public static leafletBlueIcon   = new L.Icon({iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41], iconUrl: "../assets/images/mapmarkers/marker-icon-2x-blue.png", shadowUrl: "../assets/images/mapmarkers/marker-shadow.png"});
+	public static leafletRedIcon    = new L.Icon({iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41], iconUrl: "../assets/images/mapmarkers/marker-icon-2x-red.png", shadowUrl: "../assets/images/mapmarkers/marker-shadow.png"});
+	public static leafletBlackIcon  = new L.Icon({iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41], iconUrl: "../assets/images/mapmarkers/marker-icon-2x-black.png", shadowUrl: "../assets/images/mapmarkers/marker-shadow.png"});
+	public static leafletGreyIcon   = new L.Icon({iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41], iconUrl: "../assets/images/mapmarkers/marker-icon-2x-grey.png", shadowUrl: "../assets/images/mapmarkers/marker-shadow.png"});
+	public static leafletOrangeIcon = new L.Icon({iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41], iconUrl: "../assets/images/mapmarkers/marker-icon-2x-orange.png", shadowUrl: "../assets/images/mapmarkers/marker-shadow.png"});
+	public static leafletVioletIcon = new L.Icon({iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41], iconUrl: "../assets/images/mapmarkers/marker-icon-2x-violet.png", shadowUrl: "../assets/images/mapmarkers/marker-shadow.png"});
+	public static leafletYellowIcon = new L.Icon({iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41], iconUrl: "../assets/images/mapmarkers/marker-icon-2x-yellow.png", shadowUrl: "../assets/images/mapmarkers/marker-shadow.png"});
 	
 	constructor() {}
 	
@@ -64,8 +75,6 @@ export class DataLoader
 	
 	static loadHomyQuestions(url:string, type:string)
 	{
-		if(!url.endsWith(".php"))
-			url = url + "index.php";
 		
 		url = url + "?type=" + encodeURIComponent(type);
 		
@@ -99,9 +108,6 @@ export class DataLoader
 		// TODO Dummy location
 		let location = "all";
 		
-		if(!url.endsWith(".php"))
-			url = url + "index.php";
-		
 		return new Promise<any>( (resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open("POST", url, true);
@@ -126,9 +132,6 @@ export class DataLoader
 	
 	static requestHomyHighscore(url:string)
 	{
-		if(!url.endsWith(".php"))
-			url = url + "index.php";
-		
 		return new Promise<any>( (resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open("GET", url);
@@ -215,7 +218,7 @@ export class DataLoader
 	static async loadPicyConfigFile(storageService:StorageService):Promise<any>
 	{
 		let urls = ["../assets/config/picy-card-config-fallback.json"];
-		for(let u of storageService.config.display_config_picy)
+		for(let u of storageService.configuration.display_config_picy)
 			if(DataLoader.validURL(u))
 				urls.push(u);
 		let result = [];
@@ -249,7 +252,7 @@ export class DataLoader
 	static async loadDetailsConfigFile(storageService:StorageService):Promise<any>
 	{
 		let urls = ["../assets/config/details-card-config-fallback.json"];
-		for(let u of storageService.config.display_config_cury_details)
+		for(let u of storageService.configuration.display_config_cury_details)
 			if(DataLoader.validURL(u))
 				urls.push(u);
 		let result = [];
@@ -284,7 +287,7 @@ export class DataLoader
 	static async loadFeedbackConfigFile(storageService:StorageService):Promise<any>
 	{
 		let urls = ["../assets/config/feedback-card-config-fallback.json"];
-		for(let u of storageService.config.display_config_cury_feedback)
+		for(let u of storageService.configuration.display_config_cury_feedback)
 			if(DataLoader.validURL(u))
 				urls.push(u);
 		let result = [];
@@ -368,10 +371,9 @@ export class DataLoader
 							if(xhr.status == 200)
 							{
 								let obj = new LidoObject();
-								obj.loadLIDO(xhr.responseText, () => {
-									storageService.saveLidoLocal(obj);
-									resolve(obj);
-								});
+								obj.loadLIDO(xhr.responseText);
+								storageService.saveLidoLocal(obj);
+								resolve(obj);
 							}
 							else {
 								reject(xhr.status);

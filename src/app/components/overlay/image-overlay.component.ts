@@ -8,7 +8,7 @@ declare var OpenSeadragon: any;
 			       <div class="close_container">
 			           <ion-icon name="close-circle-outline" (click)="close()"></ion-icon>
 			       </div>
-				   <div id="mapid"></div>
+				   <div #container id="mapid"></div>
 			   </div>`,
 	styleUrls: ['./image-overlay.component.scss']
 })
@@ -16,6 +16,7 @@ declare var OpenSeadragon: any;
 export class ImageOverlay
 {
 	@ViewChild('overlay') overlay:ElementRef;
+	@ViewChild('container') container:ElementRef;
 	
 	image_service:any = null;
 	map:any = null;
@@ -41,13 +42,10 @@ export class ImageOverlay
 			if(this.image_service instanceof Array)
 				sequenceControl = this.image_service.length > 1;
 			
-			//console.log("Rebuild", this.image_service);
-			
 			if(this.map != null)
 			{
-				console.log("Destroy");
-				this.map.destroy();
-				this.map = null;
+				this.map.open(this.image_service);
+				return;
 			}
 			
 			this.map = OpenSeadragon({
@@ -64,9 +62,6 @@ export class ImageOverlay
 				showRotationControl: true,
 				tileSources: this.image_service
 			});
-			let a = this.map;
-			//console.log("Map", this.map);
-			
 			this.rebuild = false;
 		}
 	}

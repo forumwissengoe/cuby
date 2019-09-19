@@ -13,11 +13,13 @@ import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import {QRScanner} from '@ionic-native/qr-scanner/ngx';
 import {FeedbackPageModule} from './modals/feedback/feedback.module';
+import {DisplayPageModule} from './picy/display/display.module';
+import {MapPageModule} from './picy/map/map.module';
 
 @NgModule({
 	declarations: [AppComponent],
 	entryComponents: [],
-	imports: [BrowserModule, IonicModule.forRoot(),	IonicStorageModule.forRoot(), AppRoutingModule, FeedbackPageModule],
+	imports: [BrowserModule, IonicModule.forRoot(),	IonicStorageModule.forRoot(), AppRoutingModule, FeedbackPageModule, DisplayPageModule, MapPageModule],
 	providers: [
 		StatusBar,
 		SplashScreen,

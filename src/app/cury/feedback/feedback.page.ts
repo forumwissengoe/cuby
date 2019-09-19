@@ -1,5 +1,5 @@
 import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ImageOverlay} from '../../additions/overlay/image-overlay.component';
+import {ImageOverlay} from '../../components/overlay/image-overlay.component';
 import {FeedbackController} from './feedback.controller.service';
 import {Router} from '@angular/router';
 import {Level3Like, StorageService} from '../../storage.service';
@@ -12,7 +12,7 @@ import {AlertController} from '@ionic/angular';
 })
 export class FeedbackPage implements AfterViewChecked {
 	
-	@ViewChild("overlay") overlay:ImageOverlay;
+	@ViewChild("feedbackOverlay") overlay:ImageOverlay;
 	@ViewChild("imageElement") imageElement:ElementRef;
 	@ViewChild("imageElement2") imageElement2:ElementRef;
 	

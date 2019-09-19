@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import {IiiFObject} from '../../data/IiiFObject';
 import {DataLoader} from '../../data/DataLoader';
-import {LidoObject} from '../../data/LidoObject';
+import {LidoAppellation, LidoConcept, LidoObject} from '../../data/LidoObject';
 import {StorageService} from '../storage.service';
+import {log, watch} from '../../data/AOPFunctions';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PicyController {
 	
+	index:number = 0;
+	
 	dataset:PicyObject[] = [];
 	gallery:IiiFObject[] = [];
-	index:number = 0;
 	menuEntries = [];
 	records:string[] = ["record_kuniweb_945664", "record_kuniweb_666297", "record_kuniweb_943917", "record_kuniweb_681925", "record_kuniweb_854325"];
 	error_recieved:boolean = false;
@@ -20,7 +22,7 @@ export class PicyController {
 	config:any = null;
 	
 	loadingFinishedCallback:() => void;
-	menuLoadingFinishedCallback:() => void;
+	galleryLoadingFinishedCallback:() => void;
 	count:number = 0;
 	
 	constructor(private storageService:StorageService)
@@ -37,13 +39,11 @@ export class PicyController {
 			this.index = -1;
 			if(this.loadingFinishedCallback)
 				this.loadingFinishedCallback();
-			if(this.menuLoadingFinishedCallback)
-				this.menuLoadingFinishedCallback();
+			if(this.galleryLoadingFinishedCallback)
+				this.galleryLoadingFinishedCallback();
 			return;
 		}
 		
-		let first:boolean = true;
-
 		DataLoader.loadGallery(this.storageService, galleryRecords).then((value:{iiif:IiiFObject[], error:number[]}) => {
 			for(let iiif of value.iiif)
 			{
@@ -54,18 +54,15 @@ export class PicyController {
 				DataLoader.downloadLIDO(this.storageService, iiif.record_id).then((lidoObject:LidoObject) => {
 					
 					if(this.config != null)
-						data.load(lidoObject, iiif, this.config, this.storageService, this.storageService.config.viewHeight);
+						data.load(lidoObject, iiif, this.config, this.storageService, this.storageService.configuration.viewHeight);
 					else
 						console.log("Config is null");
 					
 					this.dataset.push(data);
-					if(first)
-					{
-						this.index = 0;
-						first = false;
-					}
+					this.index = 0;
 					
-					this.loadingFinishedCallback();
+					if(this.loadingFinishedCallback)
+						this.loadingFinishedCallback();
 					
 				}).catch((error) => {
 					this.error_recieved = true;
@@ -74,33 +71,38 @@ export class PicyController {
 				});
 			}
 			
-			let data = [];
-			let tmp = [];
-			for(let i = 0; i < this.gallery.length; i++)
-			{
-				let img;
-				if((img = this.storageService.loadLocalImage(this.gallery[i].record_id, this.storageService.config.viewWidth * 0.2, undefined, undefined, undefined, "square")) == null)
-				{
-					img = this.gallery[i].getThumbnailForAttributes(this.storageService.config.viewWidth * 0.2, undefined, undefined, undefined, "square");
-					this.storageService.saveLocalImage(this.gallery[i].record_id, img, this.storageService.config.viewWidth * 0.2, undefined, undefined, undefined, "square");
-				}
-				tmp[i % 4] = {img: img,	record: this.gallery[i].record_id};
-				if(i % 4 == 3)
-				{
-					data.push(tmp);
-					tmp = [];
-				}
-			}
-			if(tmp != [])
-				data.push(tmp);
-				
-			console.log("Gallery", data);
-			this.menuEntries = data;
+			this.buildGallery();
 			
-			if(this.menuLoadingFinishedCallback != null)
-				this.menuLoadingFinishedCallback();
+			if(this.galleryLoadingFinishedCallback != null)
+				this.galleryLoadingFinishedCallback();
 			
 		});
+	}
+	
+	buildGallery()
+	{
+		let data = [];
+		let tmp = [];
+		for(let i = 0; i < this.gallery.length; i++)
+		{
+			let img;
+			if((img = this.storageService.loadLocalImage(this.gallery[i].record_id, this.storageService.configuration.viewWidth * 0.2, undefined, undefined, undefined, "square")) == null)
+			{
+				img = this.gallery[i].getThumbnailForAttributes(this.storageService.configuration.viewWidth * 0.2, undefined, undefined, undefined, "square");
+				this.storageService.saveLocalImage(this.gallery[i].record_id, img, this.storageService.configuration.viewWidth * 0.2, undefined, undefined, undefined, "square");
+			}
+			tmp[i % 4] = {img: img,	record: this.gallery[i].record_id};
+			if(i % 4 == 3)
+			{
+				data.push(tmp);
+				tmp = [];
+			}
+		}
+		if(tmp != [])
+			data.push(tmp);
+		
+		console.log("Gallery", data);
+		this.menuEntries = data;
 	}
 	
 	setLoadingFinishedCallback(cb:() => void)
@@ -108,9 +110,35 @@ export class PicyController {
 		this.loadingFinishedCallback = cb;
 	}
 	
-	setMenuLoadingFinishedCallback(cb:() => void)
+	setGalleryLoadingFinishedCallback(cb:() => void)
 	{
-		this.menuLoadingFinishedCallback = cb;
+		this.galleryLoadingFinishedCallback = cb;
+	}
+	
+	gallerySelectAll()
+	{
+		this.gallery = [];
+		for(let element of this.dataset)
+			this.gallery.push(element.iiif);
+		this.buildGallery();
+	}
+	
+	gallerySelectPlace()
+	{
+		this.gallery = [];
+		for(let element of this.dataset)
+			if(element.hasPlace)
+				this.gallery.push(element.iiif);
+		this.buildGallery();
+	}
+	
+	gallerySelectTime()
+	{
+		this.gallery = [];
+		for(let element of this.dataset)
+			if(element.hasTime)
+				this.gallery.push(element.iiif);
+		this.buildGallery();
 	}
 	
 	getInitIndex():number
@@ -124,6 +152,7 @@ export class PicyController {
 		if(this.index > this.dataset.length -1)
 			this.index = this.dataset.length -1;
 		return this.index;
+
 	}
 	
 	getPreviousIndex():number
@@ -151,6 +180,11 @@ export class PicyObject
 	image_service:any = null;
 	rights:string = "";
 	
+	iiif:IiiFObject = undefined;
+	lido:LidoObject = undefined;
+	hasPlace:boolean = false;
+	hasTime:boolean = false;
+	
 	cards:PicyObjectCard[] = [];
 	
 	set(title:string, image_thumbnail:string, images_service:any, rights:string, recordID:string)
@@ -164,7 +198,10 @@ export class PicyObject
 	
 	load(lido: LidoObject, iiif: IiiFObject, config: any, storageService: StorageService, viewHeight: number)
 	{
-		this.title = lido.title;
+		this.iiif = iiif;
+		this.lido = lido;
+		
+		this.title = lido.title.get();
 		if((this.image_thumbnail = storageService.loadLocalImage(iiif.record_id, undefined, viewHeight * 0.4)) == null)
 		{
 			this.image_thumbnail = iiif.getThumbnailForAttributes(undefined, viewHeight * 0.4);
@@ -173,6 +210,9 @@ export class PicyObject
 		this.image_service = iiif.getImageService();
 		this.rights = iiif.getAttributionForLanguage("de");
 		this.recordID = iiif.record_id;
+		
+		this.hasPlace = lido.hasPlace();
+		this.hasTime = lido.hasTime();
 		
 		if(config != null)
 		{
@@ -192,6 +232,8 @@ export class PicyObject
 								let x = {title: "", data: ""};
 								x.title = PicyObject.getLidoVariable(lido, s.title);
 								x.data = PicyObject.getLidoVariable(lido, s.data);
+								if(x.title == undefined || x.data == undefined)
+									continue;
 								if(s.pattern == undefined || PicyObject.testPattern(lido, s.pattern, x.title, x.data))
 									data.push(x);
 							}
@@ -215,6 +257,7 @@ export class PicyObject
 		
 		let split = str.substring(1).split('/');
 		let _lido = lido;
+		let res = null;
 		for(let sp of split)
 		{
 			if(_lido[sp] != undefined)
@@ -222,7 +265,14 @@ export class PicyObject
 			else
 				return null;
 		}
-		return String(_lido);
+		if(_lido instanceof LidoAppellation)
+			res = _lido.get();
+		else if(_lido instanceof LidoConcept)
+			res = _lido.getTerm();
+		else
+			res = _lido;
+		
+		return res;
 	}
 	
 	static testPattern(lido:LidoObject, pattern:string, title?:string, data?:string)
@@ -242,7 +292,6 @@ export class PicyObject
 		return new RegExp(_regex, _flag).test(variable)
 	}
 }
-
 
 export class PicyObjectCard
 {

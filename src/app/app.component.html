@@ -4,6 +4,25 @@
             <ion-header>
                 <ion-toolbar color="primary">
                     <ion-title>Sammelsurium</ion-title>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="secondMenu = !secondMenu">
+                            <ion-icon name="ios-arrow-down" *ngIf="!secondMenu"></ion-icon>
+                            <ion-icon name="ios-arrow-up" *ngIf="secondMenu"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+                <ion-toolbar color="primary" *ngIf="secondMenu">
+                    <ion-segment (ionChange)="type = $event.detail.value">
+                        <ion-segment-button value="grid" checked>
+                            <ion-icon name="keypad"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="map">
+                            <ion-icon name="map"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="time">
+                            <ion-icon name="clock"></ion-icon>
+                        </ion-segment-button>
+                    </ion-segment>
                 </ion-toolbar>
             </ion-header>
             <ion-content>

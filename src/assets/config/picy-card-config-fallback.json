@@ -14,14 +14,14 @@
                 "title": "Zitieren und Nachnutzen",
                 "structure": [
                     {"title": "Zitierlink", "data": "/handleLink"},
-                    {"title": "LIDO-XML", "data": "/recordID"}
+                    {"title": "LIDO-XML", "data": "/lidoRecID"}
                 ]
             },
             {
                 "title": "Klassifikationen, Taxonomien und Schlagworte",
                 "structure": [
-                    {"title": "Objektgattung", "data": "/objectWorkType/0/term"},
-                    {"title": "Oberbegriffsdatei", "data": "/classification/0/term"}
+                    {"title": "Objektgattung", "data": "/objectWorkType/0"},
+                    {"title": "Oberbegriffsdatei", "data": "/classification/0"}
                 ]
             }
         ]

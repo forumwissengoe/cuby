@@ -57,7 +57,9 @@ export class QuestionController
 		
 		DataLoader.loadHomyQuestions(this.categoryURL, this.categoryID).then(questions =>
 		{
+			// TODO change back to return
 			if(!questions.questions || !questions.type)
+				//questions.type = "break";
 				return;
 				
 			if(questions.type.startsWith("qtype_01"))
@@ -105,41 +107,73 @@ export class QuestionController
 					})
 				}
 			}
-		})
-	}
-	
-	/*_loadAllQuestions()
-	{
-		this.available = 0;
-
-		if(this.storageService.questionsConfig.categories && Array.isArray(this.storageService.questionsConfig.categories))
-		{
-			for(let cat of this.storageService.questionsConfig.categories)
+			
+			else if(questions.type.startsWith("qtype_03"))
 			{
-				if(cat.name == this.categoryName)
+				this.categoryType = 3;
+				let first:boolean = true;
+				for(let q of questions.questions)
 				{
-					let first:boolean = true;
-					for(let q of cat.questions.questions)
+					let obj = new QuestionType3();
+					obj.loadQData(q.question, q.position, q.answers, q.correct);
+					this.allQuestions.push(obj);
+					this.available++;
+					
+					if(first)
 					{
-						let obj = new QuestionType1();
-						obj.loadQData(this.storageService, new QDataType1(q.question, q.records, q.answers, q.correct)).then(() => {
-							if(obj.answers.length != 4)
-								return;
-							this.allQuestions.push(obj);
-							this.available++;
-							if(first)
-							{
-								first = false;
-								this.currentQuestion = this.allQuestions[this.questionIndex];
-							}
-							if(this.loadingFinishedCallback != null)
-								this.loadingFinishedCallback();
-						});
+						first = false;
+						this.currentQuestion = this.allQuestions[this.questionIndex];
 					}
+					
+					if(this.loadingFinishedCallback != null)
+						this.loadingFinishedCallback();
 				}
 			}
-		}
-	}*/
+			
+			else if(questions.type.startsWith("qtype_04"))
+			{
+				this.categoryType = 4;
+				let first:boolean = true;
+				for(let q of questions.questions)
+				{
+					let obj = new QuestionType4();
+					obj.loadQData(q.question, q.timeframe, q.timestamp, q.answers, q.correct);
+					this.allQuestions.push(obj);
+					this.available++;
+					
+					if(first)
+					{
+						first = false;
+						this.currentQuestion = this.allQuestions[this.questionIndex];
+					}
+					
+					if(this.loadingFinishedCallback != null)
+						this.loadingFinishedCallback();
+				}
+			}
+			
+			/*// TODO change to questions.type
+			else if(this.categoryID.startsWith("qtype_03"))
+			{
+				this.categoryType = 3;
+				this.allQuestions.push(new QuestionType3().loadQData());
+				this.currentQuestion = this.allQuestions[this.questionIndex];
+				this.available = 1;
+				if(this.loadingFinishedCallback != null)
+					this.loadingFinishedCallback();
+			}
+			
+			else if(this.categoryID.startsWith("qtype_04"))
+			{
+				this.categoryType = 4;
+				this.allQuestions.push(new QuestionType4().loadQData());
+				this.currentQuestion = this.allQuestions[this.questionIndex];
+				this.available = 1;
+				if(this.loadingFinishedCallback != null)
+					this.loadingFinishedCallback();
+			}*/
+		});
+	}
 	
 	setLoadingFinishedCallback(cb:() => void)
 	{
@@ -156,36 +190,54 @@ export class QuestionController
 	
 	getCurrentQuestion()
 	{
-		this.currentQuestion = this.allQuestions[this.questionIndex];
-		let tmp:{question:string, images:ImagePair[], answers:Answer[], record_id:string, correct:number} =
-			{
-				question: this.currentQuestion.question,
-				images: [],
-				answers: [],
-				record_id: this.currentQuestion.record_id,
-				correct: this.currentQuestion.correct
-			};
-		
-		for(let i = 0; i < this.currentQuestion.answers.length; i++)
-			tmp.answers[i] = {answer: this.currentQuestion.answers[i], selected: false, correct: false, wrong: false};
-		
-		let x = null;
-		let w = this.storageService.config.viewWidth * (this.categoryType == 1 ? 0.5 : 0.9);
-		for(let i = 0; i < this.currentQuestion.images.length; i++)
+		/*if(this.categoryType === 3)
 		{
-			if(x == null)
-				x = {img: this.currentQuestion.images[i].getThumbnailForAttributes(w), service: this.currentQuestion.images[i].getImageService(), id: this.currentQuestion.images[i].record_id };
-			else
-			{
-				tmp.images.push({a: x, b: {img: this.currentQuestion.images[i].getThumbnailForAttributes(w), service: this.currentQuestion.images[i].getImageService(), id: this.currentQuestion.images[i].record_id }});
-				x = null;
-			}
+		
 		}
-		if(x != null)
-			tmp.images.push({a: x, b: {img: "", service: [], id: ""} });
+		else if(this.categoryType === 4)
+		{
+			let tmp = this.allQuestions[this.questionIndex];
+			for(let i = 0; i < tmp)
+		}*/
 		
+		this.currentQuestion = this.allQuestions[this.questionIndex];
 		
-		return tmp;
+		if(this.currentQuestion.hasImages)
+		{
+			let tmp:{question:string, images:ImagePair[], answers:Answer[], record_id:string, correct:number} =
+				{
+					question: this.currentQuestion.question,
+					images: [],
+					answers: [],
+					record_id: this.currentQuestion.record_id,
+					correct: this.currentQuestion.correct
+				};
+			
+			for(let i = 0; i < this.currentQuestion.answers.length; i++)
+				tmp.answers[i] = {answer: this.currentQuestion.answers[i], selected: false, correct: false, wrong: false};
+			
+			let x = null;
+			let w = this.storageService.configuration.viewWidth * (this.categoryType == 1 ? 0.5 : 0.9);
+			for(let i = 0; i < this.currentQuestion.images.length; i++)
+			{
+				if(x == null)
+					x = {img: this.currentQuestion.images[i].getThumbnailForAttributes(w), service: this.currentQuestion.images[i].getImageService(), id: this.currentQuestion.images[i].record_id };
+				else
+				{
+					tmp.images.push({a: x, b: {img: this.currentQuestion.images[i].getThumbnailForAttributes(w), service: this.currentQuestion.images[i].getImageService(), id: this.currentQuestion.images[i].record_id }});
+					x = null;
+				}
+			}
+			if(x != null)
+				tmp.images.push({a: x, b: {img: "", service: [], id: ""} });
+			return tmp;
+		}
+		else {
+			let tmp = this.allQuestions[this.questionIndex];
+			for(let i = 0; i < tmp.answers.length; i++)
+				tmp.answers[i] = {answer: tmp.answers[i], selected: false, correct: false, wrong: false};
+			return tmp;
+		}
 	}
 }
 
@@ -199,6 +251,8 @@ export class QuestionType1
 	correct:number = 0;
 
 	record_id:string = "";
+	
+	hasImages:boolean = true;
 	
 	loadDummy(storageService:StorageService)
 	{
@@ -223,6 +277,7 @@ export class QuestionType1
 			this.correct = qdata.correct;
 			this.record_id = qdata.records[Math.random() * Math.floor(qdata.records.length)];
 
+ 		
 			for(let a of qdata.answers)
 				if(a && a.replace(" ", "") != "")
 					this.answers.push(a);
@@ -263,6 +318,8 @@ export class QuestionType2
 
 	record_id:string = "";
 	
+	hasImages:boolean = true;
+	
 	loadQData(storageService:StorageService, qdata:QDataType2)
 	{
 		return new Promise((resolve, reject) => {
@@ -299,3 +356,55 @@ export class QDataType2
 	}
 }
 
+export class QuestionType3
+{
+	question:string = "";
+	position:number[] = [];
+	answers:string[] = [];
+	correct:number = 0;
+	
+	hasImages:boolean = false;
+	
+	loadQData(question:string, position:number[], answers:string[], correct:number)
+	{
+		this.question = "Wer ist hier geboren?";
+		this.position = [51.534399, 9.934757];
+		this.answers = ["Hans Zimmer", "Frauke Ludowig", "Herbert Grönemeyer", "Bully Herbig"];
+		this.correct = 2;
+		
+		this.question = question;
+		this.position = position;
+		this.answers = answers;
+		this.correct = correct;
+		
+		return this;
+	}
+}
+
+export class QuestionType4
+{
+	question:string = "";
+	timeframe:number[] = [];
+	timestamp:number = 0;
+	answers:string[] = [];
+	correct:number = 0;
+	
+	hasImages:boolean = false;
+	
+	loadQData(question:string, timeframe:number[], timestamp:number, answers:string[], correct:number)
+	{
+		this.question = "Wer wurde hier geboren?";
+		this.timeframe = [1700, 1900];
+		this.timestamp = 1769;
+		this.answers = ["Napoleon Bonaparte", "Kleopatra VII. Philopator", "Otto von Bismarck", "Christoph Kolumbus"];
+		this.correct = 0;
+		
+		this.question = question;
+		this.timeframe = timeframe;
+		this.timestamp = timestamp;
+		this.answers = answers;
+		this.correct = correct;
+		
+		return this;
+	}
+}

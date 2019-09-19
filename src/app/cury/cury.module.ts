@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CuryPage } from './cury.page';
 import {SwingModule} from 'angular2-swing';
-import {ImageOverlayModule} from '../additions/overlay/image-overlay.module';
+import {ImageOverlayModule} from '../components/overlay/image-overlay.module';
 
 const routes: Routes = [
   {

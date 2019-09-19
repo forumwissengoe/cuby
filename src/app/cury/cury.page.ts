@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Direction, StackConfig} from 'angular2-swing';
 import {CuryControllerService} from './cury.controller.service';
 import {Router} from '@angular/router';
-import {ImageOverlay} from '../additions/overlay/image-overlay.component';
+import {ImageOverlay} from '../components/overlay/image-overlay.component';
 import {StorageService} from '../storage.service';
 
 @Component({

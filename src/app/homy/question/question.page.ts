@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ImageOverlay} from '../../additions/overlay/image-overlay.component';
+import {ImageOverlay} from '../../components/overlay/image-overlay.component';
 import {QuestionController} from './question.controller.service';
-import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {StorageService} from '../../storage.service';
+import {Map, marker, tileLayer} from 'leaflet';
 
 @Component({
   selector: 'app-question',
@@ -11,7 +12,7 @@ import {StorageService} from '../../storage.service';
 })
 export class QuestionPage implements OnInit {
 	
-	@ViewChild('overlay') overlay:ImageOverlay;
+	@ViewChild('questionOverlay') overlay:ImageOverlay;
 	
 	//title:string = "Frage 1 / 1";
 	title:string = "";
@@ -21,10 +22,16 @@ export class QuestionPage implements OnInit {
 	
 	type:number = -1;
 	
-	question:{question:string, images:ImagePair[], answers:Answer[], record_id: string, correct:number} =
+	map:any = null;
+	currentMarker:any = null;
+	
+	question:{question:string, images:ImagePair[], position: number[], timeframe: number[], timestamp: number, answers:Answer[], record_id: string, correct:number} =
 		{
 			question: "",
 			images: [],
+			position: [],
+			timeframe: [],
+			timestamp: 0,
 			answers: [],
 			record_id: "",
 			correct: 0
@@ -57,7 +64,7 @@ export class QuestionPage implements OnInit {
 		this.title = "";
 		this.total = 0;
 		this.current = 0;
-		this.question = { question: "", images: [], answers: [], record_id: "", correct: 0 };
+		this.question = { question: "", images: [], position: [], timeframe: [], timestamp: 0, answers: [], record_id: "", correct: 0 };
 		
 		this.questionController.categoryID = this.route.snapshot.paramMap.get('id');
 		this.questionController.setLoadingFinishedCallback(this.loadingFinishedCallback.bind(this));
@@ -66,15 +73,22 @@ export class QuestionPage implements OnInit {
 
 	loadingFinishedCallback()
 	{
+		this.total = this.questionController.available;
+		this.title = this.questionController.categoryName;
+		this.type = this.questionController.categoryType;
+		
 		if(this.first)
 		{
 			this.first = false;
 			this.setQuestion();
 			console.log("Loading finished");
 		}
-		this.total = this.questionController.available;
-		this.title = this.questionController.categoryName;
-		this.type = this.questionController.categoryType; // Loading finished
+	}
+	
+	ionViewDidEnter ()
+	{
+		if(this.questionController.categoryID === "qtype_03_01")
+			this.initMap();
 	}
 	
   	openImage(image:{img:string, service:any[], id:string})
@@ -130,6 +144,24 @@ export class QuestionPage implements OnInit {
 		}, 1000);
 	}
 	
+	initMap()
+	{
+		try {
+			this.map = new Map('map').setView([51.534399, 9.934757], 12);
+			tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			}).addTo(this.map);
+		} catch(e) {
+			console.log("Map creation error: ", e);
+		}
+		
+		if(this.type == 3 && !this.currentMarker)
+		{
+			this.currentMarker = marker([this.question.position[0], this.question.position[1]]);
+			this.currentMarker.addTo(this.map);
+		}
+	}
+	
 	quizFinished()
 	{
 		if(this.questionController.next() != -1)
@@ -147,6 +179,10 @@ export class QuestionPage implements OnInit {
 	
 	setQuestion()
 	{
+		if(this.currentMarker != null)
+			this.currentMarker.remove();
+		this.currentMarker = null;
+		
 		for(let i = 0; i < this.question.answers.length; i++)
 		{
 			this.question.answers[i].correct  = false;
@@ -155,6 +191,18 @@ export class QuestionPage implements OnInit {
 		}
 		this.question = this.questionController.getCurrentQuestion();
 		this.current = this.questionController.available != 0 ? this.questionController.questionIndex +1 : 0;
+		
+		if(this.type == 3 && this.map != null)
+		{
+			this.currentMarker = marker([this.question.position[0], this.question.position[1]]);
+			this.currentMarker.addTo(this.map);
+			this.map.flyTo(this.question.position, 12);
+		}
+		
+		if(this.type == 4)
+		{
+			this.question.timestamp = (this.question.timestamp - this.question.timeframe[0]) / (this.question.timeframe[1] - this.question.timeframe[0]);
+		}
 	}
 	
 	setAnswerStyle(answer:Answer)

@@ -8,7 +8,7 @@
     </ion-toolbar>
 </ion-header>
 
-<image-overlay #overlay></image-overlay>
+<image-overlay #detailsOverlay></image-overlay>
 
 <ion-content padding-top>
     <div class="spinner" *ngIf="loading">
@@ -25,23 +25,6 @@
                     <p class="entry_label">{{item.label}}</p>
                     <p class="entry_data">{{item.value}}</p>
                 </div>
-
-                <!--<div>
-                    <p class="entry_label">Standort</p>
-                    <p class="entry_data">{{data.location}}</p>
-                </div>
-                <div>
-                    <p class="entry_label">Datierung</p>
-                    <p class="entry_data">{{data.date}}</p>
-                </div>
-                <div>
-                    <p class="entry_label">Beteiligte</p>
-                    <p class="entry_data">{{data.persons}}</p>
-                </div>
-                <div>
-                    <p class="entry_label">Maße / Umfang</p>
-                    <p class="entry_data">{{data.size}}</p>
-                </div>-->
             </div>
 
             <div class="assign_area">

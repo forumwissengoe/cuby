@@ -88,7 +88,7 @@ export class NfcPickPagePage implements OnInit {
 	loadObjekt(record:string)
 	{
 		DataLoader.downloadManifest(this.storageService, record).then((iiif:IiiFObject) => {
-			this.image = iiif.getThumbnailForAttributes(undefined, this.storageService.config.viewHeight * 0.3);
+			this.image = iiif.getThumbnailForAttributes(undefined, this.storageService.configuration.viewHeight * 0.3);
 			this.title_data = iiif.label;
 			this.loading = false;
 			this.recordID = record;

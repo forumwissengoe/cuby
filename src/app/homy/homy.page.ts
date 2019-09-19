@@ -35,10 +35,10 @@ export class HomyPage implements OnInit {
 	{
 		let region = "all";
 		
-		if(this.storageService && this.storageService.homyConfig && this.storageService.homyConfig.highscore_url && this.storageService.homyConfig.highscore_url != "")
+		if(this.storageService && this.storageService.configuration && this.storageService.configuration.homy_highscore_url && this.storageService.configuration.homy_highscore_url != "")
 		{
 			console.log("Loading Other players");
-			DataLoader.requestHomyHighscore(this.storageService.homyConfig.highscore_url)
+			DataLoader.requestHomyHighscore(this.storageService.configuration.homy_highscore_url)
 				.then((data) => {
 					if(data[region] && Array.isArray(data[region]))
 					{

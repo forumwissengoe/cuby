@@ -39,7 +39,7 @@ export class FeedbackController
 						.then((lido:LidoObject) =>
 						{
 							let object = new FeedbackObject();
-							object.load(lido, iiif, this.config, this.storageService, this.storageService.config.viewHeight * 0.3);
+							object.load(lido, iiif, this.config, this.storageService, this.storageService.configuration.viewHeight * 0.3);
 							this.displayData.push(object);
 							
 							this.count++;

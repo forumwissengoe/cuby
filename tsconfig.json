@@ -13,7 +13,8 @@
         "removeComments": false,
         "noImplicitAny": false,
         "importHelpers": true,
-        "target": "es5",
+        "target": "es6",
+        "downlevelIteration": true,
         "typeRoots": [
             "node_modules/@types"
         ],

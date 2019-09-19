@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { MilestonePage } from './milestone-page.component';
-import {ProgressBarModule} from '../../additions/progress-bar/progress-bar.module';
+import {ProgressBarModule} from '../../components/progress-bar/progress-bar.module';
 
 const routes: Routes = [
   {

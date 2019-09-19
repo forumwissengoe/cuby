@@ -1,0 +1,19 @@
+ion-toolbar {
+    --ion-color-primary: var(--university-blue);
+    --background: var(--university-blue);
+    --color: white;
+
+    ion-button {
+        --color: white !important;
+        --font-color: white !important;
+    }
+
+    ion-menu-button {
+        --color: white;
+    }
+}
+
+.map_container_p {
+    width: 100%;
+    height: 100%;
+}

@@ -114,6 +114,73 @@ ion-toolbar {
     }
 }
 
+.type3 {
+
+    p {
+        margin: 0 auto;
+        padding-bottom: 2vh;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .bg_image {
+        width: 100%;
+        height: 40vh;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .map {
+            height: 100%;
+        }
+    }
+
+    ion-list {
+
+        padding-top: 3vh;
+        margin-bottom: 0;
+
+        ion-item {
+
+            --padding-start: 0;
+            font-size: 12pt;
+        }
+    }
+}
+
+.type4 {
+
+    p {
+        margin: 0 auto;
+        padding-bottom: 2vh;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .bg_image {
+        width: 100%;
+        height: 40vh;
+
+        svg {
+            position: relative;
+            top: 50%;
+            transform: translate(0%, -50%);
+        }
+    }
+
+    ion-list {
+
+        padding-top: 3vh;
+        margin-bottom: 0;
+
+        ion-item {
+
+            --padding-start: 0;
+            font-size: 12pt;
+        }
+    }
+}
+
 .answers {
 
     min-height: 40px;

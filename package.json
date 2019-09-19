@@ -33,6 +33,7 @@
         "@ionic-native/status-bar": "^5.2.0",
         "@ionic/angular": "^4.6.0",
         "@ionic/storage": "^2.2.0",
+        "@types/jquery": "^3.3.31",
         "base-64": "^0.1.0",
         "cordova-android": "^8.0.0",
         "cordova-ios": "^5.0.1",
@@ -50,7 +51,7 @@
         "cordova-sqlite-storage": "^3.2.0",
         "core-js": "^2.5.4",
         "jquery": "^3.4.1",
-        "leaflet": "^1.4.0",
+        "leaflet": "^1.5.1",
         "leaflet-iiif": "^2.0.1",
         "openseadragon": "^2.4.0",
         "otp-crypto": "^4.1.0",
@@ -59,6 +60,10 @@
         "rxjs-compat": "^6.4.0",
         "stream": "0.0.2",
         "timers": "^0.1.1",
+        "ts-optchain": "^0.1.8",
+        "vis-timeline": "^5.1.0",
+        "xml-js": "^1.6.11",
+        "xmljs": "^0.3.2",
         "zone.js": "~0.8.29"
     },
     "devDependencies": {

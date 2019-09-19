@@ -32,7 +32,7 @@ export class CategoriesPage implements OnInit {
 	categoriesLoaded()
 	{
 		let x = null;
-		for(let cat of this.storageService.homyConfig.categories)
+		for(let cat of this.storageService.configuration.homy_categories)
 		{
 			if(x == null)
 				x = { name: cat.name, id: cat.type, img: cat.cover, url: cat.url, locked: false };
