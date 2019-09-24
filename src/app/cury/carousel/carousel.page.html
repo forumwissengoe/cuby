@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/home']">
+                <ion-icon name="ios-home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <p class="head_counter">< {{current_number}}/{{total_number}} ></p>
+        <ion-title>Details</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="openCury()">
+                <ion-icon name="ios-photos"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<image-overlay #carouselOverlay></image-overlay>
+
+<ion-content padding-top>
+    <div class="spinner" *ngIf="loading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-slides pager="false" [options]="{effect: 'flip', loop: true}" #slides (ionSlideDidChange)="slideDidChange($event)" *ngIf="!loading">
+        <ion-slide *ngFor="let data of entries">
+            <div class="details_data_area" *ngIf="!data.selected">
+                <div class="image_container">
+                    <img src="{{data.thumbnail}}" alt="Image loading failed" (click)="overlayOpen(data)">
+                </div>
+                <div *ngFor="let item of data.entries">
+                    <p class="entry_label">{{item.label}}</p>
+                    <p class="entry_data">{{item.value}}</p>
+                </div>
+            </div>
+            <div class="feedback_data_area" *ngIf="data.selected">
+                <div id="head-left" (click)="data.feedbackObject.imageChecked = !data.feedbackObject.imageChecked">
+                    <img src="{{data.feedbackObject.thumbnail}}" alt="Image not loaded" [ngStyle]="{'opacity': data.feedbackObject.imageChecked ? '0.2' : '1.0'}">
+                    <img src="../../../assets/images/image-checked.svg" alt="Checked" [ngStyle]="{'opacity': data.feedbackObject.imageChecked ? '1.0' : '0.0', 'width': '50%'}">
+                </div>
+                <div id="head-right">
+                    <p>Was macht mich interessant?</p>
+                </div>
+
+                <ion-list>
+                    <ion-item *ngFor="let item of data.feedbackObject.entries">
+                        <ion-checkbox [(ngModel)]="item.check"></ion-checkbox>
+                        <ion-label>
+                            <h3 text-wrap>{{item.label}}</h3>
+                            <p text-wrap>{{item.value}}</p>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label style="max-width: 100%">
+                            <h3>Kommentar</h3>
+                            <textarea placeholder="Wenn Sie einen anderen Aspekt interessant finden, oder einen allgemeinen Kommentar zum Objekt abgeben möchten, können Sie das hier tun."
+                                          [(ngModel)]="data.feedbackObject.comment">
+                            </textarea>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </ion-slide>
+    </ion-slides>
+    <div class="assign_area" *ngIf="!loading && entries[index]">
+        <ion-button class="sending" fill="outline" color="success" no-padding (click)="send()" *ngIf="entries[index].selected">Senden</ion-button>
+        <ion-button class="voting"  fill="clear" slot="icon-only" no-padding (click)="voted(true)" *ngIf="!entries[index].selected">
+            <ion-icon name="checkmark-circle-outline" color="success" no-padding></ion-icon>
+        </ion-button>
+        <ion-button class="voting"  fill="clear" slot="icon-only" no-padding (click)="voted(false)" *ngIf="!entries[index].selected">
+            <ion-icon name="close-circle-outline" color="danger" no-padding></ion-icon>
+        </ion-button>
+    </div>
+</ion-content>

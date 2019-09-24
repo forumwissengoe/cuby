@@ -102,6 +102,16 @@ export class MilestonePage implements OnInit {
 		await alert.present();
 	}
 	
+	async warnPublishingNotPossible()
+	{
+		const alert = await this.alertCtrl.create({
+			header: "Achtung",
+			message: `<b>Dein Highscore konnte nicht übertragen werden. Bitte überprüfe deine Internetverbindung</b>`,
+			buttons: ["OK"]
+		});
+		await alert.present();
+	}
+	
   	
   	
   	publishHighscore(should:boolean)
@@ -115,12 +125,12 @@ export class MilestonePage implements OnInit {
 				if(this.storageService.configuration && this.storageService.configuration.homy_highscore_url && this.storageService.configuration.homy_highscore_url != "")
 					DataLoader.publishHomyHighscore(this.storageService.configuration.homy_highscore_url, this.storageService.homyState.total_points)
 						.then(() => console.log("Published highscore"))
-						.catch(() => console.log("Failed to publish highscore"));
+						.catch(() => this.warnPublishingNotPossible());
 				else
-					console.log("Failed to find homys config or highscore_url");
+					this.warnPublishingNotPossible();
 			}
 			else
-				console.log("Failed to find homys state or total_points");
+				this.warnPublishingNotPossible();
 		}
 		else
 		{

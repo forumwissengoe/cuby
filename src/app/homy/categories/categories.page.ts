@@ -35,12 +35,12 @@ export class CategoriesPage implements OnInit {
 		for(let cat of this.storageService.configuration.homy_categories)
 		{
 			if(x == null)
-				x = { name: cat.name, id: cat.type, img: cat.cover, url: cat.url, locked: false };
+				x = { name: cat.name, id: cat.type, img: cat.cover, url: cat.url, locked: cat.locked };
 			else
 			{
 				this.categoryPairs.push({
 					a: x,
-					b: { name: cat.name, id: cat.type, img: cat.cover, url: cat.url, locked: false }
+					b: { name: cat.name, id: cat.type, img: cat.cover, url: cat.url, locked: cat.locked }
 				});
 				x = null;
 			}

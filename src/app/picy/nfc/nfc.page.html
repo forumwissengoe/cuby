@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Neues Objekt entdeckt...</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<image-overlay #nfcOverlay></image-overlay>
+
+<ion-content>
+    <div class="spinner" *ngIf="loading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <div *ngIf="!loading && !failed">
+        <h3 padding>{{dataObject.title}}</h3>
+        <div class="image_container_p" (click)="openOverlay(dataObject.image_service)" padding>
+            <img src="{{dataObject.image_thumbnail}}" alt="Image did not load" #nfcImgElem>
+            <ion-icon name="information-circle-outline" (click)="image_information($event)"></ion-icon>
+            <div class="rights" #nfcRightsElem>
+                <p>Bereitgestellt von:</p>
+                {{dataObject.rights}}
+            </div>
+        </div>
+        <ion-list padding>
+            <ion-card *ngFor="let card of dataObject.cards">
+                <ion-card-header (click)="card.min = !card.min">
+                    <div class="label-left"><ion-label>{{card.title}}</ion-label></div>
+                    <div class="icon-right"><ion-icon [name]="card.min ? 'ios-arrow-forward' : 'ios-arrow-down'"></ion-icon></div>
+                </ion-card-header>
+                <ion-card-content *ngIf="!card.min">
+                    <div *ngFor="let entry of card.data">
+                        <p class="p-header">{{entry.title}}</p>
+                        <p class="p-text">{{entry.data}}</p>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </ion-list>
+
+
+        <div class="button-box">
+            <p>Möchten Sie es Ihrer Sammlung hinzufügen?</p>
+            <ion-button expand="full" color="success" (click)="addToSelection()">Ja</ion-button>
+            <ion-button expand="full" color="danger"  [routerLink]="['/home']">Nein</ion-button>
+        </div>
+    </div>
+
+    <div class="failed-container" *ngIf="!loading && failed">
+        <p>Laden der Objektdaten fehlgeschlagen.</p>
+        <ion-button (click)="loadObjekt()" [disabled]="this.record === ''" expand="block">
+            Erneut versuchen.
+        </ion-button>
+    </div>
+</ion-content>

@@ -318,6 +318,29 @@ export class DataLoader
 		return result;
 	}
 	
+	static async publishFeedback(obj: { record: string; level1: boolean; level2: boolean; level3: boolean; likedFields: string[]; feedbacktext: string }, storageService: StorageService): Promise<any>
+	{
+		if(DataLoader.validURL(storageService.configuration.cury_feedback_url))
+		{
+			await new Promise((resolve, reject) => {
+				const xhr = new XMLHttpRequest();
+				xhr.open("POST", storageService.configuration.cury_feedback_url, true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.onload = (ev) => {
+					if(xhr.readyState == 4 && xhr.status == 200) {
+						resolve();
+					}
+					else {
+						reject();
+					}
+				};
+				let text = btoa(JSON.stringify({record: obj.record, data: obj.feedbacktext}));
+				let data = btoa(JSON.stringify({record: obj.record, "0": obj.level1 ? "1": "0", "1": obj.level2 ? "1": "0", "2": obj.level3 ? "1": "0"}));
+				xhr.send(`text=${text}&data=${data}`);
+			})
+		}
+	}
+	
 	static downloadManifest(storageService:StorageService, recordID:string):Promise<IiiFObject>
 	{
 		return new Promise<IiiFObject>((resolve, reject) => {

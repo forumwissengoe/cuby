@@ -26,7 +26,6 @@ export class DisplayPage implements OnInit {
 	markerLayer: L.LayerGroup = null;
 	timeframe: number[] = [0, 1];
 	times:{time: number | undefined, timeEarly: number | undefined, timeLate: number | undefined, eventName: string | undefined, eventPlace: string | undefined}[] = [];
-	timestooltiptext:string = "";
 	
 	index: number;
 	dataObject:PicyObject = null;

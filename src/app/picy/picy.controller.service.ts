@@ -196,7 +196,7 @@ export class PicyObject
 		this.recordID = recordID;
 	}
 	
-	load(lido: LidoObject, iiif: IiiFObject, config: any, storageService: StorageService, viewHeight: number)
+	load(lido: LidoObject, iiif: IiiFObject, config: any, storageService: StorageService, viewHeight: number): PicyObject
 	{
 		this.iiif = iiif;
 		this.lido = lido;
@@ -248,6 +248,7 @@ export class PicyObject
 				}
 			}
 		}
+		return this;
 	}
 	
 	static getLidoVariable(lido:LidoObject, str:string):string

@@ -4,6 +4,7 @@ import {QuestionController} from './question.controller.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {StorageService} from '../../storage.service';
 import {Map, marker, tileLayer} from 'leaflet';
+import {DataLoader} from '../../../data/DataLoader';
 
 @Component({
   selector: 'app-question',
@@ -157,7 +158,7 @@ export class QuestionPage implements OnInit {
 		
 		if(this.type == 3 && !this.currentMarker)
 		{
-			this.currentMarker = marker([this.question.position[0], this.question.position[1]]);
+			this.currentMarker = marker([this.question.position[0], this.question.position[1]], {icon: DataLoader.leafletBlueIcon});
 			this.currentMarker.addTo(this.map);
 		}
 	}

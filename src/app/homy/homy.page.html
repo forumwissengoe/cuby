@@ -28,7 +28,7 @@
             <ion-list>
                 <ion-item lines="none" *ngFor="let player of otherPlayers">
                     <ion-icon slot="start" name="person"></ion-icon>
-                    <ion-label slot="start">{{player.highscore}} Punkte</ion-label>
+                    <ion-label slot="start">{{player.highscore}} Punkt{{player.highscore === 1 ? "": "e"}}</ion-label>
                 </ion-item>
             </ion-list>
         </div>

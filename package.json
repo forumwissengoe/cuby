@@ -1,8 +1,8 @@
 {
     "name": "cuby",
-    "version": "0.0.1",
-    "author": "Ionic Framework",
-    "homepage": "https://ionicframework.com/",
+    "version": "0.9.5",
+    "author": "Timon Vogt for University of Goettingen",
+    "homepage": "www.uni-goettinge.de",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -33,7 +33,9 @@
         "@ionic-native/status-bar": "^5.2.0",
         "@ionic/angular": "^4.6.0",
         "@ionic/storage": "^2.2.0",
+        "@types/jest": "^24.0.18",
         "@types/jquery": "^3.3.31",
+        "@types/mocha": "^5.2.7",
         "base-64": "^0.1.0",
         "cordova-android": "^8.0.0",
         "cordova-ios": "^5.0.1",
@@ -97,7 +99,7 @@
         "typescript": "~3.1.6",
         "xml2js": "~0.4.19"
     },
-    "description": "An Ionic project",
+    "description": "Explore and experience the collections of the university of Goettingen.",
     "cordova": {
         "plugins": {
             "cordova-plugin-whitelist": {},

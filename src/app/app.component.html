@@ -1,50 +1,11 @@
 <ion-app>
-    <ion-split-pane>
-        <ion-menu menuId="picyMenu">
-            <ion-header>
-                <ion-toolbar color="primary">
-                    <ion-title>Sammelsurium</ion-title>
-                    <ion-buttons slot="end">
-                        <ion-button (click)="secondMenu = !secondMenu">
-                            <ion-icon name="ios-arrow-down" *ngIf="!secondMenu"></ion-icon>
-                            <ion-icon name="ios-arrow-up" *ngIf="secondMenu"></ion-icon>
-                        </ion-button>
-                    </ion-buttons>
-                </ion-toolbar>
-                <ion-toolbar color="primary" *ngIf="secondMenu">
-                    <ion-segment (ionChange)="type = $event.detail.value">
-                        <ion-segment-button value="grid" checked>
-                            <ion-icon name="keypad"></ion-icon>
-                        </ion-segment-button>
-                        <ion-segment-button value="map">
-                            <ion-icon name="map"></ion-icon>
-                        </ion-segment-button>
-                        <ion-segment-button value="time">
-                            <ion-icon name="clock"></ion-icon>
-                        </ion-segment-button>
-                    </ion-segment>
-                </ion-toolbar>
-            </ion-header>
-            <ion-content>
-                <ion-grid>
-                    <ion-row *ngFor="let row of data">
-                        <ion-col size="3" *ngFor="let entry of row" (click)="menuEntrySelected(entry.record)">
-                            <img src="{{entry.img}}" alt="Image not found">
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-content>
-        </ion-menu>
-
-        <ion-router-outlet main [swipeGesture]="false"></ion-router-outlet>
-
-    </ion-split-pane>
+    <ion-router-outlet main [swipeGesture]="false"></ion-router-outlet>
 
     <!-- Feedback button -->
-    <feedback-response-overlay></feedback-response-overlay>
+    <!--<feedback-response-overlay></feedback-response-overlay>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="presentFeedbackModal()">
             <ion-icon name="chatbubbles"></ion-icon>
         </ion-fab-button>
-    </ion-fab>
+    </ion-fab>-->
 </ion-app>

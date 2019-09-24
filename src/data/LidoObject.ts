@@ -86,7 +86,7 @@ export class LidoObject
 			this.measurements.push(LidoMeasurement.measurement(obj));
 		
 		// Events
-		for(let obj of oc(data).lido[0].descriptiveMetadata[0].eventWrap[0].eventSet())
+		for(let obj of oc(data).lido[0].descriptiveMetadata[0].eventWrap[0].eventSet([]))
 			this.events.push(LidoEvent.event(obj));
 		
 		// Object Relations

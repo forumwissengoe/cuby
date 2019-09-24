@@ -37,9 +37,9 @@ export class DetailsPage implements OnInit
 		this.detailsController.setLoadingFinishedCallback(this.loadingFinishedCallback.bind(this));
 		this.detailsController.clearDisplayData();
 		//let records:string[] = this.evaluateService.getCurrentLikabilityLevel1();
-		let records:string[] = this.storageService.localState.detailsList;
+		let records:{record: string, feedback: boolean}[] = this.storageService.localState.detailsList;
 		if(records.length != 0)
-			this.detailsController.loadRecordList(records);
+			this.detailsController.loadRecordList(records.map(x => x.record));
 		else
 			this.detailsController.loadDummyList();
 	}
@@ -81,7 +81,7 @@ export class DetailsPage implements OnInit
 		}
 		let all:boolean = true;
 		for(let dat of this.displayData)
-			if(dat.like == undefined || dat.like == null)
+			if(dat.like == undefined)
 				all = false;
 		if(all)
 			this.votingFinished();

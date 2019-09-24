@@ -26,7 +26,7 @@ export class CuryPage implements OnInit {
 	constructor(private curyController:CuryControllerService, private router:Router, private storageService:StorageService)
 	{
 		this.loading = true;
-		this.curyController.setLoadingFinishedCallback(this.onElementsLoaded.bind(this));
+		this.curyController.setCuryLoadingFinishedCallback(this.onElementsLoaded.bind(this));
 		this.curyController.initialLoad();
 		
 		this.stackConfig = {
@@ -49,7 +49,7 @@ export class CuryPage implements OnInit {
 	
 	ionViewWillEnter()
 	{
-		if(!this.curyController.currentlyLoading && this.size < CuryControllerService.NUMBER_ELEMENTS)
+		if(!this.curyController.curyCurrentlyLoading && this.size < CuryControllerService.NUMBER_ELEMENTS)
 			this.curyController.loadNewImages(CuryControllerService.NUMBER_ELEMENTS - this.size);
 	}
 
@@ -67,9 +67,9 @@ export class CuryPage implements OnInit {
 	
 	onElementsLoaded()
 	{
-		for(let i = 0; i < this.curyController.images.length; i++)
-			this.cards.push({image: this.curyController.images[i].getThumbnailImageUrl(), image_service: this.curyController.images[i].getImageService(),
-				record: this.curyController.images[i].record_id});
+		for(let i = 0; i < this.curyController.curyImages.length; i++)
+			this.cards.push({image: this.curyController.curyImages[i].getThumbnailImageUrl(), image_service: this.curyController.curyImages[i].getImageService(),
+				record: this.curyController.curyImages[i].record_id});
 		this.size = this.cards.length;
 		this.loading = false;
 	}

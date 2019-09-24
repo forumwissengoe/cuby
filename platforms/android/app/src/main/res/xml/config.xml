@@ -84,7 +84,7 @@
     <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="webView" value="com.ionicframework.cordova.webview.IonicWebViewEngine" />
-    <preference name="DisableDeploy" value="false" />
+    <preference name="DisableDeploy" value="true" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />

@@ -21,7 +21,7 @@ export class StorageService {
 	// CAUTION !!!!!!!!!!!
 	private wipeStorage: boolean = true;
 	
-	private dummy: boolean = true;
+	private dummy: boolean = false;
 	private local: boolean = false;
 	
 	// Configuration (primeconfig.json)
@@ -55,7 +55,7 @@ export class StorageService {
 		
 		homy_highscore_url: string,
 		
-		homy_categories: { name: string, cover: string, type: string, url: string }[],
+		homy_categories: { name: string, cover: string, type: string, url: string, locked: boolean }[],
 		
 		display_config_picy: [],
 		display_config_cury_details: [],
@@ -78,37 +78,43 @@ export class StorageService {
 				name: "Objektgattungen",
 				cover: "https://sammlungen.uni-goettingen.de/rest/image/record_kuniweb_675605/record_kuniweb_675605_362153.jpg/full/!400,400/0/default.jpg",
 				type: "qtype_01_01",
-				url: "http://container.uni-goettingen.de/cuby-api/homy"
+				url: "http://container.uni-goettingen.de/cuby-api/homy",
+				locked: false
 			},
 			{
 				name: "Sammlungen",
 				cover: "https://sammlungen.uni-goettingen.de/rest/image/record_kuniweb_948782/record_kuniweb_948782_445206.jpg/full/!400,400/0/default.jpg",
 				type: "qtype_01_02",
-				url: "http://container.uni-goettingen.de/cuby-api/homy"
+				url: "http://container.uni-goettingen.de/cuby-api/homy",
+				locked: false,
 			},
 			{
 				name: "Bezeichnung",
 				cover: "https://sammlungen.uni-goettingen.de/rest/image/record_kuniweb_948728/record_kuniweb_948728_445133.jpg/full/!400,400/0/default.jpg",
 				type: "qtype_02_01",
-				url: "http://container.uni-goettingen.de/cuby-api/homy"
+				url: "http://container.uni-goettingen.de/cuby-api/homy",
+				locked: false
 			},
 			{
 				name: "Datierung",
 				cover: "https://sammlungen.uni-goettingen.de/rest/image/record_kuniweb_617433/record_kuniweb_617433_531458.jpg/full/!400,400/0/default.jpg",
 				type: "qtype_02_02",
-				url: "http://container.uni-goettingen.de/cuby-api/homy"
+				url: "http://container.uni-goettingen.de/cuby-api/homy",
+				locked: false
 			},
 			{
 				name: "Karte",
 				cover: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Long_and_Loop_Street_map.svg",
 				type: "qtype_03_01",
-				url: ""
+				url: "",
+				locked: true
 			},
 			{
 				name: "Zeitstrahl",
 				cover: "https://upload.wikimedia.org/wikipedia/commons/8/8b/2010-07-20_Black_windup_alarm_clock_face.jpg",
 				type: "qtype_04_01",
-				url: ""
+				url: "",
+				locked: true
 			}
 		],
 		
@@ -133,6 +139,7 @@ export class StorageService {
 	
 	loadConfig() {
 		this.storage.get('configuration').then(async config => {
+			config = JSON.parse(config);
 			console.log("Loaded configuration from storage: ", config);
 			this.configuration.viewHeight = window.innerHeight;
 			this.configuration.viewWidth = window.innerWidth;
@@ -156,9 +163,10 @@ export class StorageService {
 	}
 	
 	loadHomyState() {
-		console.log("Load homy config");
+		console.log("Load homy state");
 		this.storage.get('homyState')
 			.then(state => {
+				state = JSON.parse(state);
 				if (state) this.homyState = state;
 			})
 			.then(() => {
@@ -171,7 +179,7 @@ export class StorageService {
 	localState: {
 		picyGallery: string[],
 		curyStack: string[],
-		detailsList: string[],
+		detailsList: {record: string, feedback: boolean}[],
 		feedbackList: string[],
 		
 		locallySavedObjectsIiiF: string[],
@@ -185,6 +193,15 @@ export class StorageService {
 		likedLevel2: string[]
 		likedLevel3: Level3Like[]
 		
+		feedbackData: {
+			record: string,
+			level1: boolean,
+			level2: boolean,
+			level3: boolean,
+			likedFields: string[],
+			feedbacktext: string
+		}[]
+		
 	} = {
 		picyGallery: [],
 		curyStack: [],
@@ -197,7 +214,8 @@ export class StorageService {
 		homyPostHighscoreAsk: true,
 		likedLevel1: [],
 		likedLevel2: [],
-		likedLevel3: []
+		likedLevel3: [],
+		feedbackData: []
 	};
 	
 	dummyState = {
@@ -212,7 +230,8 @@ export class StorageService {
 		homyPostHighscoreAsk: true,
 		likedLevel1: [],
 		likedLevel2: [],
-		likedLevel3: []
+		likedLevel3: [],
+		feedbackData: []
 	};
 	
 	loadLocalState() {
@@ -236,7 +255,38 @@ export class StorageService {
 			this.storage.set('localState', JSON.stringify(this.localState));
 			this.storage.set('configuration', JSON.stringify(this.configuration));
 			this.storage.set('homyState', JSON.stringify(this.homyState));
+			console.log("Saved local state");
 		} else console.log("Tried to save state. Failure");
+	}
+	
+	setLikedLevel1(record:string)
+	{
+		for(let element of this.localState.feedbackData)
+			if(element.record === record) {
+				element.level1 = true;
+				return;
+			}
+		this.localState.feedbackData.push({record: record, level1: true, level2: false, level3: false, likedFields: [], feedbacktext: ""});
+	}
+	
+	setLikedLevel2(record:string)
+	{
+		for(let element of this.localState.feedbackData)
+			if(element.record === record) {
+				element.level1 = element.level2 = true;
+				return;
+			}
+		this.localState.feedbackData.push({record: record, level1: true, level2: true, level3: false, likedFields: [], feedbacktext: ""});
+	}
+	
+	setLikedLevel3(record:string, likedFields:string[], feedbacktext:string)
+	{
+		for(let element of this.localState.feedbackData)
+			if(element.record === record) {
+				element.level1 = element.level2 = element.level3 = true;
+				return;
+			}
+		this.localState.feedbackData.push({record: record, level1: true, level2: true, level3: true, likedFields: likedFields, feedbacktext: feedbacktext});
 	}
 	
 	// Helpers
