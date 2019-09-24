@@ -105,7 +105,7 @@ export class DataLoader
 	
 	static publishHomyHighscore(url:string, highscore:number)
 	{
-		// TODO Dummy location
+		// Dummy location
 		let location = "all";
 		
 		return new Promise<any>( (resolve, reject) => {
@@ -349,7 +349,6 @@ export class DataLoader
 				storageService.loadLocalIiiF(recordID).then(iiif => resolve(iiif));
 			else {
 				const xhr = new XMLHttpRequest();
-				// TODO change url
 				xhr.open("GET", DataLoader.manifestBaseUrl + recordID + "/manifest/");
 				xhr.onload = (ev) =>
 				{
@@ -382,7 +381,6 @@ export class DataLoader
 				if(storageService.localState.locallySavedObjectsLido.indexOf(recordID) != -1)
 					storageService.loadLocalLido(recordID).then(lido => resolve(lido));
 				else {
-					// TODO Change url
 					let str = DataLoader.lidoBaseUrl + recordID;
 					
 					const xhr = new XMLHttpRequest();

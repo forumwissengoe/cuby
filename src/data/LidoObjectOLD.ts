@@ -34,7 +34,7 @@ export class LidoObject
 	// Events
 	events:[{display:string, conceptID:string, object:LidoEventObject}] = [{display: "", conceptID: "", object:null}];
 	
-	// Relations TODO not fully supported
+	// Relations [not fully supported]
 	subjectRelations:[{display:string, conceptID:string, term:string}] = [{display: "", conceptID: "", term: ""}];
 	relatedWorks:[{display:string, reltypeID:string, reltypeTerm:string, id:string, note: string, webresouce:string}] = [{display: "", reltypeID: "", reltypeTerm: "", id: "", note: "", webresouce: ""}];
 	

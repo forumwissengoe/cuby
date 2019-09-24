@@ -3,6 +3,7 @@ import {IiiFObject} from '../../../data/IiiFObject';
 import {DataLoader} from '../../../data/DataLoader';
 import {StorageService} from '../../storage.service';
 import {Answer, ImagePair} from './question.page';
+import {AlertController} from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class QuestionController
 	
 	loadingFinishedCallback:() => void = null;
 
-  	constructor(private storageService:StorageService) {}
+  	constructor(private storageService:StorageService, private alertCtrl: AlertController) {}
 	
 	loadDummyQuestion()
 	{
@@ -41,25 +42,27 @@ export class QuestionController
 		this.currentQuestion = null;
 		this.categoryType = 0;
 		
-		if(!this.categoryID) // TODO Error
+		if(!this.categoryID)
 		{
+			console.error("Category ID not set");
+			this.generalError();
 			return;
 		}
 		
 		this.available = 0;
 		this.categoryURL = this.storageService.getCategoryUrlForType(this.categoryID);
 		this.categoryName = this.storageService.getCategoryNameForType(this.categoryID);
-		if(this.categoryURL == "") // TODO Error
+		if(this.categoryURL == "")
 		{
+			console.error("Category does not have an URL");
+			this.generalError();
 			return;
 		}
 		console.log("URL: ", this.categoryURL, "  ID: ", this.categoryID);
 		
 		DataLoader.loadHomyQuestions(this.categoryURL, this.categoryID).then(questions =>
 		{
-			// TODO change back to return
 			if(!questions.questions || !questions.type)
-				//questions.type = "break";
 				return;
 				
 			if(questions.type.startsWith("qtype_01"))
@@ -151,27 +154,6 @@ export class QuestionController
 						this.loadingFinishedCallback();
 				}
 			}
-			
-			/*// TODO change to questions.type
-			else if(this.categoryID.startsWith("qtype_03"))
-			{
-				this.categoryType = 3;
-				this.allQuestions.push(new QuestionType3().loadQData());
-				this.currentQuestion = this.allQuestions[this.questionIndex];
-				this.available = 1;
-				if(this.loadingFinishedCallback != null)
-					this.loadingFinishedCallback();
-			}
-			
-			else if(this.categoryID.startsWith("qtype_04"))
-			{
-				this.categoryType = 4;
-				this.allQuestions.push(new QuestionType4().loadQData());
-				this.currentQuestion = this.allQuestions[this.questionIndex];
-				this.available = 1;
-				if(this.loadingFinishedCallback != null)
-					this.loadingFinishedCallback();
-			}*/
 		});
 	}
 	
@@ -238,6 +220,16 @@ export class QuestionController
 				tmp.answers[i] = {answer: tmp.answers[i], selected: false, correct: false, wrong: false};
 			return tmp;
 		}
+	}
+	
+	async generalError()
+	{
+		const alert = await this.alertCtrl.create({
+			header: 'Allgemeiner Fehler',
+			message: 'Ein unbekannter Fehler ist aufgetreten. Bitte starten Sie HOMY neu.',
+			buttons: ['OK']
+		});
+		await alert.present();
 	}
 }
 

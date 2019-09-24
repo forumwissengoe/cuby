@@ -124,7 +124,7 @@ export class LidoReader
 						console.log("T", title.titleSet);
 						if(title.titleSet[0].hasOwnProperty("appellationValue"))
 							if(title.titleSet[0].appelationValue instanceof Array)
-								tmp_title.value = title.titleSet[0].appelationValue[0]; // TODO multiple languages missing
+								tmp_title.value = title.titleSet[0].appelationValue[0]; // multiple languages missing
 							else
 								tmp_title.value = title.titleSet[0].appelationValue;
 						if(title.titleSet[0].hasOwnProperty("sourceAppellation"))

@@ -55,7 +55,7 @@ export class StorageService {
 		lido_url: "http://sammlungen.uni-goettingen.de/lidoresolver?id="
 	};
 	
-	private wipeStorage:boolean = false; // TODO CAUTION!!!!
+	private wipeStorage:boolean = false; // WARNING CAUTION!!!!
 	loadConfig()
 	{
 		if(this.wipeStorage)

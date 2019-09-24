@@ -72,7 +72,6 @@ export class NfcPickPagePage implements OnInit {
 			}
 			else if(!str.startsWith(this.prefix))
 			{
-				// TODO Nice try
 				str = "";
 			}
 		}
