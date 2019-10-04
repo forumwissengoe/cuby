@@ -4,6 +4,7 @@ import {DataLoader} from '../../../data/DataLoader';
 import {StorageService} from '../../storage.service';
 import {Answer, ImagePair} from './question.page';
 import {AlertController} from '@ionic/angular';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class QuestionController
 	
 	loadingFinishedCallback:() => void = null;
 
-  	constructor(private storageService:StorageService, private alertCtrl: AlertController) {}
+  	constructor(private storageService:StorageService, private alertCtrl: AlertController, private router: Router) {}
 	
 	loadDummyQuestion()
 	{
@@ -227,7 +228,10 @@ export class QuestionController
 		const alert = await this.alertCtrl.create({
 			header: 'Allgemeiner Fehler',
 			message: 'Ein unbekannter Fehler ist aufgetreten. Bitte starten Sie HOMY neu.',
-			buttons: ['OK']
+			buttons: [{
+				text: 'OK',
+				handler: () => this.router.navigate(["/homy"], {replaceUrl: true})
+			}]
 		});
 		await alert.present();
 	}

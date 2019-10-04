@@ -3,22 +3,14 @@
     ion-content {
         text-align: center;
 
-        #imglogo {
-            position: absolute;
-            margin: auto;
-            left: 0;
-            right: 0;
-            width: 90vw;
-            padding-top: 10px;
-        }
-
         #imgquest {
             position: absolute;
             margin: auto;
             left: 0;
             right: 0;
+            top: 0;
             width: 90vw;
-            bottom: 5px;
+            height: 25vh;
         }
 
         ion-spinner {
@@ -82,18 +74,12 @@
     ion-content {
         text-align: center;
 
-        #imglogo {
-            position: absolute;
-            left: 10px;
-            padding-top: 10px;
-            width: 45%;
-        }
-
         #imgquest {
             position: absolute;
-            right: 10px;
-            padding-top: 10px;
-            width: 45%;
+            top: 3vh;
+            left: 50%;
+            transform: translate(-50%);
+            width: 50vw;
         }
 
         ion-spinner {
@@ -106,12 +92,12 @@
         div {
             position: absolute;
             margin: auto;
-            top: 10vh;
+            top: 18vmin;
             left: 0;
             right: 0;
             bottom: 0;
-            width: 75vmin;
-            height: 75vmin;
+            width: 70vmin;
+            height: 70vmin;
             display: inline-block;
 
             ul {
@@ -126,7 +112,6 @@
                     width: 100%;
                     height: 100%;
                     list-style: none;
-                    background: #fff;
                     border-radius: 5px;
                     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.2);
                     text-align: center;
@@ -134,27 +119,22 @@
                     border: 10px solid #ECECEC;
                     box-sizing: border-box;
                     cursor: default;
-                    transform: rotate(50deg);
 
-                    img {
-                        position: absolute;
-                        width: 100%;
-                        margin: auto;
-                        top: 0;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                        pointer-events: none;
-                    }
+                    background-color: #ffffff;
+                    background-blend-mode: multiply;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+
                 }
             }
         }
 
-        ion-toolbar {
+        ion-button {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 2vmin;
+            right: 2vmin;
+            --ion-color-primary: var(--university-blue);
         }
     }
 }

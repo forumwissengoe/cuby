@@ -12,6 +12,11 @@ ion-grid {
     ion-row {
 
         ion-col {
+            min-width: 130px !important;
+            min-height: 130px !important;
+            max-width: 300px !important;
+            max-height: 300px !important;
+
             text-align: center;
 
             img {
@@ -31,7 +36,7 @@ ion-grid {
                 word-break: break-word;
                 color: #282828;
                 font-weight: bold;
-                font-size: 12pt;
+                font-size: 4.9vmin;
                 transform: translate(-50%, -50%);
             }
 
@@ -40,5 +45,6 @@ ion-grid {
                 color: #282828;
             }
         }
+
     }
 }

@@ -32,7 +32,7 @@ export class DisplayPage implements OnInit {
 	loading: boolean = true;
 	rights_shown: boolean = false;
 	
-	constructor(private modalCtrl: ModalController, private picyCtrl: PicyController) { }
+	constructor(private modalCtrl: ModalController, public picyCtrl: PicyController) { }
 	
 	// Open Modal
 	openModal()

@@ -19,7 +19,7 @@ export class StorageService {
 	cordovaAvailable: boolean = false;
 	
 	// CAUTION !!!!!!!!!!!
-	private wipeStorage: boolean = true;
+	private wipeStorage: boolean = false;
 	
 	private dummy: boolean = false;
 	private local: boolean = false;
@@ -104,14 +104,14 @@ export class StorageService {
 			},
 			{
 				name: "Karte",
-				cover: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Long_and_Loop_Street_map.svg",
+				cover: "https://sammlungen.uni-goettingen.de/rest/image/record_kuniweb_906272/record_kuniweb_906272_382055.jpg/full/!400,400/0/default.jpg",
 				type: "qtype_03_01",
 				url: "",
 				locked: true
 			},
 			{
 				name: "Zeitstrahl",
-				cover: "https://upload.wikimedia.org/wikipedia/commons/8/8b/2010-07-20_Black_windup_alarm_clock_face.jpg",
+				cover: "https://sammlungen.uni-goettingen.de/rest/image/record_kuniweb_590385/record_kuniweb_590385_462308.jpg/full/!400,400/0/default.jpg",
 				type: "qtype_04_01",
 				url: "",
 				locked: true

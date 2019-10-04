@@ -60,7 +60,7 @@ export class MilestonePage implements OnInit {
 				this.askPublishHighscore();
 			else if(this.autoPost)
 				this.publishHighscore(true);
-		}, 2000);
+		}, 6000);
   	}
   	
 	askAgain:boolean = false;

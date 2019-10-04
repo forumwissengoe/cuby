@@ -1,9 +1,12 @@
 {
-  "name": "cuby",
-  "integrations": {
-    "capacitor": {},
-    "cordova": {}
-  },
-  "type": "angular",
-  "id": "6627833a"
+    "name": "cuby",
+    "integrations": {
+        "capacitor": {},
+        "cordova": {}
+    },
+    "hooks": {
+        "ionic:build:before": "../CubyDataMiner/cubyscripts/build_before.js"
+    },
+    "type": "angular",
+    "id": "6627833a"
 }

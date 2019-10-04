@@ -35,21 +35,41 @@ ion-content {
         }
     }
 
+    @media screen and (orientation: portrait)
+    {
+        .start-button {
+            position: absolute;
+            width: 40vw;
+            height: 20vw;
 
-    .start-button {
-        position: absolute;
-        width: 40vw;
-        height: 20vw;
+            top: 50%;
+            left: 50%;
 
-        top: 50%;
-        left: 50%;
+            margin: -10vw 0 0 -20vw;
 
-        margin: -10vw 0 0 -20vw;
+            font-weight: bold;
 
-        font-weight: bold;
-
-        --ion-color-primary: var(--university-blue);
+            --ion-color-primary: var(--university-blue);
+        }
     }
+
+    @media screen and (orientation: landscape)
+    {
+        .start-button {
+            position: absolute;
+            width: 40vh;
+            height: 20vh;
+
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            font-weight: bold;
+
+            --ion-color-primary: var(--university-blue);
+        }
+    }
+
 
     .list-container {
         position: fixed;

@@ -28,9 +28,11 @@
                 <div class="image_container">
                     <img src="{{data.thumbnail}}" alt="Image loading failed" (click)="overlayOpen(data)">
                 </div>
-                <div *ngFor="let item of data.entries">
-                    <p class="entry_label">{{item.label}}</p>
-                    <p class="entry_data">{{item.value}}</p>
+                <div class="entry_container">
+                    <div *ngFor="let item of data.entries">
+                        <p class="entry_label">{{item.label}}</p>
+                        <p class="entry_data">{{item.value}}</p>
+                    </div>
                 </div>
             </div>
             <div class="feedback_data_area" *ngIf="data.selected">
@@ -63,7 +65,7 @@
         </ion-slide>
     </ion-slides>
     <div class="assign_area" *ngIf="!loading && entries[index]">
-        <ion-button class="sending" fill="outline" color="success" no-padding (click)="send()" *ngIf="entries[index].selected">Senden</ion-button>
+        <ion-button class="sending" fill="outline" color="success" no-padding (click)="send()" *ngIf="entries[index].selected"><span>Senden</span></ion-button>
         <ion-button class="voting"  fill="clear" slot="icon-only" no-padding (click)="voted(true)" *ngIf="!entries[index].selected">
             <ion-icon name="checkmark-circle-outline" color="success" no-padding></ion-icon>
         </ion-button>

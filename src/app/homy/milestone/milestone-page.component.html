@@ -16,8 +16,10 @@
         <p style="text-align: right">richtig.</p>
     </div>
 
-    <p *ngIf="congrats">Herzlichen Glückwunsch!</p>
-    <p *ngIf="booh">Schade.</p>
+    <div class="congrats" *ngIf="congrats"><p>Herzlichen Glückwunsch!</p>
+        <img src="../../../assets/icon/animat-star-color.gif" alt="">
+    </div>
+    <p class="booh" *ngIf="booh">Schade.</p>
 
     <div class="button-group">
         <ion-button class="home" expand="block" [routerLink]="['/categories']">
