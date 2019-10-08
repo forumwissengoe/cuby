@@ -141,8 +141,6 @@ export class StorageService {
 		this.storage.get('configuration').then(async config => {
 			config = JSON.parse(config);
 			console.log("Loaded configuration from storage: ", config);
-			this.configuration.viewHeight = window.innerHeight;
-			this.configuration.viewWidth = window.innerWidth;
 			
 			let conf;
 			if(this.local)
@@ -151,6 +149,8 @@ export class StorageService {
 				conf = await DataLoader.loadPrimeConfig(StorageService.testconfig);
 			
 			this.configuration = {...this.configuration, ...config, ...conf};
+			this.configuration.viewHeight = window.innerHeight;
+			this.configuration.viewWidth = window.innerWidth;
 			
 			// Insert hyphens in category names
 			for (let cat of this.configuration.homy_categories) {
