@@ -87,14 +87,26 @@ export class CuryPage {
 		else
 			this.dislikedCards.push(card);
 	
-		if(this.likedCards.length + this.dislikedCards.length >= this.size && this.storageService.localState.detailsList.length == 0 && this.likedCards == 0)
+		if(this.likedCards.length + this.dislikedCards.length >= this.size)
 		{
 			this.storageService.saveLocalState();
 			this.backButtonSubscription.unsubscribe();
-			this.modalCtrl.dismiss({'home': true});
+			
+			if(this.likedCards.length == 0 && this.storageService.localState.detailsList.length == 0)
+				this.modalCtrl.dismiss({'home': true});
+			else if(this.likedCards.length == 0)
+				this.modalCtrl.dismiss({'home': false});
+			else if(this.storageService.localState.detailsList.length == 0)
+			{
+				this.storageService.localState.detailsList = this.likedCards;
+				this.modalCtrl.dismiss({'home': false});
+			}
+			else
+				this.modalCtrl.dismiss({'home': false});
+				
 		}
 		
-		else if(this.likedCards.length + this.dislikedCards.length >= this.size && this.storageService.localState.detailsList.length == 0 && this.likedCards > 0)
+		/*else if(this.likedCards.length + this.dislikedCards.length >= this.size && this.storageService.localState.detailsList.length == 0 && this.likedCards > 0)
 		{
 			this.storageService.localState.detailsList = this.likedCards;
 			this.storageService.saveLocalState();
@@ -107,7 +119,7 @@ export class CuryPage {
 			this.storageService.saveLocalState();
 			this.backButtonSubscription.unsubscribe();
 			this.modalCtrl.dismiss({'home': false});
-		}
+		}*/
 	}
 	
 	home()

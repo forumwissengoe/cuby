@@ -2,6 +2,7 @@ import {LidoObject} from './LidoObject';
 import {IiiFObject} from './IiiFObject';
 import {StorageService} from '../app/storage.service';
 import * as L from 'leaflet';
+import {catchError} from 'rxjs/operators';
 
 export class DataLoader
 {
@@ -346,28 +347,29 @@ export class DataLoader
 		return new Promise<IiiFObject>((resolve, reject) => {
 			
 			if(storageService.localState.locallySavedObjectsIiiF.indexOf(recordID) != -1)
-				storageService.loadLocalIiiF(recordID).then(iiif => resolve(iiif));
-			else {
-				const xhr = new XMLHttpRequest();
-				xhr.open("GET", DataLoader.manifestBaseUrl + recordID + "/manifest/");
-				xhr.onload = (ev) =>
+				storageService.loadLocalIiiF(recordID)
+					.then(iiif => resolve(iiif))
+					.catch(err => console.log("Error " , err, " loading iiif from storage. Defaulting to download iiif"));
+			
+			const xhr = new XMLHttpRequest();
+			xhr.open("GET", DataLoader.manifestBaseUrl + recordID + "/manifest/");
+			xhr.onload = (ev) =>
+			{
+				if(xhr.readyState == 4)
 				{
-					if(xhr.readyState == 4)
+					if(xhr.status == 200)
 					{
-						if(xhr.status == 200)
-						{
-							let obj = new IiiFObject();
-							obj.loadManifest(xhr.responseText);
-							storageService.saveIiiFLocal(obj);
-							resolve(obj);
-						}
-						else {
-							reject(xhr.status);
-						}
+						let obj = new IiiFObject();
+						obj.loadManifest(xhr.responseText);
+						storageService.saveIiiFLocal(obj);
+						resolve(obj);
 					}
-				};
-				xhr.send();
-			}
+					else {
+						reject(xhr.status);
+					}
+				}
+			};
+			xhr.send();
 		})
 	}
 	
@@ -378,31 +380,27 @@ export class DataLoader
 			if(recordID == undefined || recordID == "")
 				reject();
 			else {
-				if(storageService.localState.locallySavedObjectsLido.indexOf(recordID) != -1)
-					storageService.loadLocalLido(recordID).then(lido => resolve(lido));
-				else {
-					let str = DataLoader.lidoBaseUrl + recordID;
-					
-					const xhr = new XMLHttpRequest();
-					xhr.open("GET", str);
-					xhr.onload = (ev) =>
-					{
-						if(xhr.readyState == 4)
-						{
-							if(xhr.status == 200)
-							{
-								let obj = new LidoObject();
-								obj.loadLIDO(xhr.responseText);
-								storageService.saveLidoLocal(obj);
-								resolve(obj);
-							}
-							else {
-								reject(xhr.status);
-							}
+				if (storageService.localState.locallySavedObjectsLido.indexOf(recordID) != -1)
+					storageService.loadLocalLido(recordID)
+						.then(lido => resolve(lido))
+						.catch(err => console.log("Could not load lido ", err));
+				
+				let str = DataLoader.lidoBaseUrl + recordID;
+				const xhr = new XMLHttpRequest();
+				xhr.open("GET", str);
+				xhr.onload = (ev) => {
+					if (xhr.readyState == 4) {
+						if (xhr.status == 200) {
+							let obj = new LidoObject();
+							obj.loadLIDO(xhr.responseText);
+							storageService.saveLidoLocal(obj);
+							resolve(obj);
+						} else {
+							reject(xhr.status);
 						}
-					};
-					xhr.send();
-				}
+					}
+				};
+				xhr.send();
 			}
 		})
 		

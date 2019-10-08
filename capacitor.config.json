@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.atopion.cuby",
   "appName": "cuby",
   "bundledWebRuntime": false,
   "webDir": "www"

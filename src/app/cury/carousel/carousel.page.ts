@@ -8,6 +8,7 @@ import {CuryControllerService, DetailsObject} from '../cury.controller.service';
 import {oc} from 'ts-optchain';
 import * as $ from 'jquery';
 import {DataLoader} from '../../../data/DataLoader';
+import {error} from 'util';
 
 @Component({
   selector: 'app-carousel',

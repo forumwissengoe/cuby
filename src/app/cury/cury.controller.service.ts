@@ -83,13 +83,16 @@ export class CuryControllerService {
 			DataLoader.downloadManifest(this.storageService, record.record)
 				.then((iiiFObject:IiiFObject) =>
 				{
+					console.log("Before download lido");
 					DataLoader.downloadLIDO(this.storageService, iiiFObject.record_id)
 						.then((lidoObject:LidoObject) =>
 						{
 							let detailsObject = new DetailsObject();
+							console.log("Before download details object");
 							detailsObject.load(lidoObject, iiiFObject, this.detailConfig, this.feedbackConfig, this.storageService, this.storageService.configuration.viewHeight * 0.4);
 							detailsObject.selected = record.feedback;
 							this.detailEntries.push(detailsObject);
+							console.log("After download details object");
 							
 							this.detailCount++;
 							if(this.detailCount >= size && this.detailLoadingFinishedCallback)

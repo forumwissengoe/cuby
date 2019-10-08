@@ -343,7 +343,8 @@ export class StorageService {
 	saveIiiFLocal(iiif: IiiFObject) {
 		if (this.cordovaAvailable)
 			this.storage.set('iiif:' + iiif.record_id, iiif.manifest)
-				.then(() => this.localState.locallySavedObjectsIiiF.push(iiif.record_id));
+				.then(() => this.localState.locallySavedObjectsIiiF.push(iiif.record_id))
+				.catch(err => console.log("Error ", err, " while saving iiif locally"));
 	}
 	
 	loadLocalLido(record: string) {
@@ -387,30 +388,36 @@ export class StorageService {
 	
 	loadLocalImage(recordID: string, width?: number, height?: number, rotation?: number, type?: string, region?: string) {
 		if (this.cordovaAvailable) {
-			let _size: string = '';
-			if (width == undefined && height == undefined) _size = 'max';
-			else if (width == undefined) _size = 'o' + Math.ceil(height);
-			else if (height == undefined) _size = Math.ceil(width) + 'o';
-			else _size = Math.ceil(width) + 'o' + Math.ceil(height);
-			
-			if (rotation == undefined) rotation = 0;
-			else rotation = Math.ceil(rotation);
-			
-			if (type == undefined) type = 'default';
-			if (region == undefined) region = 'full';
-			
-			let fileName = recordID + '-' + _size + '-' + rotation + '-' + type + '-' + region + '.jpg';
-			if (this.file.dataDirectory && this.webview) {
-				console.log("File name: ", this.webview.convertFileSrc(this.file.dataDirectory + fileName));
-				this.file.checkFile(this.webview.convertFileSrc(this.file.dataDirectory + fileName), "").then(b => {
-					if (b)
-						return this.webview.convertFileSrc(this.file.dataDirectory + fileName);
-					else
-						return null;
-				});
-			} else
+			try {
+				let _size: string = '';
+				if (width == undefined && height == undefined) _size = 'max';
+				else if (width == undefined) _size = 'o' + Math.ceil(height);
+				else if (height == undefined) _size = Math.ceil(width) + 'o';
+				else _size = Math.ceil(width) + 'o' + Math.ceil(height);
+				
+				if (rotation == undefined) rotation = 0;
+				else rotation = Math.ceil(rotation);
+				
+				if (type == undefined) type = 'default';
+				if (region == undefined) region = 'full';
+				
+				let fileName = recordID + '-' + _size + '-' + rotation + '-' + type + '-' + region + '.jpg';
+				if (this.file.dataDirectory && this.webview) {
+					//console.log("File name: ", this.webview.convertFileSrc(this.file.dataDirectory + fileName));
+					this.file.checkFile(this.webview.convertFileSrc(this.file.dataDirectory + fileName), "").then(b => {
+						if (b)
+							return this.webview.convertFileSrc(this.file.dataDirectory + fileName);
+						else
+							return null;
+					});
+				} else
+					return null;
+			} catch (e) {
+				console.log("Error loading file " + recordID + " from storage.");
 				return null;
+			}
 		}
+		return null;
 	}
 	
 	saveLocalImage(recordID: string, url: string, width?: number, height?: number, rotation?: number, type?: string, region?: string) {
