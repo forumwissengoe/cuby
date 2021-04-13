@@ -63,7 +63,7 @@
         "stream": "0.0.2",
         "timers": "^0.1.1",
         "ts-optchain": "^0.1.8",
-        "vis-timeline": "^5.1.0",
+        "vis-timeline": "^7.4.4",
         "xml-js": "^1.6.11",
         "xmljs": "^0.3.2",
         "zone.js": "~0.8.29"
