@@ -1,0 +1,7 @@
+{
+  "name": "cuby",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

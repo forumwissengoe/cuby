@@ -1,0 +1,31 @@
+[
+    {
+        "pattern": "",
+        "config": [
+            {
+                "title": "Objektbezeichnung",
+                "data": "/l/title"
+            },
+            {
+                "title": "Standort",
+                "data": "/l/repository/0/locationName"
+            },
+            {
+                "title": "Datierung",
+                "data": "/i/metadata/[]/value",
+                "pattern": "/i/metadata/[]/label/0/@value|Datierung/g"
+            },
+            {
+                "title": "Beteiligte",
+                "data": "/i/metadata/[]/value",
+                "pattern": "/i/metadata/[]/label/0/@value|Beteiligte/g"
+            },
+            {
+                "title": "Maße / Umfang",
+                "data": "/i/metadata/[]/value",
+                "pattern": "/i/metadata/[]/label/0/@value|Maße \/ Umfang/g"
+            }
+        ]
+
+    }
+]
