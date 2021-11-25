@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button routerLink="/home">
+                <ion-icon name="ios-home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Sammelsurium</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="menuOpen = !menuOpen">
+                <ion-icon name="ios-arrow-down" *ngIf="!menuOpen"></ion-icon>
+                <ion-icon name="ios-arrow-up" *ngIf="menuOpen"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="menuOpen">
+        <ion-buttons slot="start">
+            <ion-button (click)="openMap()">
+                <ion-icon name="map"></ion-icon>&nbsp;Karte
+            </ion-button>
+        </ion-buttons>
+        <!--<ion-segment (ionChange)="galleryTypeSelected($event.detail.value)">
+            <ion-segment-button value="grid" checked>
+                <ion-icon name="keypad"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="place">
+                <ion-icon name="map"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="time">
+                <ion-icon name="clock"></ion-icon>
+            </ion-segment-button>
+        </ion-segment>-->
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="refreshGallery($event)">
+        <ion-refresher-content
+                pulling-icon="md-arrow-dropdown"
+                pulling-text="Ziehen zum Aktualisieren"
+                refreshing-spinner="circles"
+                refreshing-text="wird aktualisiert..."
+        ></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-spinner *ngIf="loading"></ion-spinner>
+    <ion-grid *ngIf="!loading">
+        <ion-row *ngFor="let row of gallery">
+            <ion-col size="3" *ngFor="let entry of row" (click)="galleryEntrySelected(entry.record)">
+                <img src="{{entry.img}}" alt="Image not found">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

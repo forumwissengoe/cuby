@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button text="Zurück" (click)="home()"></ion-back-button>
+      </ion-buttons>
+    <ion-title>Kategorien</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row>
+            <ng-container *ngFor="let pair of categoryPairs">
+                <ion-col size="6" size-md (click)="selectCategory(pair.a)" *ngIf="!pair.a.locked">
+                    <img src="{{pair.a.img}}" alt="not found">
+                    <div>{{pair.a.name}}</div>
+                </ion-col>
+                <ion-col size="6" size-md *ngIf="pair.a.locked">
+                    <img src="{{pair.a.img}}" alt="not found" *ngIf="pair.a.img != ''">
+                    <img src="../../../assets/images/blocked.svg" alt="not found" *ngIf="pair.a.img == ''">
+                    <div><ion-icon name="lock"></ion-icon></div>
+                </ion-col>
+                <ion-col size="6" size-md (click)="selectCategory(pair.b)" *ngIf="!pair.b.locked">
+                    <img src="{{pair.b.img}}" alt="not found">
+                    <div>{{pair.b.name}}</div>
+                </ion-col>
+                <ion-col size="6" size-md *ngIf="pair.b.locked">
+                    <img src="{{pair.b.img}}" alt="not found" *ngIf="pair.b.img != ''">
+                    <img src="../../../assets/images/blocked.svg" alt="not found" *ngIf="pair.b.img == ''">
+                    <div><ion-icon name="lock"></ion-icon></div>
+                </ion-col>
+            </ng-container>
+        </ion-row>
+    </ion-grid>
+</ion-content>

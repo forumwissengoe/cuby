@@ -1,0 +1,20 @@
+<ion-content padding>
+    <img id="imglogo"  src="../../assets/logos/FW_Logo_Uni-Blau_only_text.svg" alt="Logo not found">
+    <img id="imgquest" src="../../assets/logos/FW_Question.svg" alt="Question not found">
+
+    <ng-template [ngIf]="loading">
+        <div class="spinner">
+            <ion-spinner></ion-spinner>
+        </div>
+    </ng-template>
+
+    <ng-template [ngIf]="!loading">
+        <div class="slider-wrapper">
+            <ul class="stack" swing-stack [stackConfig]="stackConfig" #swingStack1 (throwoutleft)="onThrowOut(true)" (throwoutright)="onThrowOut(false)">
+                <li swing-card *ngFor="let c of cards" [ngStyle]="{'background-image': 'url(' + c.image + ')'}"></li> <!-- (click)="imageClicked($event, c)"></li>-->
+            </ul>
+        </div>
+    </ng-template>
+
+    <!--<ion-button [routerLink]="['/details']">DEBUG DETAILS</ion-button>-->
+</ion-content>

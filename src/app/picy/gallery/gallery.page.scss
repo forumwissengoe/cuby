@@ -1,0 +1,33 @@
+ion-header {
+    --ion-color-primary: var(--university-blue);
+    --background: var(--university-blue);
+    --color: white;
+
+    ion-button {
+        --color: white;
+    }
+
+    ion-menu-button {
+        --color: white;
+    }
+}
+
+ion-content {
+    --pad: 7px;
+
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+    --padding-start: var(--pad);
+    --padding-end: var(--pad);
+
+    ion-refresher {
+        background-color: white;
+    }
+
+    ion-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

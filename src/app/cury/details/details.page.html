@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar>
+        <p class="head_counter">< {{current_number}}/{{total_number}} ></p>
+        <ion-title>Details</ion-title>
+        <!--<ion-buttons slot="end">
+            <ion-button [routerLink]="['/feedback']">Feedback</ion-button>
+        </ion-buttons>-->
+    </ion-toolbar>
+</ion-header>
+
+<image-overlay #detailsOverlay></image-overlay>
+
+<ion-content padding-top>
+    <div class="spinner" *ngIf="loading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-slides pager="false" [options]="slideOpts" #slides (ionSlideDidChange)="slideChanged()" *ngIf="!loading">
+        <ion-slide *ngFor="let data of displayData">
+            <div class="data_area">
+                <div class="image_container">
+                    <img src="{{data.thumbnail}}" alt="Image loading failed" (click)="overlayOpen(data)">
+                </div>
+                <div *ngFor="let item of data.entries">
+                    <p class="entry_label">{{item.label}}</p>
+                    <p class="entry_data">{{item.value}}</p>
+                </div>
+            </div>
+
+            <div class="assign_area">
+                <vote-icon-group (voted)="voted(data, $event)"></vote-icon-group>
+            </div>
+        </ion-slide>
+    </ion-slides>
+
+</ion-content>

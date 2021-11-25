@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Feedback-Hub</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="close()"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="headline">
+        Hier können Sie jederzeit ein Feedback zur App geben.
+    </div>
+    <div class="subline">
+        Ihr Feedback wird direkt an das Entwicklerteam weitergegeben. Bitte benutzen Sie die Feedback-Funktion vorallem
+        bei Fehlern, Bugs oder unerwartetem Verhalten. Wir versuchen die Fehler so schnell wie möglich zu beheben und
+        Ihnen ein Update zur Verfügung zu stellen.
+    </div>
+
+    <ion-textarea [(ngModel)]="feedbackdata" rows="9" cols="30">
+    </ion-textarea>
+
+    <div class="button_wrapper">
+        <ion-button (click)="send()">Senden</ion-button>
+    </div>
+</ion-content>

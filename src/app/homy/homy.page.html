@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="Zurück" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>HOMY</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="top-layer">
+        <div class="image"></div>
+        <span>Erkunde spielerisch die Sammlungen Göttingens</span>
+    </div>
+
+
+    <ion-button class="start-button" expand="block" [routerLink]="['/categories']">
+        <ion-label slot="start">Los</ion-label>
+        <ion-icon slot="end" name="play"></ion-icon>
+    </ion-button>
+
+    <div class="list-container" *ngIf="!highscoreLoading && highscore && otherPlayers.length > 0">
+        <ion-list-header>
+            <ion-label style="float: left">Highscore</ion-label>
+            <ion-label style="float: right">Region: {{region}}</ion-label>
+        </ion-list-header>
+        <div class="scroll-container">
+            <ion-list>
+                <ion-item lines="none" *ngFor="let player of otherPlayers">
+                    <ion-icon slot="start" name="person"></ion-icon>
+                    <ion-label slot="start">{{player.highscore}} Punkt{{player.highscore === 1 ? "": "e"}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
+
+    <div class="no-list-container" *ngIf="!highscoreLoading && (!highscore || otherPlayers.length <= 0)">
+        <ion-list-header>Highscore</ion-list-header>
+        <p>Kein lokaler Highscore in deiner Umgebung. Sei der erste der einen setzt!</p>
+        <p>Du setzt den ersten Highscore, indem du 10 Fragen einer Kategorie richtig beantwortest.</p>
+    </div>
+
+    <div class="list-loading-container" *ngIf="highscoreLoading">
+        <ion-list-header>Highscore</ion-list-header>
+        <ion-spinner></ion-spinner>
+    </div>
+
+</ion-content>

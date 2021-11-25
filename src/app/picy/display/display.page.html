@@ -1,0 +1,105 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="loadNewObject(this.picyCtrl.getPreviousIndex())" [disabled]="index <= 0">
+                <ion-icon name="ios-arrow-back"></ion-icon>
+            </ion-button>
+            <ion-button (click)="loadNewObject(this.picyCtrl.getNextIndex())" [disabled]="index >= picyCtrl.dataset.length -1">
+                <ion-icon name="ios-arrow-forward"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Objektdetails</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<image-overlay #displayOverlay></image-overlay>
+
+<ion-content padding>
+    <div class="spinner" *ngIf="loading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <div *ngIf="!loading">
+        <h3>{{dataObject.title}}</h3>
+        <div class="image_container_p" (click)="openOverlay(dataObject.image_service)" *ngIf="type == 0">
+            <img src="{{dataObject.image_thumbnail}}" alt="Image did not load" #imgElem>
+            <ion-icon name="information-circle-outline" (click)="image_information($event)"></ion-icon>
+            <div class="rights" #rightsElem>
+                <p>Bereitgestellt von:</p>
+                {{dataObject.rights}}
+            </div>
+        </div>
+        <!--<div class="map_container_p" [hidden]="type != 1" id="displayMap"></div>-->
+        <div id="displayMap" class="map_container_p" [hidden]="type != 1"></div>
+        <div class="image_container_p" [hidden]="type != 2">
+            <svg id="timeline" viewBox="0 0 300 200">
+                <desc>Zeitstrahl der Events</desc>
+                <line x1="40"  x2="260" y1="99" y2="99"  style="stroke:rgb(0,0,0);stroke-width:2" />
+                <line x1="40"  x2="40"  y1="80" y2="120" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <line x1="260" x2="260" y1="80" y2="120" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <text text-anchor="middle">
+                    <tspan x="40"  y="140">{{timeframe[0]}}</tspan>
+                    <tspan x="260" y="140">{{timeframe[1]}}</tspan>
+                </text>
+
+                <g *ngFor="let t of times">
+                    <g *ngIf="t.time != undefined">
+                        <line [attr.x1]="40 + 220 * t.time" [attr.x2]="40 + 220 * t.time" y1="60" y2="99" style="stroke:rgb(255,0,0);stroke-width:1" />
+                        <polygon [attr.points]="(40 + 220 * t.time) + ',99 ' + (40 + 220 * t.time -5) + ',91 ' + (40 + 220 * t.time +5) + ',91'"
+                                 style="fill:rgb(255,0,0);stroke:rgb(255,0,0);stroke-width:1" />
+                        <rect [attr.x]="30 + 220 * t.time" [attr.y]="60" width="20" height="30" style="opacity: 0"
+                              (click)="showTooltip($event)" id="tooltip-rect-1" [attr.data-headline]="t.eventName"
+                              [attr.data-text]="t.eventPlace"></rect>
+                    </g>
+                    <g *ngIf="t.time == undefined">
+                        <line [attr.x1]="40 + 220 * t.timeEarly" [attr.x2]="40 + 220 * t.timeEarly" y1="60" y2="99" style="stroke:rgb(255,0,0);stroke-width:1" />
+                        <polygon [attr.points]="(40 + 220 * t.timeEarly) + ',99 ' + (40 + 220 * t.timeEarly -5) + ',91 ' + (40 + 220 * t.timeEarly +5) + ',91'"
+                                 style="fill:rgb(255,0,0);stroke:rgb(255,0,0);stroke-width:1" />
+                        <polygon [attr.points]="(40 + 220 * t.timeEarly) + ',99 ' + (40 + 220 * t.timeEarly) + ',60 ' + (40 + 220 * t.timeLate) + ',60 ' + (40 + 220 * t.timeLate) + ',99 '"
+                                 style="fill:rgb(255,0,0);fill-opacity:0.3;stroke:rgb(255,0,0);stroke-opacity:0.3;stroke-width:1" />
+                        <line [attr.x1]="40 + 220 * t.timeLate" [attr.x2]="40 + 220 * t.timeLate" y1="60" y2="99" style="stroke:rgb(255,0,0);stroke-width:1" />
+                        <polygon [attr.points]="(40 + 220 * t.timeLate) + ',99 ' + (40 + 220 * t.timeLate -5) + ',91 ' + (40 + 220 * t.timeLate +5) + ',91'"
+                                 style="fill:rgb(255,0,0);stroke:rgb(255,0,0);stroke-width:1" />
+                        <rect [attr.x]="30 + 220 * t.timeEarly" y="60" [attr.width]="20 + 220 * (t.timeLate - t.timeEarly)" height="30" style="opacity: 0"
+                              (click)="showTooltip($event)" id="tooltip-rect-1" [attr.data-headline]="t.eventName"
+                              [attr.data-text]="t.eventPlace"></rect>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <ion-list>
+            <ion-card>
+                <ion-card-header class="buttons-header">
+                    <!--<div (click)="previous()"><ion-icon name="md-map"></ion-icon></div>
+                    <div (click)="openAll()"><ion-icon name="md-add"></ion-icon></div>
+                    <div (click)="closeAll()"><ion-icon name="md-remove"></ion-icon></div>
+                    <div (click)="next()"><ion-icon name="md-clock"></ion-icon></div>-->
+                    <div (click)="changeModalType(0)"><ion-icon name="md-images"></ion-icon></div>
+                    <div (click)="changeModalType(1)"><ion-icon name="md-map"></ion-icon></div>
+                    <div (click)="changeModalType(2)"><ion-icon name="md-clock"></ion-icon></div>
+                </ion-card-header>
+            </ion-card>
+            <ion-card *ngFor="let card of dataObject.cards">
+                <ion-card-header (click)="card.min = !card.min">
+                    <div class="label-left"><ion-label>{{card.title}}</ion-label></div>
+                    <div class="icon-right"><ion-icon [name]="card.min ? 'ios-arrow-forward' : 'ios-arrow-down'"></ion-icon></div>
+                </ion-card-header>
+                <ion-card-content *ngIf="!card.min">
+                    <div *ngFor="let entry of card.data">
+                        <p class="p-header">{{entry.title}}</p>
+                        <p class="p-text">{{entry.data}}</p>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </ion-list>
+    </div>
+    <div id="tooltip" class="tooltip">
+        <span id="tooltiptext"></span>
+        <div class="tooltip-arrow"></div>
+    </div>
+</ion-content>

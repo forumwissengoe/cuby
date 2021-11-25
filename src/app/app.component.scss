@@ -1,0 +1,28 @@
+ion-title {
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+ion-toolbar {
+    --ion-color-primary: var(--university-blue);
+    --color: white;
+}
+
+ion-col {
+    padding-left: 2px;
+    padding-top: 2px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border: 1px solid beige;
+}
+
+ion-fab-button {
+    --background: var(--university-contrast);
+    --background-activated: var(--university-contrast);
+    --background-focused: var(--university-contrast);
+    --background-hover: var(--university-contrast);
+
+}

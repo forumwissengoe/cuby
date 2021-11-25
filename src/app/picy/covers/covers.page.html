@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Covers</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="openScanner()"><ion-icon name="camera"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <img class="logo" src="../../../assets/logos/FW_Logo_Uni-Blau_only_text.svg" alt="Logo not found">
+
+    <div class="image_container" *ngIf="connected">
+        <img src="{{image}}" alt="Verbindungsproblem... Bitte warten." onerror="this.src='../../../assets/images/cube-loading.svg'">
+    </div>
+    <div class="loading-container" *ngIf="!connected">
+        <img src="../../../assets/images/blocks-loading.svg" alt="Lade... bitte warten">
+        <p>Warte auf das nächste Objekt</p>
+    </div>
+    <div class="vote-area" *ngIf="connected">
+        <vote-icon-group (voted)="voted($event)" #votegroup></vote-icon-group>
+    </div>
+
+    <img class="quest" src="../../../assets/logos/FW_Question.svg" alt="Bin ich interessant?" *ngIf="connected">
+
+    <div class="take-home-area" *ngIf="picUpBox && record != ''">
+        <p>Möchtest du dieses Objekt in deine Sammlung aufnehmen?</p>
+        <ion-button class="add-to-picy-button" expand="block" (click)="addToPicy()">&nbsp;Ja&nbsp;</ion-button>
+        <ion-button class="decline-button" expand="block" (click)="decline()">Nein</ion-button>
+    </div>
+
+</ion-content>

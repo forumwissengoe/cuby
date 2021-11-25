@@ -1,0 +1,107 @@
+ion-header {
+
+    ion-toolbar {
+
+        ion-button {
+
+            --ion-color-primary: var(--university-blue);
+        }
+    }
+}
+
+.logo {
+    position: absolute;
+    top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    width: calc(100vw - 30px);
+    height: 10vh;
+}
+
+.image_container {
+
+    position: absolute;
+    top: calc(10vh + 20px);
+    left: 50%;
+    transform: translateX(-50%);
+
+    bottom: calc(35vh + 75px);
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.loading-container {
+
+    position: absolute;
+    top: calc(10vh + 20px);
+    left: 50%;
+    transform: translateX(-50%);
+
+    bottom: calc(22vh + 10px);
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.quest {
+    position: absolute;
+    bottom: calc(25vh + 70px);
+    padding-left: 5px;
+    padding-right: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 17pt;
+    font-weight: bold;
+
+    width: 85vmin;
+    height: 10vh;
+}
+
+.vote-area {
+
+    position: absolute;
+    bottom: 25vh;
+    left: calc((100% - 85vmin)/2);
+    width: 85vmin;
+    height: 60px;
+
+    background-color: rgba(120, 120, 120, 150);
+}
+
+.take-home-area
+{
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 90vw;
+
+    p {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .add-to-picy-button {
+
+        float: left;
+        padding-left: 5vw;
+        --ion-color-primary: #32CD32
+    }
+
+    .decline-button {
+
+        float: right;
+        padding-right: 5vw;
+        --ion-color-primary: #FF0000
+    }
+}

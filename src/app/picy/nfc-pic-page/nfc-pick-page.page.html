@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Objekt entdeckt</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="spinner">
+        <ion-spinner *ngIf="loading"></ion-spinner>
+    </div>
+
+    <div *ngIf="!loading">
+        <div class="new-object">
+            <p>Sie haben ein neues Objekt entdeckt!</p>
+
+            <div class="image-box">
+                <img src="{{image}}" alt="Image not found">
+            </div>
+
+            <ion-card>
+                <ion-card-header>{{title_header}}</ion-card-header>
+                <ion-card-content>{{title_data}}</ion-card-content>
+            </ion-card>
+        </div>
+
+        <div class="button-box">
+            <p>Möchten Sie es Ihrer Sammlung hinzufügen?</p>
+            <ion-button expand="full" (click)="addToSelection()">Ja</ion-button>
+            <ion-button expand="full" [routerLink]="['/home']">Nein</ion-button>
+        </div>
+    </div>
+</ion-content>

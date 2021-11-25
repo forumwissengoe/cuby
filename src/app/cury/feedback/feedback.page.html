@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+        <p class="head_counter">< {{index +1}}/{{total}} ></p>
+        <ion-title>Feedback</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="send()">Senden</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<image-overlay #feedbackOverlay></image-overlay>
+
+<ion-content>
+    <div class="spinner" *ngIf="loading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <div *ngIf="!loading">
+        <div id="head-left" (click)="checkImage()">
+            <img src="{{image}}" alt="Image not loaded" #imageElement>
+            <img src="../../../assets/images/image-checked.svg" alt="Checked" #imageElement2 style="width: 50%; opacity: 0.0">
+        </div>
+        <div id="head-right">
+            <p>Was macht mich interessant?</p>
+        </div>
+
+        <ion-list>
+            <ion-item *ngFor="let item of items">
+                <ion-checkbox [(ngModel)]="item.check"></ion-checkbox>
+                <ion-label>
+                    <h3 text-wrap>{{item.label}}</h3>
+                    <p text-wrap>{{item.value}}</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h3>Kommentar</h3>
+                    <ion-textarea placeholder="Wenn Sie einen anderen Aspekt interessant finden, oder einen allgemeinen Kommentar zum Objekt abgeben möchten, können Sie das hier tun." [(ngModel)]="comment">
+                    </ion-textarea>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

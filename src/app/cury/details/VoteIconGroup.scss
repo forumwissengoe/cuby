@@ -1,0 +1,68 @@
+.main {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    .accepted {
+        position: absolute;
+        left: 5px;
+
+        width: 60px;
+        height: 60px;
+
+        ion-icon {
+            width: inherit;
+            height: inherit;
+        }
+    }
+
+    .moveRightIcons {
+        position: absolute;
+        left: 65px;
+        margin: 0;
+
+        width: 60px;
+        height: 60px;
+
+        ion-icon {
+            font-size: 16pt;
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .moveLeftIcons {
+        position: absolute;
+        right: 65px;
+        margin: 0;
+
+        width: 60px;
+        height: 60px;
+
+        ion-icon {
+            font-size: 16pt;
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .declined {
+        position: absolute;
+        //left: calc(100% - 65px);
+        right: 0;
+
+        width: 60px;
+        height: 60px;
+
+        ion-icon {
+            width: inherit;
+            height: inherit;
+        }
+    }
+}
+

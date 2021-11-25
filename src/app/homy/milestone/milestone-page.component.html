@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Meilenstein</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="top-level">
+        <div>Du hast 10 Fragen der Kategorie "{{categoryName}}" geschafft.</div>
+        <img src="../../../assets/icon/animat-rocket-color.gif" alt="Congratulations">
+    </div>
+
+    <div class="percentage">
+        <p style="text-align: left">Davon waren</p>
+        <app-progress-bar [progress]="progress"></app-progress-bar>
+        <p style="text-align: right">richtig.</p>
+    </div>
+
+    <div class="congrats" *ngIf="congrats"><p>Herzlichen Glückwunsch!</p>
+        <img src="../../../assets/icon/animat-star-color.gif" alt="">
+    </div>
+    <p class="booh" *ngIf="booh">Schade.</p>
+
+    <div class="button-group">
+        <ion-button class="home" expand="block" [routerLink]="['/categories']">
+            <ion-label slot="end">Übersicht</ion-label>
+            <ion-icon slot="start" name="home"></ion-icon>
+        </ion-button>
+        <ion-button class="next" expand="block" [routerLink]="['/question', categoryID]">
+            <ion-label slot="start">Weiter</ion-label>
+            <ion-icon slot="end" name="play"></ion-icon>
+        </ion-button>
+    </div>
+
+
+</ion-content>

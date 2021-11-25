@@ -1,0 +1,208 @@
+ion-toolbar {
+    --ion-color-primary: var(--university-blue);
+    --background: var(--university-blue);
+    --color: white;
+
+    ion-button {
+        --color: white !important;
+        --font-color: white !important;
+    }
+
+    ion-menu-button {
+        --color: white;
+    }
+}
+
+ion-content {
+
+    ion-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    --pad: 7px;
+
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+    --padding-start: var(--pad);
+    --padding-end: var(--pad);
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    .image_container_p {
+        position: relative;
+        text-align: center;
+
+        ion-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .rights {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            opacity: 0;
+            font-size: 16pt;
+
+            p {
+                font-weight: bold;
+                font-size: 14pt;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .map_container_p {
+        height: 250px;
+    }
+
+    ion-list {
+        ion-card {
+            --marg: 10px;
+
+            margin-left: var(--marg);
+            margin-right: var(--marg);
+            -webkit-margin-start: var(--marg);
+            -webkit-margin-end: var(--marg);
+
+            .buttons-header {
+                div {
+                    display: inline-block;
+                    width: 33%;
+                    text-align: center;
+
+                    ion-icon {
+                        font-size: 16pt;
+                    }
+                }
+            }
+
+            ion-card-header {
+
+                .label-left {
+                    font-size: 14pt;
+                    display: inline-block;
+                    width: 90%;
+                    padding-bottom: 10px;
+                    vertical-align: bottom;
+                }
+
+                .icon-right {
+                    display: inline-block;
+                    width: 10%;
+                    padding-bottom: 10px;
+                    vertical-align: bottom;
+                }
+
+
+                ion-icon {
+                    font-size: 14pt;
+                }
+            }
+
+            ion-card-content {
+
+                .p-header {
+                    font-weight: bold;
+                }
+
+                .p-text {
+                    padding-bottom: 5px;
+                }
+            }
+        }
+    }
+}
+
+.tooltip1 {
+    pointer-events: none;
+    position: absolute;
+    font-size: 15px;
+    text-align: center;
+    background: white;
+    padding: 10px 15px;
+    z-index: 5;
+    margin: 0 auto;
+    color: #21669e;
+    border: 1px solid grey;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px #eee;
+    transform: translate(-50%, -100%);
+    display: none;
+    &.active {
+        display: block;
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        width: 0;
+        height: 0;
+        margin-left: -10px;
+        box-shadow: 0 0 0 1px #eee;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid white;
+    }
+}
+
+.tooltip {
+    pointer-events: none;
+    background: white;
+    border: 1px solid #a7a7a7;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-size: 15px;
+    transform: translate(-50%, -220%);
+    margin: 0 auto 10px;
+    max-width: 400px;
+    padding: 5px;
+    position: absolute;
+    display: none;
+    &.active {
+        display: block;
+    }
+
+    .tooltip-arrow {
+        //border-left: 10px solid transparent;
+        //border-right: 10px solid transparent;
+        border-top: 11px solid rgba(0, 0, 0, 0.2);
+        bottom: -10px;
+        position: absolute;
+        //right: 15px;
+        left: 50%;
+    }
+
+    .tooltip-arrow::before {
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 11px solid #a7a7a7;
+        bottom: -1px;
+        content: "";
+        position: absolute;
+        //right: 5px;
+        right: 0;
+    }
+    .tooltip-arrow::after {
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 11px solid white;
+        bottom: 0;
+        content: "";
+        position: absolute;
+        //right: 6px;
+        right: 0;
+    }
+}
+
