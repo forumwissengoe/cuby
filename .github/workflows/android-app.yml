@@ -19,6 +19,7 @@ jobs:
         uses: coturiv/setup-ionic@v1
         with:
           cordova-version: 8
+          install-java: false
 
       - name: Build
         run: |
