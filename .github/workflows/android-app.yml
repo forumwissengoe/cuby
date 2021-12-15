@@ -10,17 +10,21 @@ jobs:
     name: Build Android App
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v2.4.0
-        with:
-          java-version: 8
-          distribution: adopt
+#      - name: Set up JDK 1.8
+#        uses: actions/setup-java@v2.4.0
+#        with:
+#          java-version: 8
+#          distribution: adopt
       - name: Use coturiv/setup-ionic
         uses: coturiv/setup-ionic@v1.0.3
         with:
           cordova-version: 8
-          install-java: false
+#          install-java: false
           install-pods: false
+      - name: Deploy NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
       - name: Install Dependencies
         run: npm install
       - name: Build
