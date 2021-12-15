@@ -16,11 +16,13 @@ jobs:
           java-version: 8
           distribution: adopt
       - name: Use coturiv/setup-ionic
-        uses: coturiv/setup-ionic@v1
+        uses: coturiv/setup-ionic@v1.0.3
         with:
           cordova-version: 8
           install-java: false
-
+          install-pods: false
+      - name: Install Dependencies
+        run: npm install
       - name: Build
         run: |
           ionic cordova build ios --prod
