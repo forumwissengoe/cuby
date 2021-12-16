@@ -16,7 +16,7 @@ jobs:
 #          java-version: 8
 #          distribution: adopt
       - name: Use coturiv/setup-ionic
-        uses: coturiv/setup-ionic@v1.0.3
+        uses: coturiv/setup-ionic@v1.0.4
         with:
           cordova-version: 8
 #          install-java: false
